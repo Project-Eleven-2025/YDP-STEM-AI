@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Get Started</title>
+        <link rel="icon" href="./logo/tablogo.png" />
+        <link rel="stylesheet" href="../style.css" />
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <span id="currentSlide">1</span> <span id="totalSlides">of 7</span>
+        <slide id="0">
+            <h1>An error occured</h1>
+        </slide>
+        <slide id="1">
+            <h1>Hello! Welcome to LearnStem!</h1>
+            <button type="button" onclick="nextSlide()">Next</button>
+        </slide>
+        <slide id="2">
+            <h1>Where did you learn from us?</h1>
+            <input type="radio" name="source" value="social-media" />
+            <label for="social-media">Social Media</label>
+            <input type="radio" name="source" value="friends" />
+            <label for="friends">Friends</label>
+            <input type="radio" name="source" value="school" />
+            <label for="school">School</label>
+            <input type="radio" name="source" value="other" />
+            <label for="other">Other</label>
+            <button type="button" onclick="nextSlide()">Next</button>
+        </slide>
+        <slide id="3">
+            <h1>
+                You are given a complex problem to solve. How would you prefer
+                to approach it?
+            </h1>
+            <p>Choose the one that best describes you.</p>
+            <input type="radio" name="career" value="doctor" />
+            <label for="doctor"
+                >I would break it down into smaller parts.</label
+            >
+            <input type="radio" name="career" value="nurse" />
+            <label for="nurse">I would ask for help from others.</label>
+            <input type="radio" name="career" value="science-teacher" />
+            <label for="science-teacher"
+                >I would research and learn more about it.</label
+            >
+            <input type="radio" name="career" value="math-teacher" />
+            <label for="math-teacher">I would try to solve it on my own.</label>
+            <input type="radio" name="career" value="software-developer" />
+            <label for="software-developer"
+                >I would try to find a solution online.</label
+            >
+            <input type="radio" name="career" value="data-scientist" />
+            <label for="data-scientist"
+                >I would analyze the problem and find a solution.</label
+            >
+            <button type="button" onclick="nextSlide()">Next</button>
+        </slide>
+        <slide id="4">
+            <h1>Which activity sounds the most exciting to you?</h1>
+            <input type="radio" name="career" value="doctor" />
+            <label for="doctor">Helping others in need.</label>
+            <input type="radio" name="career" value="nurse" />
+            <label for="nurse">Taking care of patients.</label>
+            <input type="radio" name="career" value="science-teacher" />
+            <label for="science-teacher"
+                >Teaching students about science.</label
+            >
+            <input type="radio" name="career" value="math-teacher" />
+            <label for="math-teacher">Teaching students about math.</label>
+            <input type="radio" name="career" value="software-developer" />
+            <label for="software-developer"
+                >Developing software and apps.</label
+            >
+            <input type="radio" name="career" value="data-scientist" />
+            <label for="data-scientist"
+                >Analyzing data and finding patterns.</label
+            >
+            <button type="button" onclick="nextSlide()">Next</button>
+        </slide>
+        <slide id="5">
+            <h1>What kind of impact do you want to make in the world?</h1>
+            <input type="radio" name="career" value="doctor" />
+            <label for="doctor">Helping people live healthier lives.</label>
+            <input type="radio" name="career" value="nurse" />
+            <label for="nurse"
+                >Providing care and comfort to those in need.</label
+            >
+            <input type="radio" name="career" value="science-teacher" />
+            <label for="science-teacher"
+                >Inspiring the next generation of scientists.</label
+            >
+            <input type="radio" name="career" value="math-teacher" />
+            <label for="math-teacher"
+                >Helping students understand and enjoy math.</label
+            >
+            <input type="radio" name="career" value="software-developer" />
+            <label for="software-developer"
+                >Creating innovative solutions to everyday problems.</label
+            >
+            <input type="radio" name="career" value="data-scientist" />
+            <label for="data-scientist"
+                >Using data to make informed decisions and solve
+                problems.</label
+            >
+            <button type="button" onclick="nextSlide()">Next</button>
+        </slide>
+        <slide id="6">
+            <h1>What is your favorite subject in school?</h1>
+            <input type="radio" name="career" value="doctor" />
+            <label for="doctor">Biology</label>
+            <input type="radio" name="career" value="nurse" />
+            <label for="nurse">Nursing</label>
+            <input type="radio" name="career" value="science-teacher" />
+            <label for="science-teacher">Science</label>
+            <input type="radio" name="career" value="math-teacher" />
+            <label for="math-teacher">Math</label>
+            <input type="radio" name="career" value="software-developer" />
+            <label for="software-developer">Computer Science</label>
+            <input type="radio" name="career" value="data-scientist" />
+            <label for="data-scientist">Statistics</label>
+            <button type="button" onclick="nextSlide()">Next</button>
+        </slide>
+        <slide id="7">
+            <h1>
+                It appears that you are a
+                <span id="average-career" onscroll="showAverageCareer()">
+                </span>
+                !
+            </h1>
+        </slide>
+
+        <form id="form" action="get-started.php" method="post">
+            <h1>Let's create "you" a profile!</h1>
+            first name: <input type="text" name="fname" required /><br />
+            last name: <input type="text" name="lname" required /><br />
+            nickname: <input type="text" name="nname" required /><br />
+            email: <input type="email" name="email" required /><br />
+            school: <input type="text" name="school" required /><br />
+            password: <input type="password" name="password" required /><br />
+            <button type="submit">Submit</button>
+        </form>
+        <script src="./get-started.js"></script>
+    </body>
+</html>

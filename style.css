@@ -18,6 +18,12 @@
     --green: #859900;
 }
 
+.header-logo {
+    width: 200px;
+    height: 100px;
+    display: block;
+}
+
 body {
     background-color: var(--base03);
     color: var(--base3);
@@ -52,6 +58,7 @@ nav {
     float: right;
     background-color: var(--base03);
     overflow: hidden;
+    font-size: larger;
 }
 
 nav a {
@@ -78,7 +85,7 @@ nav a {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.article-banner .read-more {
+.article-banner .get-started {
     background-color: var(--blue);
     color: var(--base2);
     padding: 10px 20px;
@@ -156,21 +163,26 @@ main {
     background-color: #0056b3;
 }
 
-.plans-container {
+.plan-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 80%;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%; /* Ensure it can stretch to fill the page */
+    max-width: 1200px; /* Control how wide it can get */
+    margin: 0 auto; /* Center it horizontally within the body */
 }
+
 .plan {
     background-color: #fff;
+    width: 300px;
+    padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    padding: 20px;
-    width: 30%;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .plan h2 {
     margin-top: 0;
 }
