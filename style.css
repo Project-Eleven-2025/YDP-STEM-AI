@@ -26,14 +26,25 @@ body {
     padding: 0;
 }
 
-header, footer {
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+header,
+footer {
     background-color: var(--base02);
     color: var(--base3);
     text-align: center;
     padding: 1em 0;
 }
 
-header h1, footer p {
+header h1,
+footer p {
     margin: 0;
 }
 
@@ -53,25 +64,26 @@ nav a {
     transition: background-color 0.3s;
 }
 
-article#home0 {
+.post {
+    background-size: cover;
     background-image: url(stockphotos/fefc5c34-9afb-4ea8-bbce-04d9f2eff9e0-Ceb_Girls_STEM_BJP_02.webp);
-    background-size: cover;
-    color: var(--base3);
     padding: 20px;
     margin: 10px 0;
+    border-radius: 50px;
 }
-
-article#home1 {
-    background-image: url(stockphotos/bigstock-Science-Technology-Engineeri-268236289.jpg);
-    background-size: cover;
-    background-position: center;
-    color: var(--base00);
-    padding: 20px;
-    margin: 10px 0;
-}
-
-.article-banner {
+.post .article-banner {
     margin: 240px 0;
+    padding: 20px;
+    color: var(--base03);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.article-banner .read-more {
+    background-color: var(--blue);
+    color: var(--base2);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
 }
 
 nav a:hover {
@@ -80,6 +92,138 @@ nav a:hover {
 
 main {
     padding: 20px;
+}
+
+.courses-container {
+    width: 80%;
+    margin: 20px 0;
+}
+.course {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.course h2 {
+    margin-top: 0;
+}
+.course p {
+    font-size: 1.2em;
+    color: #666;
+}
+.course button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.course button:hover {
+    background-color: #0056b3;
+}
+
+.career-course {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.career-course h2 {
+    margin-top: 0;
+}
+.career-course p {
+    font-size: 1.2em;
+    color: #666;
+}
+.career-course button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.career-course button:hover {
+    background-color: #0056b3;
+}
+
+.plans-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+.plan {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    width: 30%;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.plan h2 {
+    margin-top: 0;
+}
+.plan p {
+    font-size: 1.2em;
+    color: #666;
+}
+.plan .price {
+    font-size: 2em;
+    margin: 20px 0;
+}
+.plan button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.plan button:hover {
+    background-color: #218838;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+.team-member {
+    margin-bottom: 20px;
+}
+.contact-form {
+    display: flex;
+    flex-direction: column;
+}
+.contact-form input,
+.contact-form textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+.contact-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.contact-form button:hover {
+    background-color: #0056b3;
 }
 
 footer {
