@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>About Us</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                width: 80%;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                border-radius: 5px;
+            }
+            h1,
+            h2 {
+                color: #333;
+            }
+            p {
+                font-size: 1.1em;
+                color: #666;
+                line-height: 1.6;
+            }
+            .section {
+                margin-bottom: 40px;
+            }
+            .team-member {
+                margin-bottom: 20px;
+            }
+            .contact-form {
+                display: flex;
+                flex-direction: column;
+            }
+            .contact-form input,
+            .contact-form textarea {
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 1em;
+            }
+            .contact-form button {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                font-size: 1em;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+            .contact-form button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>About Us</h1>
+
+            <div class="section" id="about-us">
+                <h2>About Us</h2>
+                <p>
+                    Welcome to our company! We are dedicated to providing the
+                    best services and products to our customers. Our team is
+                    passionate about innovation and excellence, and we strive to
+                    exceed expectations in everything we do.
+                </p>
+            </div>
+
+            <div class="section" id="our-team">
+                <h2>Our Team</h2>
+                <div class="team-member">
+                    <h3>John Doe - CEO</h3>
+                    <p>
+                        John is the visionary behind our company, leading us
+                        with his extensive experience and expertise in the
+                        industry.
+                    </p>
+                </div>
+                <div class="team-member">
+                    <h3>Jane Smith - CTO</h3>
+                    <p>
+                        Jane is responsible for our technological advancements,
+                        ensuring we stay ahead of the curve with cutting-edge
+                        solutions.
+                    </p>
+                </div>
+                <div class="team-member">
+                    <h3>Emily Johnson - COO</h3>
+                    <p>
+                        Emily oversees our operations, making sure everything
+                        runs smoothly and efficiently.
+                    </p>
+                </div>
+                <!-- Add more team members as needed -->
+            </div>
+
+            <div class="section" id="our-mission">
+                <h2>Our Mission</h2>
+                <p>
+                    Our mission is to deliver high-quality products and services
+                    that improve the lives of our customers. We are committed to
+                    innovation, integrity, and excellence in all that we do.
+                </p>
+            </div>
+
+            <div class="section" id="contact-us">
+                <h2>Contact Us</h2>
+                <form
+                    class="contact-form"
+                    method="post"
+                    action="../process/contact-us-backend.php"
+                >
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Your Name"
+                        required
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Your Email"
+                        required
+                    />
+                    <textarea
+                        name="message"
+                        rows="5"
+                        placeholder="Your Message"
+                        required
+                    ></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
