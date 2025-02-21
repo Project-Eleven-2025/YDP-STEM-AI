@@ -10,36 +10,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = $input["username"] ?? "";
     $password = $input["password"] ?? "";
     
-    $servername = "localhost";  
-    $dbUsername = "root"; 
-    $dbPassword = "";  
-    $dbname = "masterlist_db";  
+    $host = "localhost";
+    $dbUsername = "postgres";
+    $dbPassword = "your_password";
+    $dbname = "masterlist_db";
 
-    $conn = new mysqli($servername, $dbUsername, $dbPassword, $dbname);
-    
-    if ($conn->connect_error) {
-        die(json_encode(["success" => false, "message" => "Database connection failed."]));
+    try {
+        $conn = new PDO("pgsql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        die(json_encode(["success" => false, "message" => "Database connection failed: " . $e->getMessage()]));
     }
 
-    $stmt = $conn->prepare("SELECT userID, username, password FROM masterlist WHERE username = ?");
-    $stmt->bind_param("s", $username);
+    $stmt = $conn->prepare("SELECT userID, username, password FROM masterlist WHERE username = :username");
+    $stmt->bindParam(":username", $username);
     $stmt->execute();
-    $result = $stmt->get_result();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    if ($result->num_rows === 1) {
-        $user = $result->fetch_assoc();
+    if ($user && password_verify($password, $user["password"])) {
+        $_SESSION["loggedin"] = true;
+        $_SESSION["username"] = $username;
+        $_SESSION["userID"] = $user["userID"];
         
-        if (password_verify($password, $user["password"])) {
-            $_SESSION["loggedin"] = true;
-            $_SESSION["username"] = $username;
-            $_SESSION["userID"] = $user["userID"];
-            
-            $response = ["success" => true, "message" => "Login successful!", "username" => $username];
-        }
+        $response = ["success" => true, "message" => "Login successful!", "username" => $username];
     }
-    
-    $stmt->close();
-    $conn->close();
     
     echo json_encode($response);
     exit();
