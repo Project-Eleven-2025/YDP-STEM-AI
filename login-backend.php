@@ -1,48 +1,46 @@
-<html>
 <?php
 session_start();
-
 header("Content-Type: application/json");
 
 $response = ["success" => false, "message" => "Invalid username or password."];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $input = json_decode(file_get_contents("php://input"), true);
     
     $username = $input["username"] ?? "";
     $password = $input["password"] ?? "";
+    
+    $servername = "localhost";  
+    $dbUsername = "root"; 
+    $dbPassword = "";  
+    $dbname = "masterlist_db";  
 
-    //checks data in data.json file (supports the register-backend if coded correctly)
-    $file = "data.json";
-    $existingData = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
+    $conn = new mysqli($servername, $dbUsername, $dbPassword, $dbname);
+    
+    if ($conn->connect_error) {
+        die(json_encode(["success" => false, "message" => "Database connection failed."]));
+    }
 
-    $validUser = null;
-    foreach ($existingData as $userData) {
-        if ($userData["username"] === $username) {
-            $validUser = $userData;
-            break;
+    $stmt = $conn->prepare("SELECT userID, username, password FROM masterlist WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+        
+        if (password_verify($password, $user["password"])) {
+            $_SESSION["loggedin"] = true;
+            $_SESSION["username"] = $username;
+            $_SESSION["userID"] = $user["userID"];
+            
+            $response = ["success" => true, "message" => "Login successful!", "username" => $username];
         }
     }
-
-    if ($validUser && $validUser["password"] === $password) {
-        $_SESSION["loggedin"] = true;
-        $_SESSION["username"] = $username;
-        $response = ["success" => true, "message" => "Login successful!", "username" => $username];
-    }
-
- 
-    $logData = [
-        "username" => $username,
-        "success" => $response["success"],
-        "timestamp" => date("Y-m-d H:i:s")
-    ];
-
-    $existingData[] = $logData;
-    file_put_contents($file, json_encode($existingData, JSON_PRETTY_PRINT));
-
-    // Return the response
+    
+    $stmt->close();
+    $conn->close();
+    
     echo json_encode($response);
     exit();
 }
-?>
-</html>
