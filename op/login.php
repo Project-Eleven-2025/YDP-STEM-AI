@@ -40,6 +40,8 @@ $conn->close();
 <html>
 <head>
     <title>Login</title>
+    <link rel="icon" href="./op/logo/logo.svg" />
+    <link rel="stylesheet" href="./op/css/master.css" />
 </head>
 <body>
     <form method="post" action="">

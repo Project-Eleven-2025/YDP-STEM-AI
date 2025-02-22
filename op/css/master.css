@@ -1,22 +1,3 @@
-/* Solarized Blue Color Scheme */
-:root {
-    --base03: #fdf6e3;
-    --base02: #eee8d5;
-    --base01: #93a1a1;
-    --base00: #839496;
-    --base0: #657b83;
-    --base1: #586e75;
-    --base2: #073642;
-    --base3: #002b36;
-    --yellow: #b58900;
-    --orange: #cb4b16;
-    --red: #dc322f;
-    --magenta: #d33682;
-    --violet: #6c71c4;
-    --blue: #268bd2;
-    --cyan: #2aa198;
-    --green: #859900;
-}
 /* Reset CSS */
 * {
     margin: 0;
@@ -60,13 +41,14 @@ nav {
     display: flex;
 }
 
+
 .nav-links li {
     margin: 0 20px;
 }
 
 .nav-links a {
     color: #fff;
-    font-size: 18px;
+    font-size: 20px;
     transition: color 0.3s ease;
 }
 
@@ -86,7 +68,12 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    text-align: left;
+}
+
+.hero-content {
+    padding: 25px;
+    border-left: 5px solid slateblue;
 }
 
 .hero-content h1 {
@@ -101,7 +88,7 @@ nav {
 
 .hero-content .btn {
     padding: 10px 20px;
-    background-color: #f39c12;
+    background-color:slateblue;
     color: #fff;
     border-radius: 5px;
     font-size: 18px;
@@ -109,8 +96,16 @@ nav {
 }
 
 .hero-content .btn:hover {
-    background-color: #e67e22;
+    background-color:lightblue;
 }
+
+.table-hero {
+    display: table;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
 
 /* Services Section */
 .services {
@@ -128,6 +123,19 @@ nav {
     display: flex;
     justify-content: center;
     gap: 30px;
+}
+
+.services .btn {
+    padding: 10px 20px;
+    background-color:slateblue;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.services .btn:hover {
+    background-color:lightblue;
 }
 
 .card {

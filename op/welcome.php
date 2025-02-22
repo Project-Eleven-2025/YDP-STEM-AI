@@ -41,3 +41,4 @@ if (isset($_SESSION['session_id']) && isset($_SESSION['user_id'])) {
 
 $conn->close();
 ?>
+Redirecting to your profile in 5 seconds...

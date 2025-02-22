@@ -4,33 +4,70 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Learn Stem</title>
-        <link rel="icon" href="./op/logo/tablogo.png" />
-        <link rel="stylesheet" href="./style.css" />
+        <link rel="icon" href="op/logo/logo.svg" />
+        <link rel="stylesheet" href="op/css/master.css" />
     </head>
     <body>
-        <nav>
-            <a href="../index.html">Home</a>
-            <a href="../op/plans.html">Plans</a>
-            <a href="../op/courses.html">Courses</a>
-            <a href="../op/about.html">About</a>
-            <a href="../op/login.php">Log-in</a>
-        </nav>
-        <a href="../index.html">
-            <img class="header-logo" src="../op/logo/mainlogo.png" />
-        </a>
-        <main>
-            <section class="blog-posts">
-                <article class="post" id="home0">
-                    <div class="article-banner">
-                        <h2>Don't know what career you want?</h2>
-                        <p>Start your learning journey here at LEARNSTEM!</p>
-                        <a class="get-started" href="./op/get-started.html">
-                            Get Started
-                        </a>
+        <header>
+            <nav>
+                <div class="logo">
+                    <a href="index.html"><img width="120px" src="./op/logo/logo.svg" alt="" hidden></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="op/plans.html">Plans</a></li>
+                    <li><a href="op/courses.html">Courses</a></li>
+                    <li><a href="op/about.html">About</a></li>
+                    <li><a href="op/login.php">Log-in</a></li>
+                </ul>
+                <div class="menu-icon" id="menu-icon">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </nav>
+        </header>
+        <section class="hero">
+            <img width="300px" src="./op/logo/logo.svg" alt="">
+            <div class="hero-content" style="border-left: 5px solid slateblue;">
+                <h1>Don't know what career you want?</h1>
+                <p>Start your learning journey here at STEM!</p>
+                <a class="btn" href="./op/get-started.html">
+                    Get Started
+                </a>
+            </div>
+        </section>
+        <section class="hero">
+            <div class="hero-content" >
+                <h2>What is STEM?</h2>
+                <p>STEM is a curriculum based on the idea of educating students in four specific disciplines — science, technology, engineering, and mathematics — in an interdisciplinary and applied approach.</p>
+                <a class="btn" href="./op/about.html">
+                    Learn More
+                </a>
+            </div>
+        </section>
+        <section id="services" class="services">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="service-cards">
+                    <div class="card">
+                        <h3>Free Lessons!</h3>
+                        <p>Content</p>
                     </div>
-                </article>
-            </section>
-        </main>
+                    <div class="card">
+                        <h3>One on one Tutoring</h3>
+                        <p>Content</p>
+                    </div>
+                    <div class="card">
+                        <h3>Excellent User-Experience!</h3>
+                        <p>Content</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a class="btn" href="./op/plans.html">
+                    See our offers
+                </a>
+            </div>
+        </section>
         <footer>
             <p>&copy; 2025 YDP-STEM learnstem. All rights reserved.</p>
         </footer>
