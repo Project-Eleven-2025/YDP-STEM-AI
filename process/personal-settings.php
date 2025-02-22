@@ -10,7 +10,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 $host = "localhost";
 $dbUsername = "postgres";
 $dbPassword = "your_password";
-$dbname = "user_info_db"; 
+$dbname = "masterlist_db"; 
 
 try {
     $conn = new PDO("pgsql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
