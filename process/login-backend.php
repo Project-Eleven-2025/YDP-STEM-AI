@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $host = "localhost";
     $dbUsername = "postgres";
     $dbPassword = "your_password";
-    $dbname = "masterlist_db";
+    $dbname = "user_info_db";
 
     try {
         $conn = new PDO("pgsql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
@@ -22,12 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die(json_encode(["success" => false, "message" => "Database connection failed: " . $e->getMessage()]));
     }
 
-    $stmt = $conn->prepare("SELECT userID, username, password FROM masterlist WHERE username = :username");
+    $stmt = $conn->prepare("SELECT userID, username, pass_hash FROM user_info WHERE username = :username");
     $stmt->bindParam(":username", $username);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    if ($user && password_verify($password, $user["password"])) {
+    if ($user && hash_equals($user["pass_hash"], hash("sha256", $password))) {
         $_SESSION["loggedin"] = true;
         $_SESSION["username"] = $username;
         $_SESSION["userID"] = $user["userID"];

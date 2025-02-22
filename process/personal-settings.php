@@ -10,7 +10,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 $host = "localhost";
 $dbUsername = "postgres";
 $dbPassword = "your_password";
-$dbname = "masterlist_db";
+$dbname = "user_info_db"; 
 
 try {
     $conn = new PDO("pgsql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
@@ -22,7 +22,7 @@ try {
 $userID = $_SESSION["userID"];
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    $stmt = $conn->prepare("SELECT fname, lname, username, email, userbirthday FROM masterlist WHERE userID = :userID");
+    $stmt = $conn->prepare("SELECT user_fname, user_lname, username, user_emailadd, user_birthdate, user_phonenum, user_address, user_gender, user_school FROM user_info WHERE userID = :userID");
     $stmt->bindParam(":userID", $userID);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -38,17 +38,25 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $input = json_decode(file_get_contents("php://input"), true);
     
-    $fname = $input["fname"] ?? "";
-    $lname = $input["lname"] ?? "";
-    $email = $input["email"] ?? "";
-    $userbirthday = $input["userbirthday"] ?? "";
+    $fname = $input["user_fname"] ?? "";
+    $lname = $input["user_lname"] ?? "";
+    $email = $input["user_emailadd"] ?? "";
+    $birthdate = $input["user_birthdate"] ?? "";
+    $phonenum = $input["user_phonenum"] ?? "";
+    $address = $input["user_address"] ?? "";
+    $gender = $input["user_gender"] ?? "";
+    $school = $input["user_school"] ?? "";
 
-    $stmt = $conn->prepare("UPDATE masterlist SET fname = :fname, lname = :lname, email = :email, userbirthday = :userbirthday WHERE userID = :userID");
+    $stmt = $conn->prepare("UPDATE user_info SET user_fname = :fname, user_lname = :lname, user_emailadd = :email, user_birthdate = :birthdate, user_phonenum = :phonenum, user_address = :address, user_gender = :gender, user_school = :school WHERE userID = :userID");
     $stmt->execute([
         ":fname" => $fname,
         ":lname" => $lname,
         ":email" => $email,
-        ":userbirthday" => $userbirthday,
+        ":birthdate" => $birthdate,
+        ":phonenum" => $phonenum,
+        ":address" => $address,
+        ":gender" => $gender,
+        ":school" => $school,
         ":userID" => $userID
     ]);
 
@@ -57,8 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
-    $stmt = $conn->prepare("DELETE FROM masterlist WHERE userID = :userID");
+    $stmt = $conn->prepare("DELETE FROM user_info WHERE userID = :userID");
     $stmt->execute([":userID" => $userID]);
+    
     session_destroy();
     echo json_encode(["success" => true, "message" => "Account deleted successfully."]);
     exit();
