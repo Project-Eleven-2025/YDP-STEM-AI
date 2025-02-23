@@ -11,7 +11,6 @@ CREATE TABLE teachers_info (
 	teacher_birthdate DATE NOT NULL,    /*use *DATEDIFF* function to calculate age*/
 	teacher_address VARCHAR (50) NOT NULL,    
 	teacher_gender VARCHAR (10) NOT NULL,
-	teacher_school VARCHAR (50) NOT NULL
-	
+	teacher_faculty VARCHAR (50) NOT NULL
 
 );
