@@ -1,10 +1,3 @@
-/* Reset CSS */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 /* General Styles */
 body {
     font-family: 'Arial', sans-serif;
@@ -41,7 +34,6 @@ nav {
     display: flex;
 }
 
-
 .nav-links li {
     margin: 0 20px;
 }
@@ -58,6 +50,41 @@ nav {
 
 .menu-icon {
     display: none;
+}
+
+.about-hero {
+    background-color: #f9f9f9;
+    padding: 50px 20px;
+}
+
+.about-hero-content {
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ccc;
+    border-radius: 10px; /* Bezeled edges */
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px; /* Ensure it doesn't get too wide */
+    padding: 20px; /* Add some padding inside the box */
+    background-color: #fff; /* Ensure the background is white */
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.team-member {
+    margin-bottom: 20px;
+}
+
+.team-member h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.team-member p {
+    font-size: 16px;
+    color: #555;
 }
 
 /* Hero Section */
@@ -105,7 +132,6 @@ nav {
     height: 100%;
     align-items: center;
 }
-
 
 /* Services Section */
 .services {
@@ -189,4 +215,3 @@ footer p {
         gap: 20px;
     }
 }
-

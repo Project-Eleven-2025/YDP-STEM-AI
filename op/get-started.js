@@ -88,114 +88,57 @@ function showAverageCareer() {
 }
 
 function switchSlide(num) {
-  switch (num) {
-    case 1: {
-      document.getElementById("currentSlide").innerHTML = "1";
-      document.getElementById("0").style.display = "none";
-      document.getElementById("1").style.display = "block";
-      document.getElementById("2").style.display = "none";
-      document.getElementById("3").style.display = "none";
-      document.getElementById("4").style.display = "none";
-      document.getElementById("5").style.display = "none";
-      document.getElementById("6").style.display = "none";
-      document.getElementById("7").style.display = "none";
-      break;
+    const slides = document.querySelectorAll('slide');
+    slides.forEach((slide, index) => {
+        slide.classList.remove('active');
+        if (index === num) {
+            slide.classList.add('active');
+        }
+    });
+
+    switch (num) {
+        case 1: {
+            document.getElementById("currentSlide").innerHTML = "1";
+            break;
+        }
+        case 2: {
+            document.getElementById("currentSlide").innerHTML = "2";
+            document.querySelector("button").setAttribute("onclick", "analytics('social-media')");
+            break;
+        }
+        case 3: {
+            document.getElementById("currentSlide").innerHTML = "3";
+            careerAssessment();
+            break;
+        }
+        case 4: {
+            document.getElementById("currentSlide").innerHTML = "4";
+            careerAssessment();
+            break;
+        }
+        case 5: {
+            document.getElementById("currentSlide").innerHTML = "5";
+            careerAssessment();
+            break;
+        }
+        case 6: {
+            document.getElementById("currentSlide").innerHTML = "6";
+            careerAssessment();
+            break;
+        }
+        case 7: {
+            document.getElementById("currentSlide").innerHTML = "7";
+            showAverageCareer();
+            break;
+        }
+        default: {
+            document.getElementById("currentSlide").innerHTML = "Error";
+            document.getElementById("totalSlide").innerHTML = "Occured";
+            break;
+        }
     }
-    case 2: {
-      document.getElementById("currentSlide").innerHTML = "2";
-      document.getElementById("0").style.display = "none";
-      document.getElementById("1").style.display = "none";
-      document.getElementById("2").style.display = "block";
-      document.getElementById("3").style.display = "none";
-      document.getElementById("4").style.display = "none";
-      document.getElementById("5").style.display = "none";
-      document.getElementById("6").style.display = "none";
-      document.getElementById("7").style.display = "none";
-      document
-        .querySelector("button")
-        .setAttribute("onclick", "analytics('social-media')");
-      break;
-    }
-    case 3: {
-      document.getElementById("currentSlide").innerHTML = "3";
-      document.getElementById("0").style.display = "none";
-      document.getElementById("1").style.display = "none";
-      document.getElementById("2").style.display = "none";
-      document.getElementById("3").style.display = "block";
-      document.getElementById("4").style.display = "none";
-      document.getElementById("5").style.display = "none";
-      document.getElementById("6").style.display = "none";
-      document.getElementById("7").style.display = "none";
-      careerAssessment();
-      break;
-    }
-    case 4: {
-      document.getElementById("currentSlide").innerHTML = "4";
-      document.getElementById("0").style.display = "none";
-      document.getElementById("1").style.display = "none";
-      document.getElementById("2").style.display = "none";
-      document.getElementById("3").style.display = "none";
-      document.getElementById("4").style.display = "block";
-      document.getElementById("5").style.display = "none";
-      document.getElementById("6").style.display = "none";
-      document.getElementById("7").style.display = "none";
-      careerAssessment();
-      break;
-    }
-    case 5: {
-      document.getElementById("currentSlide").innerHTML = "5";
-      document.getElementById("0").style.display = "none";
-      document.getElementById("1").style.display = "none";
-      document.getElementById("2").style.display = "none";
-      document.getElementById("3").style.display = "none";
-      document.getElementById("4").style.display = "none";
-      document.getElementById("5").style.display = "block";
-      document.getElementById("6").style.display = "none";
-      document.getElementById("7").style.display = "none";
-      careerAssessment();
-      break;
-    }
-    case 6: {
-      document.getElementById("currentSlide").innerHTML = "6";
-      document.getElementById("0").style.display = "none";
-      document.getElementById("1").style.display = "none";
-      document.getElementById("2").style.display = "none";
-      document.getElementById("3").style.display = "none";
-      document.getElementById("4").style.display = "none";
-      document.getElementById("5").style.display = "none";
-      document.getElementById("6").style.display = "block";
-      document.getElementById("7").style.display = "none";
-      careerAssessment();
-      break;
-    }
-    case 7: {
-      document.getElementById("currentSlide").innerHTML = "7";
-      document.getElementById("0").style.display = "none";
-      document.getElementById("1").style.display = "none";
-      document.getElementById("2").style.display = "none";
-      document.getElementById("3").style.display = "none";
-      document.getElementById("4").style.display = "none";
-      document.getElementById("5").style.display = "none";
-      document.getElementById("6").style.display = "none";
-      document.getElementById("7").style.display = "block";
-      showAverageCareer();
-      break;
-    }
-    default: {
-      document.getElementById("currentSlide").innerHTML = "Error";
-      document.getElementById("totalSlide").innerHTML = "Occured";
-      document.getElementById("1").style.display = "none";
-      document.getElementById("2").style.display = "none";
-      document.getElementById("3").style.display = "none";
-      document.getElementById("4").style.display = "none";
-      document.getElementById("5").style.display = "none";
-      document.getElementById("6").style.display = "none";
-      document.getElementById("7").style.display = "none";
-      document.getElementById("0").style.display = "block";
-      break;
-    }
-  }
 }
+
 function isVisibleForm(showform) {
   if (showform) {
     document.getElementById("form").style.display = "block";
@@ -204,15 +147,15 @@ function isVisibleForm(showform) {
   }
 }
 function nextSlide() {
-  currentSlide++;
-  if (currentSlide >= 7 && averageCareerScore != 0) {
-    showform = true;
-    isVisibleForm(showform);
-  } else {
-    showform = false;
-    isVisibleForm(showform);
-  }
-  switchSlide(currentSlide);
+    currentSlide++;
+    if (currentSlide >= 7 && averageCareerScore != 0) {
+        showform = true;
+        isVisibleForm(showform);
+    } else {
+        showform = false;
+        isVisibleForm(showform);
+    }
+    switchSlide(currentSlide);
 }
 
 nextSlide();

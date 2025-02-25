@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Register</title>
+    <link rel="stylesheet" href="master.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form id="login-form" action="../process/login-backend.php" method="POST">
+                <h2>Login</h2>
+                <label for="login-username">Username:</label>
+                <input type="text" id="login-username" name="username" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        <div class="form-container">
+            <a href="get-started.html">Register</a>
+        </div>
+    </div>
+</body>
+</html>

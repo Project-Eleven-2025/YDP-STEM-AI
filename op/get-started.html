@@ -12,18 +12,27 @@
                 margin: 0;
                 padding: 0;
             }
+            .slide {
+                display: none;
+                opacity: 0;
+                transition: opacity 0.5s ease-in-out;
+            }
+            .slide.active {
+                display: block;
+                opacity: 1;
+            }
         </style>
     </head>
     <body>
         <span id="currentSlide">1</span> <span id="totalSlides">of 7</span>
-        <slide id="0">
+        <slide id="0" class="slide">
             <h1>An error occured</h1>
         </slide>
-        <slide id="1">
+        <slide id="1" class="slide active">
             <h1>Hello! Welcome to LearnStem!</h1>
             <button type="button" onclick="nextSlide()">Next</button>
         </slide>
-        <slide id="2">
+        <slide id="2" class="slide">
             <h1>Where did you learn from us?</h1>
             <input type="radio" name="source" value="social-media" />
             <label for="social-media">Social Media</label>
@@ -35,7 +44,7 @@
             <label for="other">Other</label>
             <button type="button" onclick="nextSlide()">Next</button>
         </slide>
-        <slide id="3">
+        <slide id="3" class="slide">
             <h1>
                 You are given a complex problem to solve. How would you prefer
                 to approach it?
@@ -63,7 +72,7 @@
             >
             <button type="button" onclick="nextSlide()">Next</button>
         </slide>
-        <slide id="4">
+        <slide id="4" class="slide">
             <h1>Which activity sounds the most exciting to you?</h1>
             <input type="radio" name="career" value="doctor" />
             <label for="doctor">Helping others in need.</label>
@@ -85,7 +94,7 @@
             >
             <button type="button" onclick="nextSlide()">Next</button>
         </slide>
-        <slide id="5">
+        <slide id="5" class="slide">
             <h1>What kind of impact do you want to make in the world?</h1>
             <input type="radio" name="career" value="doctor" />
             <label for="doctor">Helping people live healthier lives.</label>
@@ -112,7 +121,7 @@
             >
             <button type="button" onclick="nextSlide()">Next</button>
         </slide>
-        <slide id="6">
+        <slide id="6" class="slide">
             <h1>What is your favorite subject in school?</h1>
             <input type="radio" name="career" value="doctor" />
             <label for="doctor">Biology</label>
@@ -128,16 +137,16 @@
             <label for="data-scientist">Statistics</label>
             <button type="button" onclick="nextSlide()">Next</button>
         </slide>
-        <slide id="7">
+        <slide id="7" class="slide">
             <h1>
-                It appears that your iinterests align with a career in
+                It appears that your interests align with a career in
                 <span id="average-career" onscroll="showAverageCareer()">
                 </span>
                 !
             </h1>
         </slide>
 
-        <form id="form" action="get-started.php" method="post">
+        <form id="form" action="../process/register.php" method="post">
             <h1>Let's create "you" a profile!</h1>
             first name: <input type="text" name="fname" required /><br />
             last name: <input type="text" name="lname" required /><br />

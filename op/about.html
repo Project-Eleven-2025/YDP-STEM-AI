@@ -4,103 +4,81 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>About Us</title>
-        <link rel="icon" href="../op/logo/logo.svg" />
+        <link rel="icon" href="logo/logo.svg" />
         <link rel="stylesheet" href="css/master.css" />
     </head>
     <body>
         <header>
             <nav>
                 <div class="logo">
-                    <a href="index.html"><img width="120px" src="./op/logo/logo.svg" alt="" hidden></a>
+                    <a href="index.html"><img width="80px" src="logo/logo.svg" alt="Logo"></a>
                 </div>
                 <ul class="nav-links">
                     <li><a href="../index.html">Home</a></li>
                     <li><a href="plans.html">Plans</a></li>
                     <li><a href="courses.html">Courses</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="login.php">Log-in</a></li>
+                    <li><a href="login.html">Log-in</a></li>
                 </ul>
                 <div class="menu-icon" id="menu-icon">
                     <i class="fa fa-bars"></i>
                 </div>
             </nav>
         </header>
-        <div class="container">
-            <h1>About Us</h1>
-            <div class="section" id="about-us">
-                <p>
-                    We the Youth Development Program (YDP) is a service offering
-                    business that has made great heights in innovation at the De
-                    la salle university. We are a team of dedicated
-                    professionals who are passionate about delivering
-                    high-quality products and services to our customers. Our
-                    team is committed to excellence in all that we do, and we
-                    are always looking for new ways to improve our offerings.
-                </p>
-            </div>
-
-            <div class="section" id="our-team">
-                <h2>Our Team</h2>
-                <div class="team-member">
-                    <h3>Daisy, Bongtiwon</h3>
+        <section class="about-hero">
+            <div class="about-hero-content">
+                <h1>About Us</h1>
+                <div id="about-us">
                     <p>
-                        The author of this website. She is a invative woman to
-                        excels at showing the talents of the young minds
+                        We the Youth Development Program (YDP) is a service offering
+                        business that has made great heights in innovation at the De
+                        La Salle University. We are a team of dedicated
+                        professionals who are passionate about delivering
+                        high-quality products and services to our customers. Our
+                        team is committed to excellence in all that we do, and we
+                        are always looking for new ways to improve our offerings.
                     </p>
                 </div>
-                <div class="team-member">
-                    <h3>Researchers</h3>
+                <div class="section" id="our-mission">
+                    <h2>Our Mission</h2>
                     <p>
-                        Who help research and develop new products and services.
+                        Our mission is to deliver high-quality products and services
+                        that improve the lives of our customers. We are committed to
+                        innovation, integrity, and excellence in all that we do.
                     </p>
                 </div>
-                <div class="team-member">
-                    <h3>PROJECT YDP 2025</h3>
-                    <p>
-                        Who help develop our products and services, ensuring the
-                    </p>
+                <div class="section" id="our-team">
+                    <h2>Our Team</h2>
+                    <div class="team-member">
+                        <h3>Daisy, Bongtiwon</h3>
+                        <p>
+                            The author of this website. She is an innovative woman who
+                            excels at showcasing the talents of young minds.
+                        </p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Researchers</h3>
+                        <p>
+                            Who help research and develop new products and services.
+                        </p>
+                    </div>
+                    <div class="team-member">
+                        <h3>PROJECT YDP 2025</h3>
+                        <p>
+                            Who help develop our products and services, ensuring the
+                            highest quality.
+                        </p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Our Partners</h3>
+                        <p>
+                            Who help us deliver high-quality products and services to
+                            our customers.
+                        </p>
+                    </div>
                 </div>
-                <!-- Add more team members as needed -->
             </div>
-
-            <div class="section" id="our-mission">
-                <h2>Our Mission</h2>
-                <p>
-                    Our mission is to deliver high-quality products and services
-                    that improve the lives of our customers. We are committed to
-                    innovation, integrity, and excellence in all that we do.
-                </p>
-            </div>
-
-            <div class="section" id="contact-us">
-                <h2>Contact Us</h2>
-                <form
-                    class="contact-form"
-                    method="post"
-                    action="../process/contact-us-backend.php"
-                >
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Your Name"
-                        required
-                    />
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Your Email"
-                        required
-                    />
-                    <textarea
-                        name="message"
-                        rows="5"
-                        placeholder="Your Message"
-                        required
-                    ></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
-            </div>
-        </div>
+        </section>
         <footer>
             <p>&copy; 2025 YDP-STEM learnstem. All rights reserved.</p>
         </footer>
