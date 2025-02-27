@@ -8,15 +8,9 @@ $dbname = "master";  // Make sure this is correct
 $user = "root";
 $password = "";
 
-try {
-    // Try to connect to MySQL
-    $dsn = "mysql:host=$host;dbname=$dbname";
-    $conn = new PDO($dsn, $user, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Could not connect to the database: " . $e->getMessage();
-    die();
-}
+$dsn = "mysql:host=$host;dbname=$dbname";
+$conn = new PDO($dsn, $user, $password);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 if (isset($_POST['submit'])) {
     $username = $_POST['username'];
@@ -65,9 +59,13 @@ if (isset($_POST['submit'])) {
             ':address' => $address,
             ':gender' => $gender,
             ':school' => $school
+            
         ]);
+        echo "New record created successfully";
     } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
         die("SQL Error: " . $e->getMessage());
+        
     }
     
     // Redirect after successful registration
@@ -79,13 +77,4 @@ if (isset($_POST['submit'])) {
 // Fetch all users to display in the table
 $query = $conn->query("SELECT * FROM user_info");
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
-?>
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-echo "<pre>";
-print_r($_POST);
-echo "</pre>";
-exit();
 ?>
