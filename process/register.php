@@ -5,8 +5,8 @@ session_start();
 
 $host = "localhost";
 $dbname = "master";  // Make sure this is correct
-$user = "user";
-$password = "123";
+$user = "root";
+$password = "";
 
 try {
     // Try to connect to MySQL
