@@ -1,0 +1,6 @@
+CREATE TABLE teacher_settings (
+    teacherID INT PRIMARY KEY,
+    show_full_name BOOLEAN DEFAULT TRUE,
+    show_email BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (teacherID) REFERENCES teachers_info(teacherID)
+);

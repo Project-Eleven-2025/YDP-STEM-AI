@@ -1,0 +1,6 @@
+CREATE TABLE user_settings (
+    userID INT PRIMARY KEY,
+    show_full_name BOOLEAN DEFAULT FALSE,
+    show_email BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (userID) REFERENCES user_info(userID) ON DELETE CASCADE
+);

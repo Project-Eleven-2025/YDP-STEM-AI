@@ -1,53 +1,80 @@
 <?php
 session_start();
+header("Content-Type: application/json");
 
-$host = 'localhost';
-$dbname = 'your_database_name';
-$user = 'your_database_user';
-$password = 'your_database_password';
+$response = ["success" => false, "message" => "Invalid username or password."];
 
-try {
-    // Try to connect to PostgreSQL
-    $dsn = "pgsql:host=$host;dbname=$dbname";
-    $pdo = new PDO($dsn, $user, $password);
-    $dbType = 'PostgreSQL';
-} catch (PDOException $e) {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $input = json_decode(file_get_contents("php://input"), true);
+    
+    $username = $input["username"] ?? "";
+    $password = $input["password"] ?? "";
+    
+    $host = "localhost";
+    $dbUsername = "postgres";
+    $dbPassword = "your_password";
+    $dbname = "masterlist_db"; 
+
     try {
-        // If PostgreSQL connection fails, try to connect to MySQL
-        $dsn = "mysql:host=$host;dbname=$dbname";
-        $pdo = new PDO($dsn, $user, $password);
-        $dbType = 'MySQL';
+        $conn = new PDO("pgsql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e) {
-        die("Could not connect to any database server: " . $e->getMessage());
+        // Error connecting to the database
+        echo json_encode(["success" => false, "message" => "Database connection failed: " . $e->getMessage()]);
+        exit();
     }
-}
 
-// Assuming you have a form that posts 'username' and 'password'
-$username = $_POST['username'];
-$password = $_POST['password'];
+    // Function to verify user login (student or teacher)
+    function checkLogin($conn, $table, $idColumn, $usernameColumn, $passwordColumn) {
+        global $username, $password;
+        
+        try {
+            $stmt = $conn->prepare("SELECT $idColumn, $usernameColumn, $passwordColumn FROM $table WHERE $usernameColumn = :username");
+            $stmt->bindParam(":username", $username);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Query to check user credentials
-$query = "SELECT * FROM users WHERE username = :username AND password = :password";
-$stmt = $pdo->prepare($query);
-$stmt->bindParam(':username', $username);
-$stmt->bindParam(':password', $password);
-$stmt->execute();
+    
+            if ($user && hash_equals($user[$passwordColumn], hash("sha256", $password))) {
+                return $user;
+            } else {
+                return null;
+            }
+        } catch (PDOException $e) {
+            echo json_encode(["success" => false, "message" => "Query error: " . $e->getMessage()]);
+            exit();
+        }
+    }
 
-if ($stmt->rowCount() > 0) {
-    // User authenticated, create session
-    $_SESSION['user_id'] = session_id();
-    $_SESSION['username'] = $username;
-    $_SESSION['db_type'] = $dbType;
+    $user = checkLogin($conn, "user_info", "userID", "username", "pass_hash");
 
-    // Log session ID
-    $logFile = 'session_log.txt';
-    $logMessage = "Session ID: " . session_id() . " - Username: $username - Database: $dbType\n";
-    file_put_contents($logFile, $logMessage, FILE_APPEND);
+    if ($user) {
+        $_SESSION["loggedin"] = true;
+        $_SESSION["username"] = $username;
+        $_SESSION["userID"] = $user["userID"];
+        $_SESSION["role"] = "student";
+        
+        // Redirect to dashboard for students, change it
+        header("Location: dashboard.php");
+        exit();
+    } else {
+        $teacher = checkLogin($conn, "teachers_info", "teacherID", "username", "pass_hash");
 
-    // Redirect to dashboard
-    header("Location: dashboard.php");
+        if ($teacher) {
+            $_SESSION["loggedin"] = true;
+            $_SESSION["username"] = $username;
+            $_SESSION["userID"] = $teacher["teacherID"];
+            $_SESSION["role"] = "teacher";
+            
+            // Redirect to dashboard for teachers,change it
+            header("Location: dashboard.php");
+            exit();
+        } else {
+            // If both student and teacher are not found, show an error
+            $response["message"] = "Invalid username or password.";
+        }
+    }
+
+    echo json_encode($response);
     exit();
-} else {
-    echo "Invalid username or password.";
 }
-?>
