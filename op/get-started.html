@@ -18,8 +18,32 @@
                 transition: opacity 0.5s ease-in-out;
             }
             .slide.active {
-                display: block;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
                 opacity: 1;
+            }
+            button {
+                padding: 10px 20px;
+                margin-top: 20px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+            .next {
+                margin-top: 40px;
+            }
+            #form {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
             }
         </style>
     </head>
@@ -30,7 +54,7 @@
         </slide>
         <slide id="1" class="slide active">
             <h1>Hello! Welcome to LearnStem!</h1>
-            <button type="button" onclick="nextSlide()">Next</button>
+            <button class="next" type="button" onclick="nextSlide()">Next</button>
         </slide>
         <slide id="2" class="slide">
             <h1>Where did you learn from us?</h1>
@@ -150,10 +174,17 @@
             <h1>Let's create "you" a profile!</h1>
             first name: <input type="text" name="fname" required /><br />
             last name: <input type="text" name="lname" required /><br />
+            middlename: <input type="text" name="mname" required /><br />
             nickname: <input type="text" name="nname" required /><br />
             email: <input type="email" name="email" required /><br />
+            tel / phone number: <input type="text" name="phone" required /><br />
+            gender: 
+            <input type="radio" name="gender" value="male" required /> Male
+            <input type="radio" name="gender" value="female" required /> Female
+            <br />
             school: <input type="text" name="school" required /><br />
             password: <input type="password" name="password" required /><br />
+            <input type="hidden" name="group" id="group" value="student" />
             <button type="submit">Submit</button>
         </form>
         <script src="./get-started.js"></script>
