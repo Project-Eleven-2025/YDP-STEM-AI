@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 session_start();
 
 $host = "localhost";
-$dbname = "master";  // Make sure this is correct
+$dbname = "masterlist_db";  // Make sure this is correct
 $user = "root";
 $password = "";
 
