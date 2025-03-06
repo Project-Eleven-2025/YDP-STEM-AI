@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Quiz</title>
+</head>
+<body>
+
+    <h2>Upload Quiz File</h2>
+    <form action="upload_quiz.php" method="POST" enctype="multipart/form-data">
+        <label for="courseID">Course ID:</label>
+        <input type="text" id="courseID" name="courseID" value="<?php echo uniqid('course_'); ?>" readonly>
+
+        <label for="label">Course Label:</label>
+        <input type="text" id="label" name="label" required>
+
+        <label for="type">Course Type:</label>
+        <select id="type" name="type">
+            <option value="quiz">Quiz</option>
+            <option value="lesson">Lesson</option>
+            <option value="assessment">Assessment</option>
+            <option value="memo">Memo</option>
+        </select>
+
+        <label for="created_by">Created By:</label>
+        <input type="text" id="created_by" name="created_by" required>
+
+        <label for="access_control">Access Control:</label>
+        <select id="access_control" name="access_control">
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+        </select>
+
+        <label for="quizFile">Upload Quiz File (DOCX, JPG, PNG):</label>
+        <input type="file" id="quizFile" name="quizFile" accept=".docx,.jpg,.jpeg,.png" required>
+
+        <button type="submit">Upload Quiz</button>
+    </form>
+
+</body>
+</html>

@@ -1,6 +1,9 @@
-CREATE TABLE courses(
-	courseID VARCHAR(5) PRIMARY KEY,  -- Create an incrementing C-001 and so on for the key (Backend)
-    course_name VARCHAR(25) NOT NULL,
-    course_description VARCHAR(255) DEFAULT NULL
-
+CREATE TABLE course (
+    courseID VARCHAR(50) PRIMARY KEY,
+    label VARCHAR(255) NOT NULL,
+    type ENUM('lesson', 'quiz', 'assessment', 'memo') NOT NULL DEFAULT 'quiz',
+    date_created DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(100) NOT NULL,
+    access_control ENUM('public', 'private') NOT NULL DEFAULT 'public',
+    quiz_data JSON NOT NULL
 );
