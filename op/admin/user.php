@@ -28,6 +28,7 @@ $result = $conn->query($sql);
     <form method="get" action="">
         <input type="text" name="search" placeholder="Search..." value="<?php echo htmlspecialchars($search); ?>">
         <input type="submit" value="Filter">
+        <link rel="stylesheet" href="../css/modest.css"/>
     </form>
     <table border="1">
         <tr>

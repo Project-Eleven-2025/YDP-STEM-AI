@@ -26,6 +26,7 @@ function validate($tablename, $columnname, $value){
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $remember = $_POST['remember-me'];
 
     $stmt = $conn->prepare("SELECT * FROM user_info WHERE username = :username");
     $stmt->bindParam(':username', $username);
@@ -40,29 +41,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['user_id'] = $user['userID']; // Fixed: Corrected 'id' to 'userID'
     echo json_encode(['status' => 'success', 'message' => 'Login successful']);
     
-    if (isset($_GET['remember_me']) && $_GET['remember_me'] == '1') {
+    // Set cookies for user ID and session ID
+    setcookie('user_id', $user['userID'], time() + (86400 * 30), "/"); // 86400 = 1 day, cookie lasts for 30 days
+    setcookie('session_id', session_id(), time() + (86400 * 30), "/"); // 86400 = 1 day, cookie lasts for 30 days
+
+    echo($remember);
+    if ($remember == 'true') {
         $sessionId = session_id();
         setcookie('session_id', $sessionId, time() + (86400 * 30), "/"); // 86400 = 1 day, cookie lasts for 30 days
 
-        // Log session ID, date created, and user who created it to database
-        $stmt = $conn->prepare("INSERT INTO login_session_logs (session_id, user_id, date_created) VALUES (:session_id, :user_id, current_timestamp())");
+        // Log session ID, created_at, logged_out_at, user who created it, device OS, and IP address to database
+        $device_os = $_SERVER['HTTP_USER_AGENT'];
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+
+        $stmt = $conn->prepare("INSERT INTO login_session_logs (session_id, created_at, logged_out_at, user_id, device_os, ip_address) VALUES (:session_id, current_timestamp(), NULL, :user_id, :device_os, :ip_address)");
         $stmt->bindParam(':session_id', $sessionId);
         $stmt->bindParam(':user_id', $user['userID']);
+        $stmt->bindParam(':device_os', $device_os);
+        $stmt->bindParam(':ip_address', $ip_address);
         if ($stmt->execute()) {
             echo "Session logged successfully";
         } else {
             echo "Failed to log session";
         }
     }
-
     // Append session_id to URL
     $url = $_SERVER['REQUEST_URI'];
     $url .= (strpos($url, '?') === false ? '?' : '&') . 'session_id=' . session_id();
-    
+        
     if ($user && isset($user['userID'])) { // Fixed: Added check for 'userID'
         $userID = $user['userID']; // Fixed: Corrected 'user_id' to 'userID'
         $group = substr($userID, strpos($userID, '-') + 1, 1); // Assuming group is the first character after the first dash
-
+    
         switch ($group) {
             case 's':
                 echo json_encode(['userID' => $user['userID'], 'group' => substr($user['userID'], strpos($user['userID'], '-') + 1, 1)]);
@@ -77,8 +87,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: ../op/admin/dashboard.php?session_id=" . session_id());
                 break;
         }
-        exit();
-    }
+        //exit();
+        echo json_encode(['status' => 'error', 'message' => 'Invalid user group']);	
+    }       
+    
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
 }

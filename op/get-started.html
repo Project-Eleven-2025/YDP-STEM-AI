@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Get Started</title>
         <link rel="icon" href="./op/logo/logo.svg" />
+        <link rel="stylesheet" href="css/modest.css"/>
         <link rel="stylesheet" href="css/master.css" />
         <style>
             body {
@@ -54,10 +55,34 @@
             #average-career {
                 font-weight: bold;
             }
+            #currentSlide {
+                position: flex;
+                padding: 10px;
+                background-color: #007bff;
+                color: white;
+            }
         </style>
+
     </head>
     <body>
-        <span id="currentSlide">1</span> <span id="totalSlides">of 7</span>
+        <header>
+            <nav>
+                <div class="logo">
+                    <a href="index.html"><img width="80px" src="logo/logo.svg" alt="Logo"></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="plans.html">Plans</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="login.html">Log-in</a></li>
+                </ul>
+                <div class="menu-icon" id="menu-icon">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </nav>
+        </header>
+        <span id="currentSlide">1</span> <span id="totalSlides">of 7</span></div>
         <slide id="0" class="slide">
             <h1>An error occured</h1>
         </slide>
@@ -193,6 +218,14 @@
                     <input type="radio" name="gender" value="male" required /> Male
                     <input type="radio" name="gender" value="female" required /> Female
                     <br />
+                    <p>What course do you want to apply?</p>
+                    <p>Choose your courses:</p>
+                    <input type="checkbox" name="course" value="math-teacher" /> Math Teacher<br />
+                    <input type="checkbox" name="course" value="doctor" disabled/> Doctor<br />
+                    <input type="checkbox" name="course" value="nurse" disabled/> Nurse<br />
+                    <input type="checkbox" name="course" value="science-teacher" disabled/> Science Teacher<br />
+                    <input type="checkbox" name="course" value="software-developer" disabled/> Software Developer<br />
+                    <input type="checkbox" name="course" value="data-scientist" disabled/> Data Scientist<br />
                     school: <input type="text" name="school" required /><br />
                     password: <input type="password" name="password" required /><br />
                     <input type="hidden" name="group" id="group" value="student" />

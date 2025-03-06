@@ -4,9 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login and Register</title>
-    <link rel="stylesheet" href="master.css">
+    <link rel="stylesheet" href="css/modest.css"/>
+    <link rel="stylesheet" href="css/master.css">
 </head>
 <body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html"><img width="80px" src="logo/logo.svg" alt="Logo"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="plans.html">Plans</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login.html">Log-in</a></li>
+            </ul>
+            <div class="menu-icon" id="menu-icon">
+                <i class="fa fa-bars"></i>
+            </div>
+        </nav>
+    </header>
     <div class="container">
         <div class="form-container">
             <form id="login-form" action="../process/login.php" method="POST">
@@ -16,8 +34,21 @@
                 <label for="login-password">Password:</label>
                 <input type="password" id="login-password" name="password" required>
                 <label for="remember-me">
-                    <input type="checkbox" id="remember-me" name="remember-me">
+                    <input type="checkbox" id="remember-me" name="remember-me" onclick="checkRememberMe()">
                     Remember Me
+                </label>
+                <script>
+                    function checkRememberMe() {
+                        var checkbox = document.getElementById('remember-me');
+                        if (checkbox.checked) {
+                            alert('Checkbox is checked');
+                            checkbox.value = 'true';
+                        } else {
+                            alert('Checkbox is not checked');
+                            checkbox.value = 'false';
+                        }
+                    }
+                </script>
                 <button type="submit">Login</button>
             </form>
         </div>

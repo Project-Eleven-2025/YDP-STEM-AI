@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Admin Registration</title>
+    <link rel="stylesheet" href="../css/modest.css"/>
 </head>
 <body>
     <h2>Admin and Teacher Registration</h2>

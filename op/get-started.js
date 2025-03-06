@@ -146,6 +146,7 @@ function isVisibleForm(showform) {
     document.getElementById("form").style.display = "none";
   }
 }
+
 function nextSlide() {
     currentSlide++;
     if (currentSlide >= 7 && averageCareerScore != 0) {

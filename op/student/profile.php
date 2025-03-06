@@ -34,6 +34,8 @@ if (!$student) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Profile</title>
+    <link rel="stylesheet" href="op/css/modest.css"/>
+    <link rel="stylesheet" href="op/css/master.css"/>
 </head>
 <body>
     <h1>Student Profile</h1>
