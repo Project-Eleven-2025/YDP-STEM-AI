@@ -19,6 +19,7 @@ if (!isset($_SESSION['sessionID'])) {
     } else {
         // If sessionID is not set, redirect to login page
         //header("Location: ../login.html");
+        //exit();
     }
 }
 
@@ -28,6 +29,15 @@ $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $sessionID);
 $stmt->execute();
 $stmt->bind_result($userID, $date_created);
+$stmt->fetch();
+$stmt->close();
+
+if (!$date_created) {
+    // If date_created is not retrieved, redirect to login page
+    echo "Session expired. Please log in again.";
+    //header("Location: ../login.html");
+    //exit();
+}
 
 $current_time = time();
 $session_start_time = strtotime($date_created);
@@ -39,9 +49,8 @@ if ($session_age > 86400) { // 86400 seconds = 24 hours
     session_destroy();
     echo "Session expired. Please log in again.";
     //header("Location: ../login.html");
+    //exit();
 }
-$stmt->fetch();
-$stmt->close();
 
 $query = "SELECT user_nickname FROM user_info WHERE userID = ?";
 $stmt = $conn->prepare($query);
@@ -52,6 +61,7 @@ if ($stmt->num_rows == 0) {
     echo "User not found.";
     // If user_nickname is not found, redirect to login page
     //header("Location: ../login.html");
+    //exit();
 }
 $stmt->bind_result($user_nickname);
 $stmt->fetch();
