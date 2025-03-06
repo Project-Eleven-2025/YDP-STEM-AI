@@ -1,40 +1,63 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['sessionID']) || !isset($_SESSION['session_start_time'])) {
-    // Redirect to login page if sessionID or session_start_time is not set
-    header("Location: ../login.html");
-    exit();
+$servername = "localhost";
+$username = "ydp-stem"; // Fixed: Corrected username
+$password = "project2025"; // Fixed: Corrected password
+$dbname = "masterlist_db";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
+if (!isset($_SESSION['sessionID'])) {
+    if (isset($_COOKIE['session_id'])) {
+        $_SESSION['sessionID'] = $_COOKIE['session_id'];
+    } else {
+        // If sessionID is not set, redirect to login page
+        //header("Location: ../login.html");
+    }
+}
+
+$sessionID = $_SESSION['sessionID']; // Store sessionID in a separate variable
+$query = "SELECT user_id, date_created FROM login_session_logs WHERE session_id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $sessionID);
+$stmt->execute();
+$stmt->bind_result($userID, $date_created);
+
 $current_time = time();
-$session_start_time = $_SESSION['session_start_time'];
+$session_start_time = strtotime($date_created);
 $session_age = $current_time - $session_start_time;
 
 if ($session_age > 86400) { // 86400 seconds = 24 hours
     // Session is older than 24 hours, destroy session and redirect to login page
     session_unset();
     session_destroy();
-    header("Location: ../login.html");
-    exit();
+    echo "Session expired. Please log in again.";
+    //header("Location: ../login.html");
 }
-include 'db_connection.php'; // Include your database connection file
+$stmt->fetch();
+$stmt->close();
 
-$userID = $_SESSION['sessionID']; // Assuming sessionID is the userID
-$query = "SELECT user_nickname FROM users WHERE userID = ?";
+$query = "SELECT user_nickname FROM user_info WHERE userID = ?";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("i", $userID);
+$stmt->bind_param("s", $userID); // Fixed: Corrected parameter type to string
 $stmt->execute();
+$stmt->store_result();
+if ($stmt->num_rows == 0) {
+    echo "User not found.";
+    // If user_nickname is not found, redirect to login page
+    //header("Location: ../login.html");
+}
 $stmt->bind_result($user_nickname);
 $stmt->fetch();
 $stmt->close();
 $conn->close();
 
-if (!$user_nickname) {
-    // If user_nickname is not found, redirect to login page
-    header("Location: ../login.html");
-    exit();
-}
 // Session is valid, continue with the rest of the dashboard code
 ?>
 <!DOCTYPE html>
@@ -66,67 +89,62 @@ if (!$user_nickname) {
 
 <?php
 function getQuizzesCompleted($userID) {
-    include 'db_connection.php';
+    global $conn;
     $query = "SELECT COUNT(*) FROM quizzes WHERE userID = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userID);
+    $stmt->bind_param("s", $userID); // Fixed: Corrected parameter type to string
     $stmt->execute();
     $stmt->bind_result($count);
     $stmt->fetch();
     $stmt->close();
-    $conn->close();
     return $count;
 }
 
 function getLessonsFinished($userID) {
-    include 'db_connection.php';
+    global $conn;
     $query = "SELECT COUNT(*) FROM lessons WHERE userID = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userID);
+    $stmt->bind_param("s", $userID); // Fixed: Corrected parameter type to string
     $stmt->execute();
     $stmt->bind_result($count);
     $stmt->fetch();
     $stmt->close();
-    $conn->close();
     return $count;
 }
 
 function getAssessmentsDone($userID) {
-    include 'db_connection.php';
+    global $conn;
     $query = "SELECT COUNT(*) FROM assessments WHERE userID = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userID);
+    $stmt->bind_param("s", $userID); // Fixed: Corrected parameter type to string
     $stmt->execute();
     $stmt->bind_result($count);
     $stmt->fetch();
     $stmt->close();
-    $conn->close();
     return $count;
 }
 
 function getUserCertificates($userID) {
-    include 'db_connection.php';
+    global $conn;
     $query = "SELECT COUNT(*) FROM certificates WHERE userID = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userID);
+    $stmt->bind_param("s", $userID); // Fixed: Corrected parameter type to string
     $stmt->execute();
     $stmt->bind_result($count);
     $stmt->fetch();
     $stmt->close();
-    $conn->close();
     return $count;
 }
 
 function getAccountAge($userID) {
-    include 'db_connection.php';
-    $query = "SELECT registration_date FROM users WHERE userID = ?";
+    global $conn;
+    $query = "SELECT registration_date FROM user_info WHERE userID = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userID);
+    $stmt->bind_param("s", $userID); // Fixed: Corrected parameter type to string
     $stmt->execute();
     $stmt->bind_result($registration_date);
     $stmt->fetch();
     $stmt->close();
-    $conn->close();
     $current_date = new DateTime();
     $registration_date = new DateTime($registration_date);
     $interval = $current_date->diff($registration_date);

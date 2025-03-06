@@ -23,16 +23,6 @@ function validate($tablename, $columnname, $value){
     return true;
 }
 
-function get_UserID($group){
-    global $conn;
-    $year = date("Y");
-    $month_day = date("md"); // Get MMDD
-    $userIndex = str_pad(rand(0, 9999999999), 10, "0", STR_PAD_LEFT);
-    $uniqueID = rand(1000, 9999); // Unique control number (random 4-digit)
-    $userID = "{$year}-{$group}{$userIndex}-{$uniqueID}-{$month_day}";
-    return $userID;
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -45,20 +35,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$user || !isset($user['pass_hash']) || !password_verify($password, $user['pass_hash'])) { // Fixed: Added check for 'pass_hash'
         echo json_encode(['status' => 'error', 'message' => 'Invalid username or password']);
+        exit();
     }
     $_SESSION['user_id'] = $user['userID']; // Fixed: Corrected 'id' to 'userID'
     echo json_encode(['status' => 'success', 'message' => 'Login successful']);
     
-
     if (isset($_GET['remember_me']) && $_GET['remember_me'] == '1') {
         $sessionId = session_id();
         setcookie('session_id', $sessionId, time() + (86400 * 30), "/"); // 86400 = 1 day, cookie lasts for 30 days
 
         // Log session ID, date created, and user who created it to database
-        $stmt = $conn->prepare("INSERT INTO session_log (session_id, user_id, date_created) VALUES (:session_id, :user_id, NOW())");
+        $stmt = $conn->prepare("INSERT INTO login_session_logs (session_id, user_id, date_created) VALUES (:session_id, :user_id, current_timestamp())");
         $stmt->bindParam(':session_id', $sessionId);
         $stmt->bindParam(':user_id', $user['userID']);
-        $stmt->execute();
+        if ($stmt->execute()) {
+            echo "Session logged successfully";
+        } else {
+            echo "Failed to log session";
+        }
     }
 
     // Append session_id to URL
