@@ -1,86 +1,60 @@
 <?php
+session_start();
+
+$servername = "localhost";
+$username = "ydp-stem"; // Fixed: Corrected username
+$password = "project2025"; // Fixed: Corrected password
+$dbname = "masterlist_db";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 // Define the passcode
-define('ACCESS_PASSCODE', 'your_secure_passcode');
+define('ACCESS_PASSCODE', '123');
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $passcode = $_POST['passcode'];
+    $teacherID = $_POST['teacherID'];
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $teacher_emailadd = $_POST['teacher_emailadd'];
+    $teacher_phonenum = $_POST['teacher_phonenum'];
+    $teacher_fname = $_POST['teacher_fname'];
+    $teacher_lname = $_POST['teacher_lname'];
+    $teacher_mname = $_POST['teacher_mname'];
+    $teacher_post_nominal = $_POST['teacher_post_nominal'];
+    $teacher_birthdate = $_POST['teacher_birthdate'];
+    $teacher_address = $_POST['teacher_address'];
+    $teacher_gender = $_POST['teacher_gender'];
+    $teacher_faculty = $_POST['teacher_faculty'];
 
-    // Verify the passcode
     if ($passcode === ACCESS_PASSCODE) {
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
         // Hash the password
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        // Here you would typically save the username and hashed password to a database
-        // For demonstration, we'll just display a success message
-        echo "Admin registered successfully!";
+        $stmt = $conn->prepare("INSERT INTO teacher_info (teacherID, username, pass_hash, teacher_emailadd, teacher_phonenum, teacher_fname, teacher_lname, teacher_mname, teacher_post_nominal, teacher_birthdate, teacher_address, teacher_gender, teacher_faculty) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssssssss", $teacherID, $username, $hashed_password, $teacher_emailadd, $teacher_phonenum, $teacher_fname, $teacher_lname, $teacher_mname, $teacher_post_nominal, $teacher_birthdate, $teacher_address, $teacher_gender, $teacher_faculty);
+
+        if ($stmt->execute()) {
+            echo "Admin registered successfully!";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+        $conn->close();
     } else {
         echo "Invalid passcode!";
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Registration</title>
-    <link rel="stylesheet" href="../css/modest.css"/>
-</head>
-<body>
-    <h2>Admin and Teacher Registration</h2>
-    <form method="post" action="">
-        <label for="passcode">Passcode:</label>
-        <input type="password" id="passcode" name="passcode" required><br><br>
-        
-        <label for="teacherID">Teacher ID:</label>
-        <input type="text" id="teacherID" name="teacherID" required><br><br>
-        
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        
-        <label for="teacher_emailadd">Email Address:</label>
-        <input type="email" id="teacher_emailadd" name="teacher_emailadd" required><br><br>
-        
-        <label for="teacher_phonenum">Phone Number:</label>
-        <input type="text" id="teacher_phonenum" name="teacher_phonenum" required><br><br>
-        
-        <label for="teacher_fname">First Name:</label>
-        <input type="text" id="teacher_fname" name="teacher_fname" required><br><br>
-        
-        <label for="teacher_lname">Last Name:</label>
-        <input type="text" id="teacher_lname" name="teacher_lname" required><br><br>
-        
-        <label for="teacher_mname">Middle Name:</label>
-        <input type="text" id="teacher_mname" name="teacher_mname"><br><br>
-        
-        <label for="teacher_post_nominal">Post Nominal:</label>
-        <input type="text" id="teacher_post_nominal" name="teacher_post_nominal"><br><br>
-        
-        <label for="teacher_birthdate">Birthdate:</label>
-        <input type="date" id="teacher_birthdate" name="teacher_birthdate" required><br><br>
-        
-        <label for="teacher_address">Address:</label>
-        <input type="text" id="teacher_address" name="teacher_address" required><br><br>
-        
-        <label for="teacher_gender">Gender:</label>
-        <select id="teacher_gender" name="teacher_gender" required>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select><br><br>
-        
-        <label for="teacher_faculty">Faculty:</label>
-        <input type="text" id="teacher_faculty" name="teacher_faculty" required><br><br>
-        
-        <label for="group">Group:</label>
-        <input type="text" id="group" name="group" required><br><br>
-        
-        <input type="submit" value="Register">
-    </form>
-</body>
-</html>

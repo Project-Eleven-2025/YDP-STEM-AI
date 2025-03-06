@@ -17,10 +17,10 @@ if (!isset($_SESSION['sessionID'])) {
     if (isset($_COOKIE['session_id'])) {
         $_SESSION['sessionID'] = $_COOKIE['session_id'];
     } else {
-        // If sessionID is not set, redirect to login page
+        //If sessionID is not set, redirect to login page
         echo "Session expired. Please log in again. COOKIE MISSING!<br>\n";
-        //header("Location: ../login.html");
-        //exit();
+        header("Location: ../login.html");
+        exit();
     }
 }
 
@@ -36,8 +36,8 @@ $stmt->close();
 if (!$created_at) {
     // If created_at is not retrieved, redirect to login page
     echo "Session expired. Please log in again. Datecreated Missing<br>\n";
-    //header("Location: ../login.html");
-    //exit();
+    header("Location: ../login.html");
+    exit();
 }
 
 $current_time = time();
@@ -49,8 +49,8 @@ if ($session_age > 86400) { // 86400 seconds = 24 hours
     session_unset();
     session_destroy();
     echo "Session expired. Please log in again. Session age invalid<br>\n";
-    //header("Location: ../login.html");
-    //exit();
+    header("Location: ../login.html");
+    exit();
 }
 
 $query = "SELECT user_nickname FROM user_info WHERE userID = ?";
@@ -61,8 +61,8 @@ $stmt->store_result();
 if ($stmt->num_rows == 0) {
     echo "User Nickname not found.<br>\n";
     // If user_nickname is not found, redirect to login page
-    //header("Location: ../login.html");
-    //exit();
+    header("Location: ../login.html");
+    exit();
 }
 $stmt->bind_result($user_nickname);
 $stmt->fetch();
