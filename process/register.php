@@ -22,14 +22,14 @@ $birthdate = $_POST['birthdate'];
 $address = $_POST['address'];
 $gender = $_POST['gender'];
 $school = $_POST['school'];
-$course = $_POST['course'];
-$group = $_POST['group'];
+$courseID = $_POST['course'];
+$group = "student"; // Fixed: Added group
 
 $year = date("Y");
 $month_day = date("md"); // Get MMDD
 $userIndex = str_pad(rand(0, 9999999999), 10, "0", STR_PAD_LEFT);
 $uniqueID = rand(1000, 9999); // Unique control number (random 4-digit)
-$userID = "{$year}-{$group}{$userIndex}-{$uniqueID}-{$month_day}";
+$userID = "{$year}-{$group}-{$userIndex}-{$uniqueID}-{$month_day}";
 
 function validate($tablename, $columnname, $value){
     global $conn;
@@ -43,14 +43,14 @@ function validate($tablename, $columnname, $value){
 }
 
 function register_user(){
-    global $conn, $userID, $username, $password, $email, $phone, $fname, $lname, $mname, $nickname, $birthdate, $address, $gender, $school, $course;
+    global $conn, $userID, $username, $password, $email, $phone, $fname, $lname, $mname, $nickname, $birthdate, $address, $gender, $school, $courseID;
     $sql = "INSERT INTO user_info (
         userID, username, pass_hash, user_emailadd, user_phonenum, user_fname, 
-        user_lname, user_mname, user_nickname, user_birthdate, user_address, user_gender, user_school, user_course
+        user_lname, user_mname, user_nickname, user_birthdate, user_address, user_gender, user_school, courseID
     ) 
     VALUES (
         :userID, :username, :pass_hash, :user_email, :user_phone, :user_fname, 
-        :user_lname, :user_mname, :user_nickname, :user_birthdate, :user_address, :user_gender, :user_school, :user_course
+        :user_lname, :user_mname, :user_nickname, :user_birthdate, :user_address, :user_gender, :user_school, :courseID
     )";
     echo "SQL: $sql<br>";
     $stmt = $conn->prepare($sql);
@@ -69,7 +69,7 @@ function register_user(){
             ':user_address' => $address,
             ':user_gender' => $gender,
             ':user_school' => $school,
-            ':user_course' => $course
+            ':courseID' => $courseID
         ]);
         echo "New record created successfully";
     } catch (PDOException $e) {

@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Get Started</title>
         <link rel="icon" href="./op/logo/logo.svg" />
-        <link rel="stylesheet" href="css/modest.css"/>
         <link rel="stylesheet" href="css/master.css" />
         <style>
             body {
@@ -61,6 +60,13 @@
                 background-color: #007bff;
                 color: white;
             }
+            .referral-sources {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 20px;
+                align-items: center;
+                justify-content: center;
+            }
         </style>
 
     </head>
@@ -92,14 +98,60 @@
         </slide>
         <slide id="2" class="slide">
             <h1>Where did you learn from us?</h1>
-            <input type="radio" name="source" value="social-media" />
-            <label for="social-media">Social Media</label>
-            <input type="radio" name="source" value="friends" />
-            <label for="friends">Friends</label>
-            <input type="radio" name="source" value="school" />
-            <label for="school">School</label>
-            <input type="radio" name="source" value="other" />
-            <label for="other">Other</label>
+            <table class="referral-sources">
+                <tr>
+                    <th>
+                        <label for="social-media">
+                            Social Media
+                        </label>
+                    </th>
+                    <th>
+                        <label for="friends">
+                            Friends
+                        </label>
+                    </th>
+                    <th>
+                        <label for="school">
+                            School
+                        </label>
+                    </th>
+                    <th>
+                        <label for="other">
+                            Other
+                        </label>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="icons/facebook_solid.svg" alt="" style="width: 80px; background-color: rgb(0, 0, 0); border-radius: 50%;">                    
+                    </td>
+                    <td>
+                        <img src="icons/users-solid.svg" alt="" style="width: 80px; "> 
+                    </td>
+                    <td>
+                        <img src="icons/city-solid.svg" alt="" style="width: 80px; ">
+                    </td>
+                    <td>
+                        <img src="icons/tag-solid.svg" alt="" style="width: 80px; ">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="source" value="social-media" />
+                    </td>
+                    <td>
+                        <input type="radio" name="source" value="friends" />
+                    </td>
+                    <td>
+                        <input type="radio" name="source" value="school" />
+                    </td>
+                    <td>
+                        <input type="radio" name="source" value="other" />
+                    </td>
+                </tr>
+                
+            </table>
+            
             <button type="button" onclick="nextSlide()">Next</button>
         </slide>
         <slide id="3" class="slide">
@@ -107,92 +159,173 @@
                 You are given a complex problem to solve. How would you prefer
                 to approach it?
             </h1>
+
             <p>Choose the one that best describes you.</p>
-            <input type="radio" name="career" value="doctor" />
-            <label for="doctor"
-                >I would break it down into smaller parts.</label
-            >
-            <input type="radio" name="career" value="nurse" />
-            <label for="nurse">I would ask for help from others.</label>
-            <input type="radio" name="career" value="science-teacher" />
-            <label for="science-teacher"
-                >I would research and learn more about it.</label
-            >
-            <input type="radio" name="career" value="math-teacher" />
-            <label for="math-teacher">I would try to solve it on my own.</label>
-            <input type="radio" name="career" value="software-developer" />
-            <label for="software-developer"
-                >I would try to find a solution online.</label
-            >
-            <input type="radio" name="career" value="data-scientist" />
-            <label for="data-scientist"
-                >I would analyze the problem and find a solution.</label
-            >
+            <table>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="doctor" />
+                        <label for="doctor">I would break it down into smaller parts.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="nurse" />
+                        <label for="nurse">I would ask for help from others.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="science-teacher" />
+                        <label for="science-teacher">I would research and learn more about it.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="math-teacher" />
+                        <label for="math-teacher">I would try to solve it on my own.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="software-developer" />
+                        <label for="software-developer">I would try to find a solution online.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="data-scientist" />
+                        <label for="data-scientist">I would analyze the problem and find a solution.</label>
+                    </td>
+                </tr>
+            </table>
+
             <button type="button" onclick="nextSlide()">Next</button>
         </slide>
         <slide id="4" class="slide">
             <h1>Which activity sounds the most exciting to you?</h1>
-            <input type="radio" name="career" value="doctor" />
-            <label for="doctor">Helping others in need.</label>
-            <input type="radio" name="career" value="nurse" />
-            <label for="nurse">Taking care of patients.</label>
-            <input type="radio" name="career" value="science-teacher" />
-            <label for="science-teacher"
-                >Teaching students about science.</label
-            >
-            <input type="radio" name="career" value="math-teacher" />
-            <label for="math-teacher">Teaching students about math.</label>
-            <input type="radio" name="career" value="software-developer" />
-            <label for="software-developer"
-                >Developing software and apps.</label
-            >
-            <input type="radio" name="career" value="data-scientist" />
-            <label for="data-scientist"
-                >Analyzing data and finding patterns.</label
-            >
+            <table>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="doctor" />
+                        <label for="doctor">Helping others in need.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="nurse" />
+                        <label for="nurse">Taking care of patients.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="science-teacher" />
+                        <label for="science-teacher">Teaching students about science.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="math-teacher" />
+                        <label for="math-teacher">Teaching students about math.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="software-developer" />
+                        <label for="software-developer">Developing software and apps.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="data-scientist" />
+                        <label for="data-scientist">Analyzing data and finding patterns.</label>
+                    </td>
+                </tr>
+            </table>
             <button type="button" onclick="nextSlide()">Next</button>
         </slide>
         <slide id="5" class="slide">
             <h1>What kind of impact do you want to make in the world?</h1>
-            <input type="radio" name="career" value="doctor" />
-            <label for="doctor">Helping people live healthier lives.</label>
-            <input type="radio" name="career" value="nurse" />
-            <label for="nurse"
-                >Providing care and comfort to those in need.</label
-            >
-            <input type="radio" name="career" value="science-teacher" />
-            <label for="science-teacher"
-                >Inspiring the next generation of scientists.</label
-            >
-            <input type="radio" name="career" value="math-teacher" />
-            <label for="math-teacher"
-                >Helping students understand and enjoy math.</label
-            >
-            <input type="radio" name="career" value="software-developer" />
-            <label for="software-developer"
-                >Creating innovative solutions to everyday problems.</label
-            >
-            <input type="radio" name="career" value="data-scientist" />
-            <label for="data-scientist"
-                >Using data to make informed decisions and solve
-                problems.</label
-            >
+            <table>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="doctor" />
+                        <label for="doctor">Helping people live healthier lives.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="nurse" />
+                        <label for="nurse">Providing care and comfort to those in need.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="science-teacher" />
+                        <label for="science-teacher">Inspiring the next generation of scientists.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="math-teacher" />
+                        <label for="math-teacher">Helping students understand and enjoy math.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="software-developer" />
+                        <label for="software-developer">Creating innovative solutions to everyday problems.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="data-scientist" />
+                        <label for="data-scientist">Using data to make informed decisions and solve problems.</label>
+                    </td>
+                </tr>
+            </table>
             <button type="button" onclick="nextSlide()">Next</button>
         </slide>
         <slide id="6" class="slide">
             <h1>What is your favorite subject in school?</h1>
-            <input type="radio" name="career" value="doctor" />
-            <label for="doctor">Biology</label>
-            <input type="radio" name="career" value="nurse" />
-            <label for="nurse">Nursing</label>
-            <input type="radio" name="career" value="science-teacher" />
-            <label for="science-teacher">Science</label>
-            <input type="radio" name="career" value="math-teacher" />
-            <label for="math-teacher">Math</label>
-            <input type="radio" name="career" value="software-developer" />
-            <label for="software-developer">Computer Science</label>
-            <input type="radio" name="career" value="data-scientist" />
-            <label for="data-scientist">Statistics</label>
+            <table>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="doctor" />
+                        <label for="doctor">Biology</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="nurse" />
+                        <label for="nurse">Nursing</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="science-teacher" />
+                        <label for="science-teacher">Science</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="math-teacher" />
+                        <label for="math-teacher">Math</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="software-developer" />
+                        <label for="software-developer">Computer Science</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="career" value="data-scientist" />
+                        <label for="data-scientist">Statistics</label>
+                    </td>
+                </tr>
+            </table>
             <button type="button" onclick="nextSlide()">Next</button>
         </slide>
         <slide id="7" class="slide">
@@ -204,32 +337,100 @@
                 <h1>Register</h1>
                 <form id="form" action="../process/register.php" name="submit" method="post">
                     <h1>Let's create "you" a profile!</h1>
-                    first name: <input type="text" name="fname" required /><br />
-                    last name: <input type="text" name="lname" required /><br />
-                    middlename: <input type="text" name="mname" required /><br />
-                    <abbr title="This will be used in your login!">username: <input type="text" name="uname" required /></abbr>
-                        <br />
-                    nickname: <input type="text" name="nname" required /><br />
-                    email: <input type="email" name="email" required /><br />
-                    birthdate: <input type="date" name="birthdate" required /><br />
-                    address: <input type="text" name="address" required /><br />
-                    tel / phone number: <input type="text" name="phone" required /><br />
-                    gender: 
-                    <input type="radio" name="gender" value="male" required /> Male
-                    <input type="radio" name="gender" value="female" required /> Female
-                    <br />
-                    <p>What course do you want to apply?</p>
-                    <p>Choose your courses:</p>
-                    <input type="checkbox" name="course" value="math-teacher" /> Math Teacher<br />
-                    <input type="checkbox" name="course" value="doctor" disabled/> Doctor<br />
-                    <input type="checkbox" name="course" value="nurse" disabled/> Nurse<br />
-                    <input type="checkbox" name="course" value="science-teacher" disabled/> Science Teacher<br />
-                    <input type="checkbox" name="course" value="software-developer" disabled/> Software Developer<br />
-                    <input type="checkbox" name="course" value="data-scientist" disabled/> Data Scientist<br />
-                    school: <input type="text" name="school" required /><br />
-                    password: <input type="password" name="password" required /><br />
-                    <input type="hidden" name="group" id="group" value="student" />
-                    <button type="submit">Submit</button>
+                    <table>
+                        <tr>
+                            <td>First Name:</td>
+                            <td><input type="text" name="fname" required /></td>
+                        </tr>
+                        <tr>
+                            <td>Last Name:</td>
+                            <td><input type="text" name="lname" required /></td>
+                        </tr>
+                        <tr>
+                            <td>Middle Name:</td>
+                            <td><input type="text" name="mname" required /></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="This will be used in your login!">Username:</abbr></td>
+                            <td><input type="text" name="uname" required /></td>
+                        </tr>
+                        <tr>
+                            <td>Nickname:</td>
+                            <td><input type="text" name="nname" required /></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input type="email" name="email" required /></td>
+                        </tr>
+                        <tr>
+                            <td>Birthdate:</td>
+                            <td><input type="date" name="birthdate" required /></td>
+                        </tr>
+                        <tr>
+                            <td>Address:</td>
+                            <td><input type="text" name="address" required /></td>
+                        </tr>
+                        <tr>
+                            <td>Tel / Phone Number:</td>
+                            <td><input type="text" name="phone" required /></td>
+                        </tr>
+                        <tr>
+                            <td>Gender:</td>
+                            <td>
+                                <input type="radio" name="gender" value="male" required /> Male
+                                <input type="radio" name="gender" value="female" required /> Female
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><p>What course do you want to apply?</p></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><p>Choose your courses:</p></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="checkbox" name="course" value="math-teacher" /> Math Teacher<br />
+                                <input type="checkbox" name="course" value="doctor" disabled/> Doctor<br />
+                                <input type="checkbox" name="course" value="nurse" disabled/> Nurse<br />
+                                <input type="checkbox" name="course" value="science-teacher" disabled/> Science Teacher<br />
+                                <input type="checkbox" name="course" value="software-developer" disabled/> Software Developer<br />
+                                <input type="checkbox" name="course" value="data-scientist" disabled/> Data Scientist<br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>School:</td>
+                            <td><input type="text" name="school" required /></td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td><input type="password" name="password" id="password" required /></td>
+                        </tr>
+                        <tr>
+                            <td>Confirm Password:</td>
+                            <td><input type="password" name="confirm_password" id="confirm_password" required /></td>
+                        </tr>
+                        <script>
+                            function validatePassword() {
+                                var password = document.getElementById("password");
+                                var confirm_password = document.getElementById("confirm_password");
+
+                                if (password.value != confirm_password.value) {
+                                    confirm_password.setCustomValidity("Passwords Don't Match");
+                                } else {
+                                    confirm_password.setCustomValidity('');
+                                }
+                            }
+
+                            document.getElementById("password").onchange = validatePassword;
+                            document.getElementById("confirm_password").onkeyup = validatePassword;
+                        </script>
+                        <tr>
+                            <td colspan="2">
+                                <input type="hidden" name="group" id="group" value="student" />
+                                <button type="submit">Submit</button>
+                            </td>
+                        </tr>
+                    </table>
                 </form>
             </div>
         </slide>

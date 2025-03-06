@@ -76,29 +76,36 @@ $stmt->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
-    <link rel="stylesheet" href="../css/modest.css"/>
-    <link rel="stylesheet" href="../css/master.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/ui.css">
 </head>
 <body>
-    <h1>Welcome, <?php echo htmlspecialchars($user_nickname); ?>!</h1>
-    <nav>
-        <ul>
-            <li><a href="profile.php">Profile</a></li>
-            <li><a href="assessment.php">Assessment</a></li>
-            <li><a href="dashboard.php">Dashboard</a></li>
-            <li><a href="../logout.php">Logout</a></li>
-        </ul>
-    </nav>
-    <div class="milestone-tracker">
-        <h2>Milestone Tracker</h2>
-        <ul>
-            <li>Quizzes Completed: <?php echo getQuizzesCompleted($userID); ?></li>
-            <li>Lessons Finished: <?php echo getLessonsFinished($userID); ?></li>
-            <li>Assessments Done: <?php echo getAssessmentsDone($userID); ?></li>
-            <li>User Certificates: <?php echo getUserCertificates($userID); ?></li>
-            <li>Account Age: <?php echo getAccountAge($userID); ?> days</li>
-        </ul>
+
+    <div class="sidenav">
+        <nav>
+            <ul>
+                <li><a href="profile.php">Profile</a></li>
+                <li><a href="assessment.php">Assessment</a></li>
+                <li><a href="dashboard.php">Dashboard</a></li>
+                <li><a href="../logout.php">Logout</a></li>
+            </ul>
+        </nav>
     </div>
+
+    <div class="content">
+        <h1>Welcome, <?php echo htmlspecialchars($user_nickname); ?>!</h1>
+        <div class="milestone-tracker">
+            <h2>Milestone Tracker</h2>
+            <ul>
+                <li>Quizzes Completed: <?php echo getQuizzesCompleted($userID); ?></li>
+                <li>Lessons Finished: <?php echo getLessonsFinished($userID); ?></li>
+                <li>Assessments Done: <?php echo getAssessmentsDone($userID); ?></li>
+                <li>User Certificates: <?php echo getUserCertificates($userID); ?></li>
+                <li>Account Age: <?php echo getAccountAge($userID); ?> days</li>
+            </ul>
+        </div>
+    </div>
+    
 
 <?php
 function getQuizzesCompleted($userID) {

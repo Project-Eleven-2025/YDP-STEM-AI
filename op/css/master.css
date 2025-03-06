@@ -172,6 +172,12 @@ nav {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.card img {
+    width: 100px;
+    background-color: lightgray;
+    border-radius: 5px;
+}
+
 .card h3 {
     font-size: 24px;
     margin-bottom: 15px;
@@ -180,6 +186,12 @@ nav {
 .card p {
     font-size: 16px;
     color: #555;
+}
+
+.box-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 /* Footer Styles */
