@@ -9,12 +9,15 @@
 <body>
     <div class="container">
         <div class="form-container">
-            <form id="login-form" action="../process/login-backend.php" method="POST">
+            <form id="login-form" action="../process/login.php" method="POST">
                 <h2>Login</h2>
                 <label for="login-username">Username:</label>
                 <input type="text" id="login-username" name="username" required>
                 <label for="login-password">Password:</label>
                 <input type="password" id="login-password" name="password" required>
+                <label for="remember-me">
+                    <input type="checkbox" id="remember-me" name="remember-me">
+                    Remember Me
                 <button type="submit">Login</button>
             </form>
         </div>

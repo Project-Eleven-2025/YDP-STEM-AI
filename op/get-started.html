@@ -45,6 +45,15 @@
                 align-items: center;
                 justify-content: center;
             }
+            #register {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            #average-career {
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
@@ -165,28 +174,32 @@
             <h1>
                 It appears that your interests align with a career in
                 <span id="average-career" onscroll="showAverageCareer()">
-                </span>
-                !
-            </h1>
+                </span></h1>
+            <div class="register" id="register">
+                <h1>Register</h1>
+                <form id="form" action="../process/register.php" name="submit" method="post">
+                    <h1>Let's create "you" a profile!</h1>
+                    first name: <input type="text" name="fname" required /><br />
+                    last name: <input type="text" name="lname" required /><br />
+                    middlename: <input type="text" name="mname" required /><br />
+                    <abbr title="This will be used in your login!">username: <input type="text" name="uname" required /></abbr>
+                        <br />
+                    nickname: <input type="text" name="nname" required /><br />
+                    email: <input type="email" name="email" required /><br />
+                    birthdate: <input type="date" name="birthdate" required /><br />
+                    address: <input type="text" name="address" required /><br />
+                    tel / phone number: <input type="text" name="phone" required /><br />
+                    gender: 
+                    <input type="radio" name="gender" value="male" required /> Male
+                    <input type="radio" name="gender" value="female" required /> Female
+                    <br />
+                    school: <input type="text" name="school" required /><br />
+                    password: <input type="password" name="password" required /><br />
+                    <input type="hidden" name="group" id="group" value="student" />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
         </slide>
-
-        <form id="form" action="../process/register.php" method="post">
-            <h1>Let's create "you" a profile!</h1>
-            first name: <input type="text" name="fname" required /><br />
-            last name: <input type="text" name="lname" required /><br />
-            middlename: <input type="text" name="mname" required /><br />
-            nickname: <input type="text" name="nname" required /><br />
-            email: <input type="email" name="email" required /><br />
-            tel / phone number: <input type="text" name="phone" required /><br />
-            gender: 
-            <input type="radio" name="gender" value="male" required /> Male
-            <input type="radio" name="gender" value="female" required /> Female
-            <br />
-            school: <input type="text" name="school" required /><br />
-            password: <input type="password" name="password" required /><br />
-            <input type="hidden" name="group" id="group" value="student" />
-            <button type="submit">Submit</button>
-        </form>
         <script src="./get-started.js"></script>
     </body>
 </html>

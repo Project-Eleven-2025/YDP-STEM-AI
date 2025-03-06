@@ -1,80 +1,92 @@
 <?php
 session_start();
+
+$host = "localhost";
+$dbname = "masterlist_db";
+$user = "ydp-stem";
+$password = "project2025";
+
 header("Content-Type: application/json");
 
-$response = ["success" => false, "message" => "Invalid username or password."];
+$dsn = "mysql:host=$host;dbname=$dbname";
+$conn = new PDO($dsn, $user, $password);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $input = json_decode(file_get_contents("php://input"), true);
-    
-    $username = $input["username"] ?? "";
-    $password = $input["password"] ?? "";
-    
-    $host = "localhost";
-    $dbUsername = "postgres";
-    $dbPassword = "your_password";
-    $dbname = "masterlist_db"; 
-
-    try {
-        $conn = new PDO("pgsql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch (PDOException $e) {
-        // Error connecting to the database
-        echo json_encode(["success" => false, "message" => "Database connection failed: " . $e->getMessage()]);
-        exit();
+function validate($tablename, $columnname, $value){
+    global $conn;
+    $sql = "SELECT * FROM $tablename WHERE $columnname = :value";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([':value' => $value]);
+    if ($stmt->rowCount() > 0) {
+        return false;
     }
-
-    // Function to verify user login (student or teacher)
-    function checkLogin($conn, $table, $idColumn, $usernameColumn, $passwordColumn) {
-        global $username, $password;
-        
-        try {
-            $stmt = $conn->prepare("SELECT $idColumn, $usernameColumn, $passwordColumn FROM $table WHERE $usernameColumn = :username");
-            $stmt->bindParam(":username", $username);
-            $stmt->execute();
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    
-            if ($user && hash_equals($user[$passwordColumn], hash("sha256", $password))) {
-                return $user;
-            } else {
-                return null;
-            }
-        } catch (PDOException $e) {
-            echo json_encode(["success" => false, "message" => "Query error: " . $e->getMessage()]);
-            exit();
-        }
-    }
-
-    $user = checkLogin($conn, "user_info", "userID", "username", "pass_hash");
-
-    if ($user) {
-        $_SESSION["loggedin"] = true;
-        $_SESSION["username"] = $username;
-        $_SESSION["userID"] = $user["userID"];
-        $_SESSION["role"] = "student";
-        
-        // Redirect to dashboard for students, change it
-        header("Location: dashboard.php");
-        exit();
-    } else {
-        $teacher = checkLogin($conn, "teachers_info", "teacherID", "username", "pass_hash");
-
-        if ($teacher) {
-            $_SESSION["loggedin"] = true;
-            $_SESSION["username"] = $username;
-            $_SESSION["userID"] = $teacher["teacherID"];
-            $_SESSION["role"] = "teacher";
-            
-            // Redirect to dashboard for teachers,change it
-            header("Location: dashboard.php");
-            exit();
-        } else {
-            // If both student and teacher are not found, show an error
-            $response["message"] = "Invalid username or password.";
-        }
-    }
-
-    echo json_encode($response);
-    exit();
+    return true;
 }
+
+function get_UserID($group){
+    global $conn;
+    $year = date("Y");
+    $month_day = date("md"); // Get MMDD
+    $userIndex = str_pad(rand(0, 9999999999), 10, "0", STR_PAD_LEFT);
+    $uniqueID = rand(1000, 9999); // Unique control number (random 4-digit)
+    $userID = "{$year}-{$group}{$userIndex}-{$uniqueID}-{$month_day}";
+    return $userID;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $stmt = $conn->prepare("SELECT * FROM user_info WHERE username = :username");
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user || !isset($user['pass_hash']) || !password_verify($password, $user['pass_hash'])) { // Fixed: Added check for 'pass_hash'
+        echo json_encode(['status' => 'error', 'message' => 'Invalid username or password']);
+    }
+    $_SESSION['user_id'] = $user['userID']; // Fixed: Corrected 'id' to 'userID'
+    echo json_encode(['status' => 'success', 'message' => 'Login successful']);
+    
+
+    if (isset($_GET['remember_me']) && $_GET['remember_me'] == '1') {
+        $sessionId = session_id();
+        setcookie('session_id', $sessionId, time() + (86400 * 30), "/"); // 86400 = 1 day, cookie lasts for 30 days
+
+        // Log session ID, date created, and user who created it to database
+        $stmt = $conn->prepare("INSERT INTO session_log (session_id, user_id, date_created) VALUES (:session_id, :user_id, NOW())");
+        $stmt->bindParam(':session_id', $sessionId);
+        $stmt->bindParam(':user_id', $user['userID']);
+        $stmt->execute();
+    }
+
+    // Append session_id to URL
+    $url = $_SERVER['REQUEST_URI'];
+    $url .= (strpos($url, '?') === false ? '?' : '&') . 'session_id=' . session_id();
+    
+    if ($user && isset($user['userID'])) { // Fixed: Added check for 'userID'
+        $userID = $user['userID']; // Fixed: Corrected 'user_id' to 'userID'
+        $group = substr($userID, strpos($userID, '-') + 1, 1); // Assuming group is the first character after the first dash
+
+        switch ($group) {
+            case 's':
+                echo json_encode(['userID' => $user['userID'], 'group' => substr($user['userID'], strpos($user['userID'], '-') + 1, 1)]);
+                header("Location: ../op/student/dashboard.php?session_id=" . session_id());
+                break;
+            case 't':
+                echo json_encode(['userID' => $user['userID'], 'group' => substr($user['userID'], strpos($user['userID'], '-') + 1, 1)]);
+                header("Location: ../op/admin/dashboard.php?session_id=" . session_id());
+                break;
+            case 'a':
+                echo json_encode(['userID' => $user['userID'], 'group' => substr($user['userID'], strpos($user['userID'], '-') + 1, 1)]);
+                header("Location: ../op/admin/dashboard.php?session_id=" . session_id());
+                break;
+        }
+        exit();
+    }
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
+}
+?>
+
