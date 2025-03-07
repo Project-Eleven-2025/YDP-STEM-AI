@@ -1,0 +1,25 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient for a modern look -->
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#007ACC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00CC66;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Optional background circle -->
+  <circle cx="100" cy="100" r="90" fill="#fff" stroke="none" />
+  
+  <!-- Three elliptical orbits to represent diverse STEM fields -->
+  <ellipse cx="100" cy="100" rx="60" ry="30" fill="none" stroke="url(#grad1)" stroke-width="4"/>
+  <ellipse cx="100" cy="100" rx="30" ry="60" fill="none" stroke="url(#grad1)" stroke-width="4" transform="rotate(45 100 100)"/>
+  <ellipse cx="100" cy="100" rx="45" ry="20" fill="none" stroke="url(#grad1)" stroke-width="4" transform="rotate(-45 100 100)"/>
+  
+  <!-- Central nucleus representing core learning -->
+  <circle cx="100" cy="100" r="8" fill="url(#grad1)" />
+  
+  <!-- Optional text for the website name -->
+  <text x="100" y="180" font-family="Verdana" font-size="20" text-anchor="middle" fill="#333">
+    STEM
+  </text>
+</svg>
