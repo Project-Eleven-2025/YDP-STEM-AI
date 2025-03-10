@@ -127,8 +127,60 @@ CREATE TABLE `quizzes` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for admin 'admin_info'
+--
+
+CREATE TABLE `admin_info` (
+  `adminID` varchar(50) NOT NULL PRIMARY KEY,
+  `username` varchar(50) NOT NULL UNIQUE,
+  `pass_hash` varchar(255) NOT NULL,
+  `admin_emailadd` varchar(100) NOT NULL UNIQUE,
+  `admin_phonenum` varchar(15) DEFAULT NULL,
+  `admin_fname` varchar(50) NOT NULL,
+  `admin_lname` varchar(50) NOT NULL,
+  `admin_mname` varchar(50) NOT NULL,
+  `admin_role` ENUM('superadmin', 'admin') NOT NULL DEFAULT 'admin';
+  `admin_status` ENUM('active', 'pending', 'suspended') NOT NULL DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- --------------------------------------------------------
+
+--
+-- Table structure for table 'audit_logs'
+--
+
+
+CREATE TABLE audit_logs (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    admin_id VARCHAR(50) NOT NULL,
+    action VARCHAR(255) NOT NULL,
+    user_id VARCHAR(50) NOT NULL,
+    role ENUM('student', 'teacher', 'admin') NOT NULL,
+    details TEXT DEFAULT NULL;
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- --------------------------------------------------------
+
+-- Insert an Admin User
+-- Email: admin@placeholder.com
+-- Password: admin123 (hashed using password_hash)
+--
+
+INSERT INTO `admin_info` 
+(`adminID`, `username`, `pass_hash`, `admin_emailadd`, `admin_phonenum`, `admin_fname`, `admin_lname`, `admin_mname`, `admin_status`, `admin_role`, `created_at`) 
+VALUES 
+('admin-001', 'admin', '$2y$10$hGxjNc6X4FOVcujwYrPL6OSCZ7OcHdApe9mhKTu/Ay5wMmnBp.Eye', 
+'admin@placeholder.com', '09123456789', 'System', 'Administrator', 'Operator', 
+'active', 'superadmin', NOW());
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `teachers_info`
 --
+
+
 
 CREATE TABLE `teachers_info` (
   `teacherID` varchar(50) NOT NULL,
@@ -277,6 +329,16 @@ ALTER TABLE `login_session_logs`
 --
 ALTER TABLE `quizzes`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `admin_info`
+--
+
+ALTER TABLE `admin_info`
+  ADD PRIMARY KEY (`adminID`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `admin_emailadd` (`admin_emailadd`);
+  ADD UNIQUE KEY 'admin_phonenum' ('admin_phonenum');
 
 --
 -- Indexes for table `teachers_info`
