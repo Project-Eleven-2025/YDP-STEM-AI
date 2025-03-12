@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>STEM Courses</title>
+        <link rel="icon" href="../logo/logo.svg" />
+        <style>
+            :root {
+                --primary-color: #099709;
+                --secondary-color: #FFD27F;
+                --accent1-color: #FAF3E0;
+                --accent2-color: #FFFFFF;
+                --text-color: #333;
+                --shadow-color: rgba(0, 0, 0, 0.1);
+            }
+            body {
+                font-family: Arial, sans-serif;
+                background-color: var(--accent1-color);
+                color: var(--text-color);
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                width: 90%;
+                max-width: 1200px;
+                margin: auto;
+                padding: 20px;
+            }
+            header {
+                background: var(--secondary-color);
+                padding: 20px;
+                border-radius: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .nav-links {
+                list-style: none;
+                display: flex;
+                gap: 20px;
+            }
+            .nav-links a {
+                text-decoration: none;
+                color: var(--text-color);
+                font-weight: bold;
+            }
+            .hero {
+                text-align: center;
+                padding: 50px 20px;
+            }
+            .hero-content {
+                background: var(--accent2-color);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 2px 2px 10px var(--shadow-color);
+            }
+            .services {
+                margin-top: 40px;
+            }
+            .service-cards {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .card {
+                flex: 1;
+                background: var(--accent2-color);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 2px 2px 10px var(--shadow-color);
+            }
+            footer {
+                text-align: center;
+                padding: 20px;
+                background: var(--secondary-color);
+                border-radius: 10px;
+                margin-top: 40px;
+            }
+            .card img {
+                width: 50px; /* Adjust the size as needed */
+                height: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <div class="logo">
+                    <a href="index.html"><img width="80px" src="logo/logo.svg" alt="Logo"></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="plans.html">Plans</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Log-in</a></li>
+                </ul>
+                <div class="menu-icon" id="menu-icon">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </header>
+            <section class="hero">
+                <h2>STEM CAREERS</h2>
+                <p>STEM Education Leads to Better Careers</p>
+                <p>STEM (Science, Technology, Engineering, and Mathematics) education equips students with essential skills for today’s job market. With industries becoming increasingly technology-driven, STEM careers offer higher salaries, job stability, and opportunities for innovation and growth. Investing in STEM opens doors to cutting-edge industries and future-ready careers.</p>
+                <h3>Why STEM Leads to Better Careers?</h3>
+                <ul>
+                    <li>✅ High Demand – Industries like technology, healthcare, engineering, and data science need skilled STEM graduates.</li>
+                    <li>✅ Higher Salaries & Growth – STEM careers pay more, with top fields including AI, cybersecurity, biotechnology, and software development.</li>
+                    <li>✅ Innovation & Impact – STEM professionals drive advancements in clean energy, medical research, and new technologies.</li>
+                    <li>✅ Job Security – STEM careers remain resilient against automation and continue evolving.</li>
+                    <li>✅ Diverse Career Paths – Opportunities range from robotics and space exploration to environmental science and financial analytics.</li>
+                </ul>
+                <p>📚 Investing in STEM means securing a future of success, innovation, and career growth! 🚀</p>
+            </section>
+            <section id="services" class="services">
+                <div class="service-cards">
+                    <div class="card">
+                        <img src="icons/flask-solid.svg" alt="">
+                        <h3>Science Careers (Healthcare, Environment, and Research)</h3>
+                        <ul>
+                            <li>Chemist</li>
+                            <li>Physicist</li>
+                            <li>Food Technologist</li>
+                            <li>Forensic Scientist</li>
+                            <li>Meteorologist</li>
+                            <li>Marine Biologist</li>
+                            <li>Forester</li>
+                            <li>Agriculturist</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <img src="icons/desktop-solid.svg" alt="">
+                        <h3>Technology Careers (IT, Digital, and Cybersecurity)</h3>
+                        <ul>
+                            <li>Software Developer</li>
+                            <li>IT Support Specialist</li>
+                            <li>Data Analyst</li>
+                            <li>Cybersecurity Analyst</li>
+                            <li>Web Developer</li>
+                            <li>AI & Machine Learning Specialist</li>
+                            <li>Game Developer</li>
+                            <li>Cloud Computing Engineer</li>
+                            <li>Network Administrator</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <img src="icons/wrench-solid.svg" alt="">
+                        <h3>Engineering Careers (Infrastructure, Manufacturing, and Renewable Energy)</h3>
+                        <ul>
+                            <li>Civil Engineer</li>
+                            <li>Electrical Engineer</li>
+                            <li>Mechanical Engineer</li>
+                            <li>Electronics & Communications Engineer</li>
+                            <li>Industrial Engineer</li>
+                            <li>Chemical Engineer</li>
+                            <li>Biomedical Engineer</li>
+                            <li>Energy Engineer (Renewable Energy)</li>
+                            <li>Mining Engineer</li>
+                            <li>Robotics Engineer</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <img src="icons/equals-solid.svg" alt="">
+                        <h3>Mathematics Careers (Finance, Analytics, and Statistics)</h3>
+                        <ul>
+                            <li>Actuary</li>
+                            <li>Data Scientist</li>
+                            <li>Statistician</li>
+                            <li>Financial Analyst</li>
+                            <li>Operations Research Analyst</li>
+                            <li>Market Research Analyst</li>
+                            <li>Risk Analyst</li>
+                            <li>Supply Chain Analyst</li>
+                            <li>Economist</li>
+                            <li>Cryptographer</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <img src="icons/chalkboard-teacher-solid.svg" alt="">
+                        <h3>STEM Education Careers (Teaching and Academic Research)</h3>
+                        <ul>
+                            <li>Science Teacher (Elementary, Junior High, Senior High, College)</li>
+                            <li>Mathematics Teacher</li>
+                            <li>Physics Teacher</li>
+                            <li>Chemistry Teacher</li>
+                            <li>Biology Teacher</li>
+                            <li>ICT/Computer Science Teacher</li>
+                            <li>Engineering Professor</li>
+                            <li>Research and Development Specialist</li>
+                            <li>STEM Curriculum Developer</li>
+                            <li>Educational Technology Specialist</li>
+                            <li>Instructional Materials Designer</li>
+                            <li>STEM Trainer and Workshop Facilitator</li>
+                        </ul>
+                        <p>The teaching profession is critical in shaping the next generation of scientists, engineers, and innovators. STEM educators bridge the gap between theory and application, ensuring that students gain the skills needed for future-ready careers. 🚀</p>
+                    </div>
+                </div>
+            </section>
+            <section class="hero">
+                <img width="300px" src="logo/logo.svg" alt="">
+                <div class="hero-content" style="border-left: 5px solid slateblue;">
+                    <h1>Don't know what career you want?</h1>
+                    <p>Start your learning journey here at STEM!</p>
+                    <a class="btn" href="get-started.html">
+                        Get Started
+                    </a>
+                </div>
+            </section>
+            <footer>
+                <p>&copy; 2025 YDP-STEM learnstem. All rights reserved.</p>
+            </footer>
+        </div>
+    </body>
+</html>
