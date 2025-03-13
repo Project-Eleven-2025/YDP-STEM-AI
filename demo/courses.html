@@ -14,6 +14,7 @@
                 --text-color: #333;
                 --shadow-color: rgba(0, 0, 0, 0.1);
             }
+            
             body {
                 font-family: Arial, sans-serif;
                 background-color: var(--accent1-color);
@@ -27,43 +28,71 @@
                 margin: auto;
                 padding: 20px;
             }
-            header {
-                background: var(--secondary-color);
-                padding: 20px;
-                border-radius: 10px;
+            .header {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                padding: 20px;
+                background: var(--secondary-color);
+                border-radius: 10px;
             }
             .nav-links {
-                list-style: none;
                 display: flex;
+                border: 3px solid none;
+                color: var(--accent2-color);
+                background-color: var(--primary-color);
+                border-radius: 35px;
+            }
+    
+            .nav-links a {
+                display: flex;
+                color: var(--text-color);
+                text-decoration: none;
+            }
+    
+            .nav-links span {
+                display: flex;
+                border: 0px solid none;
+                padding: 35px;
                 gap: 20px;
             }
-            .nav-links a {
-                text-decoration: none;
+    
+            .nav-links span:hover {
+                display: flex;
+                border: 0px solid none;
                 color: var(--text-color);
+                padding: 35px;
+                transition: 0.5s ease-in-out;
+                background-color: var(--secondary-color);
+                gap: 20px;
+            }
+    
+            .button {
+                background: var(--primary-color);
+                color: var(--accent2-color);
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                text-decoration: none;
                 font-weight: bold;
             }
             .hero {
-                text-align: center;
+                display: flex;
+                text-align: left;
                 padding: 50px 20px;
+                flex-direction: row;
+                justify-content: center;
             }
-            .hero-content {
-                background: var(--accent2-color);
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 2px 2px 10px var(--shadow-color);
+            .hero h1 {
+                font-size: 2.5rem;
             }
-            .services {
+            .features {
+                display: flex;
+                justify-content: space-around;
+                gap: 20px;
                 margin-top: 40px;
             }
-            .service-cards {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 20px;
-            }
-            .card {
+            .feature-box {
                 flex: 1;
                 background: var(--accent2-color);
                 padding: 20px;
@@ -71,37 +100,31 @@
                 box-shadow: 2px 2px 10px var(--shadow-color);
             }
             footer {
+                background-color: var(--secondary-color);
+                padding: 20px 0;
                 text-align: center;
-                padding: 20px;
-                background: var(--secondary-color);
-                border-radius: 10px;
-                margin-top: 40px;
+                color: var(--text-color);
             }
-            .card img {
-                width: 50px; /* Adjust the size as needed */
-                height: auto;
+    
+            footer p {
+                font-size: 14px;
             }
         </style>
     </head>
     <body>
+        <div class="header">
+            <img width="100px" src="../op/logo/logo.svg" alt="">
+            <div class="nav-links">
+                <span><a href="../index.html">Home</a></span>
+                <span><a href="plans.html">Plans</a></span>
+                <span><a href="products.html">Products</a></span>
+                <span><a href="courses.html">Courses</a></span>
+                <span><a href="about.html">About</a></span>
+            </div>
+        </div>
         <div class="container">
-            <header>
-                <div class="logo">
-                    <a href="index.html"><img width="80px" src="logo/logo.svg" alt="Logo"></a>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="plans.html">Plans</a></li>
-                    <li><a href="courses.html">Courses</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="#">Log-in</a></li>
-                </ul>
-                <div class="menu-icon" id="menu-icon">
-                    <i class="fa fa-bars"></i>
-                </div>
-            </header>
-            <section class="hero">
-                <h2>STEM CAREERS</h2>
+            <section>
+                <h2 style="font-size: 2.5rem;">STEM CAREERS</h2>
                 <p>STEM Education Leads to Better Careers</p>
                 <p>STEM (Science, Technology, Engineering, and Mathematics) education equips students with essential skills for today’s job market. With industries becoming increasingly technology-driven, STEM careers offer higher salaries, job stability, and opportunities for innovation and growth. Investing in STEM opens doors to cutting-edge industries and future-ready careers.</p>
                 <h3>Why STEM Leads to Better Careers?</h3>
@@ -114,10 +137,10 @@
                 </ul>
                 <p>📚 Investing in STEM means securing a future of success, innovation, and career growth! 🚀</p>
             </section>
-            <section id="services" class="services">
-                <div class="service-cards">
-                    <div class="card">
-                        <img src="icons/flask-solid.svg" alt="">
+            <section id="services" class="services" style="margin-top: 40px;">
+                <div class="service-cards" style="display: flex; flex-wrap: wrap; gap: 20px;">
+                    <div class="card" style="flex: 1; background: var(--accent2-color); padding: 20px; border-radius: 10px; box-shadow: 2px 2px 10px var(--shadow-color);">
+                        <img src="icons/flask-solid.svg" alt="" style="width: 50px; height: auto;">
                         <h3>Science Careers (Healthcare, Environment, and Research)</h3>
                         <ul>
                             <li>Chemist</li>
@@ -130,8 +153,8 @@
                             <li>Agriculturist</li>
                         </ul>
                     </div>
-                    <div class="card">
-                        <img src="icons/desktop-solid.svg" alt="">
+                    <div class="card" style="flex: 1; background: var(--accent2-color); padding: 20px; border-radius: 10px; box-shadow: 2px 2px 10px var(--shadow-color);">
+                        <img src="icons/desktop-solid.svg" alt="" style="width: 50px; height: auto;">
                         <h3>Technology Careers (IT, Digital, and Cybersecurity)</h3>
                         <ul>
                             <li>Software Developer</li>
@@ -145,8 +168,8 @@
                             <li>Network Administrator</li>
                         </ul>
                     </div>
-                    <div class="card">
-                        <img src="icons/wrench-solid.svg" alt="">
+                    <div class="card" style="flex: 1; background: var(--accent2-color); padding: 20px; border-radius: 10px; box-shadow: 2px 2px 10px var(--shadow-color);">
+                        <img src="icons/wrench-solid.svg" alt="" style="width: 50px; height: auto;">
                         <h3>Engineering Careers (Infrastructure, Manufacturing, and Renewable Energy)</h3>
                         <ul>
                             <li>Civil Engineer</li>
@@ -161,8 +184,8 @@
                             <li>Robotics Engineer</li>
                         </ul>
                     </div>
-                    <div class="card">
-                        <img src="icons/equals-solid.svg" alt="">
+                    <div class="card" style="flex: 1; background: var(--accent2-color); padding: 20px; border-radius: 10px; box-shadow: 2px 2px 10px var(--shadow-color);">
+                        <img src="icons/equals-solid.svg" alt="" style="width: 50px; height: auto;">
                         <h3>Mathematics Careers (Finance, Analytics, and Statistics)</h3>
                         <ul>
                             <li>Actuary</li>
@@ -177,39 +200,29 @@
                             <li>Cryptographer</li>
                         </ul>
                     </div>
-                    <div class="card">
-                        <img src="icons/chalkboard-teacher-solid.svg" alt="">
-                        <h3>STEM Education Careers (Teaching and Academic Research)</h3>
-                        <ul>
-                            <li>Science Teacher (Elementary, Junior High, Senior High, College)</li>
-                            <li>Mathematics Teacher</li>
-                            <li>Physics Teacher</li>
-                            <li>Chemistry Teacher</li>
-                            <li>Biology Teacher</li>
-                            <li>ICT/Computer Science Teacher</li>
-                            <li>Engineering Professor</li>
-                            <li>Research and Development Specialist</li>
-                            <li>STEM Curriculum Developer</li>
-                            <li>Educational Technology Specialist</li>
-                            <li>Instructional Materials Designer</li>
-                            <li>STEM Trainer and Workshop Facilitator</li>
-                        </ul>
-                        <p>The teaching profession is critical in shaping the next generation of scientists, engineers, and innovators. STEM educators bridge the gap between theory and application, ensuring that students gain the skills needed for future-ready careers. 🚀</p>
-                    </div>
                 </div>
-            </section>
-            <section class="hero">
-                <img width="300px" src="logo/logo.svg" alt="">
-                <div class="hero-content" style="border-left: 5px solid slateblue;">
-                    <h1>Don't know what career you want?</h1>
-                    <p>Start your learning journey here at STEM!</p>
-                    <a class="btn" href="get-started.html">
-                        Get Started
-                    </a>
-                </div>
-            </section>
-            <footer>
-                <p>&copy; 2025 YDP-STEM learnstem. All rights reserved.</p>
+            </section><br>
+            <div class="card" style="flex: 1; background: var(--accent2-color); padding: 20px; border-radius: 10px; box-shadow: 2px 2px 10px var(--shadow-color);">
+                <img src="icons/chalkboard-teacher-solid.svg" alt="" style="width: 50px; height: auto;">
+                <h3>STEM Education Careers (Teaching and Academic Research)</h3>
+                <ul>
+                    <li>Science Teacher (Elementary, Junior High, Senior High, College)</li>
+                    <li>Mathematics Teacher</li>
+                    <li>Physics Teacher</li>
+                    <li>Chemistry Teacher</li>
+                    <li>Biology Teacher</li>
+                    <li>ICT/Computer Science Teacher</li>
+                    <li>Engineering Professor</li>
+                    <li>Research and Development Specialist</li>
+                    <li>STEM Curriculum Developer</li>
+                    <li>Educational Technology Specialist</li>
+                    <li>Instructional Materials Designer</li>
+                    <li>STEM Trainer and Workshop Facilitator</li>
+                </ul>
+                <p>The teaching profession is critical in shaping the next generation of scientists, engineers, and innovators. STEM educators bridge the gap between theory and application, ensuring that students gain the skills needed for future-ready careers. 🚀</p>
+            </div>
+            <footer style="background-color: var(--secondary-color); padding: 20px 0; text-align: center; color: var(--text-color); border-radius: 10px; margin-top: 40px;">
+                <p style="font-size: 14px;">&copy; 2025 YDP-STEM learnstem. All rights reserved.</p>
             </footer>
         </div>
     </body>
