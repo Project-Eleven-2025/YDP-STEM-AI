@@ -3,8 +3,8 @@ session_start();
 
 $host = "localhost";
 $dbname = "masterlist_db";
-$user = "ydp-stem";
-$password = "project2025";
+$user = "root";
+$password = "";
 
 header("Content-Type: application/json");
 
