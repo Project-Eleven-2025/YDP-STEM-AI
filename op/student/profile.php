@@ -35,7 +35,7 @@
         $session_id = isset($_SESSION['sessionID']) ? $_SESSION['sessionID'] : null;
 
         // Verify the session ID with the database
-        $query = "SELECT * FROM login_session_logs WHERE session_id = ?";
+        $query = "SELECT * FROM login_attempts WHERE session_id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param('s', $session_id);
         $stmt->execute();

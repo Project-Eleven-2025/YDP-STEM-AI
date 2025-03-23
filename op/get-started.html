@@ -7,16 +7,116 @@
         <link rel="icon" href="./op/logo/logo.svg" />
         <link rel="stylesheet" href="css/master.css" />
         <style>
+            :root {
+                --primary-color: #04b604;
+                --secondary-color: #FFD27F;
+                --accent1-color: #FAF3E0;
+                --accent2-color: #FFFFFF;
+                --text-color: #333;
+                --shadow-color: rgba(0, 0, 0, 0.1);
+            }
+
             body {
                 font-family: Arial, sans-serif;
+                background-color: var(--accent1-color);
+                color: var(--text-color);
                 margin: 0;
                 padding: 0;
             }
+
+            .container {
+                width: 90%;
+                max-width: 1200px;
+                margin: auto;
+                padding: 20px;
+            }
+
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+                background: var(--secondary-color);
+                border-radius: 10px;
+            }
+
+            .nav-links {
+                display: flex;
+                background-color: var(--primary-color);
+                border-radius: 35px;
+                font-size: smaller;
+            }
+
+            .nav-links a {
+                color: var(--text-color);
+                font-weight: bold;
+                text-decoration: none;
+                font-size: medium;
+            }
+
+            .nav-links span {
+                padding: 35px;
+                gap: 20px;
+            }
+
+            .nav-links span:hover {
+                transition: 0.5s ease-in-out;
+                background-color: var(--secondary-color);
+            }
+
+            .button {
+                background: var(--primary-color);
+                color: var(--accent2-color);
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            .hero {
+                display: flex;
+                text-align: left;
+                padding: 50px 20px;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .features {
+                display: flex;
+                justify-content: space-around;
+                gap: 20px;
+                margin-top: 40px;
+            }
+
+            .feature-box {
+                flex: 1;
+                background: var(--accent2-color);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 2px 2px 10px var(--shadow-color);
+            }
+
+            footer {
+                background-color: var(--secondary-color);
+                padding: 20px 0;
+                text-align: center;
+                color: var(--text-color);
+            }
+
+            footer p {
+                font-size: 14px;
+            }
+
             .slide {
                 display: none;
                 opacity: 0;
                 transition: opacity 0.5s ease-in-out;
             }
+
             .slide.active {
                 display: flex;
                 flex-direction: column;
@@ -24,6 +124,7 @@
                 justify-content: center;
                 opacity: 1;
             }
+
             button {
                 padding: 10px 20px;
                 margin-top: 20px;
@@ -33,407 +134,446 @@
                 border-radius: 5px;
                 cursor: pointer;
             }
+
             button:hover {
                 background-color: #0056b3;
             }
+
             .next {
                 margin-top: 40px;
             }
+
             #form {
                 display: none;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
             }
+
             #register {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
             }
+
             #average-career {
                 font-weight: bold;
             }
+
             #currentSlide {
-                position: flex;
                 padding: 10px;
                 background-color: #007bff;
                 color: white;
             }
+
             .referral-sources {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                display: inline-grid;
+                grid-auto-flow: column;
+                grid-template-rows: auto;
                 gap: 20px;
                 align-items: center;
+                justify-content: start;
+            }
+
+            .selectable-box {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 justify-content: center;
+                padding: 10px;
+                border: 2px solid transparent;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: border-color 0.3s ease, background-color 0.3s ease;
+            }
+
+            .selectable-box:hover {
+                border-color: var(--primary-color);
+                background-color: var(--accent1-color);
+            }
+
+            input[type="radio"] {
+                display: none;
+            }
+
+            input[type="radio"]:checked + .selectable-box {
+                border-color: var(--primary-color);
+                background-color: var(--secondary-color);
+            }
+
+            .selectable-box img {
+                margin-bottom: 10px;
+            }
+
+            .selectable-box p {
+                margin: 0;
+                font-weight: bold;
+                color: var(--text-color);
             }
         </style>
-
+        <script src="get-started.js"></script>
     </head>
     <body>
-        <header>
-            <nav>
-                <div class="logo">
-                    <a href="index.html"><img width="80px" src="logo/logo.svg" alt="Logo"></a>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="plans.html">Plans</a></li>
-                    <li><a href="courses.html">Courses</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="login.html">Log-in</a></li>
-                </ul>
-                <div class="menu-icon" id="menu-icon">
-                    <i class="fa fa-bars"></i>
-                </div>
-            </nav>
-        </header>
-        <span id="currentSlide">1</span> <span id="totalSlides">of 7</span></div>
-        <slide id="0" class="slide">
-            <h1>An error occured</h1>
-        </slide>
-        <slide id="1" class="slide active">
-            <h1>Hello! Welcome to LearnStem!</h1>
-            <button class="next" type="button" onclick="nextSlide()">Next</button>
-        </slide>
-        <slide id="2" class="slide">
-            <h1>Where did you learn from us?</h1>
-            <table class="referral-sources">
-                <tr>
-                    <th>
-                        <label for="social-media">
-                            Social Media
-                        </label>
-                    </th>
-                    <th>
-                        <label for="friends">
-                            Friends
-                        </label>
-                    </th>
-                    <th>
-                        <label for="school">
-                            School
-                        </label>
-                    </th>
-                    <th>
-                        <label for="other">
-                            Other
-                        </label>
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="icons/facebook_solid.svg" alt="" style="width: 80px; background-color: rgb(0, 0, 0); border-radius: 50%;">                    
-                    </td>
-                    <td>
-                        <img src="icons/users-solid.svg" alt="" style="width: 80px; "> 
-                    </td>
-                    <td>
-                        <img src="icons/city-solid.svg" alt="" style="width: 80px; ">
-                    </td>
-                    <td>
-                        <img src="icons/tag-solid.svg" alt="" style="width: 80px; ">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="source" value="social-media" />
-                    </td>
-                    <td>
-                        <input type="radio" name="source" value="friends" />
-                    </td>
-                    <td>
-                        <input type="radio" name="source" value="school" />
-                    </td>
-                    <td>
-                        <input type="radio" name="source" value="other" />
-                    </td>
-                </tr>
-                
-            </table>
-            
-            <button type="button" onclick="nextSlide()">Next</button>
-        </slide>
-        <slide id="3" class="slide">
-            <h1>
-                You are given a complex problem to solve. How would you prefer
-                to approach it?
-            </h1>
-
-            <p>Choose the one that best describes you.</p>
-            <table>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="doctor" />
-                        <label for="doctor">I would break it down into smaller parts.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="nurse" />
-                        <label for="nurse">I would ask for help from others.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="science-teacher" />
-                        <label for="science-teacher">I would research and learn more about it.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="math-teacher" />
-                        <label for="math-teacher">I would try to solve it on my own.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="software-developer" />
-                        <label for="software-developer">I would try to find a solution online.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="data-scientist" />
-                        <label for="data-scientist">I would analyze the problem and find a solution.</label>
-                    </td>
-                </tr>
-            </table>
-
-            <button type="button" onclick="nextSlide()">Next</button>
-        </slide>
-        <slide id="4" class="slide">
-            <h1>Which activity sounds the most exciting to you?</h1>
-            <table>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="doctor" />
-                        <label for="doctor">Helping others in need.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="nurse" />
-                        <label for="nurse">Taking care of patients.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="science-teacher" />
-                        <label for="science-teacher">Teaching students about science.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="math-teacher" />
-                        <label for="math-teacher">Teaching students about math.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="software-developer" />
-                        <label for="software-developer">Developing software and apps.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="data-scientist" />
-                        <label for="data-scientist">Analyzing data and finding patterns.</label>
-                    </td>
-                </tr>
-            </table>
-            <button type="button" onclick="nextSlide()">Next</button>
-        </slide>
-        <slide id="5" class="slide">
-            <h1>What kind of impact do you want to make in the world?</h1>
-            <table>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="doctor" />
-                        <label for="doctor">Helping people live healthier lives.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="nurse" />
-                        <label for="nurse">Providing care and comfort to those in need.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="science-teacher" />
-                        <label for="science-teacher">Inspiring the next generation of scientists.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="math-teacher" />
-                        <label for="math-teacher">Helping students understand and enjoy math.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="software-developer" />
-                        <label for="software-developer">Creating innovative solutions to everyday problems.</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="data-scientist" />
-                        <label for="data-scientist">Using data to make informed decisions and solve problems.</label>
-                    </td>
-                </tr>
-            </table>
-            <button type="button" onclick="nextSlide()">Next</button>
-        </slide>
-        <slide id="6" class="slide">
-            <h1>What is your favorite subject in school?</h1>
-            <table>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="doctor" />
-                        <label for="doctor">Biology</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="nurse" />
-                        <label for="nurse">Nursing</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="science-teacher" />
-                        <label for="science-teacher">Science</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="math-teacher" />
-                        <label for="math-teacher">Math</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="software-developer" />
-                        <label for="software-developer">Computer Science</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="career" value="data-scientist" />
-                        <label for="data-scientist">Statistics</label>
-                    </td>
-                </tr>
-            </table>
-            <button type="button" onclick="nextSlide()">Next</button>
-        </slide>
-        <slide id="7" class="slide">
-            <h1>
-                It appears that your interests align with a career in
-                <span id="average-career" onscroll="showAverageCareer()">
-                </span></h1>
-            <div class="register" id="register">
-                <h1>Register</h1>
-                <form id="form" action="../process/register.php" name="submit" method="post">
-                    <h1>Let's create "you" a profile!</h1>
-                    <table>
-                        <tr>
-                            <td>First Name:</td>
-                            <td><input type="text" name="fname" required /></td>
-                        </tr>
-                        <tr>
-                            <td>Last Name:</td>
-                            <td><input type="text" name="lname" required /></td>
-                        </tr>
-                        <tr>
-                            <td>Middle Name:</td>
-                            <td><input type="text" name="mname" required /></td>
-                        </tr>
-                        <tr>
-                            <td><abbr title="This will be used in your login!">Username:</abbr></td>
-                            <td><input type="text" name="uname" required /></td>
-                        </tr>
-                        <tr>
-                            <td>Nickname:</td>
-                            <td><input type="text" name="nname" required /></td>
-                        </tr>
-                        <tr>
-                            <td>Email:</td>
-                            <td><input type="email" name="email" required /></td>
-                        </tr>
-                        <tr>
-                            <td>Birthdate:</td>
-                            <td><input type="date" name="birthdate" required /></td>
-                        </tr>
-                        <tr>
-                            <td>Address:</td>
-                            <td><input type="text" name="address" required /></td>
-                        </tr>
-                        <tr>
-                            <td>Tel / Phone Number:</td>
-                            <td><input type="text" name="phone" required /></td>
-                        </tr>
-                        <tr>
-                            <td>Gender:</td>
-                            <td>
-                                <input type="radio" name="gender" value="male" required /> Male
-                                <input type="radio" name="gender" value="female" required /> Female
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><p>What course do you want to apply?</p></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><p>Choose your courses:</p></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <input type="checkbox" name="course" value="math-teacher" /> Math Teacher<br />
-                                <input type="checkbox" name="course" value="doctor" disabled/> Doctor<br />
-                                <input type="checkbox" name="course" value="nurse" disabled/> Nurse<br />
-                                <input type="checkbox" name="course" value="science-teacher" disabled/> Science Teacher<br />
-                                <input type="checkbox" name="course" value="software-developer" disabled/> Software Developer<br />
-                                <input type="checkbox" name="course" value="data-scientist" disabled/> Data Scientist<br />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>School:</td>
-                            <td><input type="text" name="school" required /></td>
-                        </tr>
-                        <tr>
-                            <td>Password:</td>
-                            <td><input type="password" name="password" id="password" required /></td>
-                        </tr>
-                        <tr>
-                            <td>Confirm Password:</td>
-                            <td><input type="password" name="confirm_password" id="confirm_password" required /></td>
-                        </tr>
-                        <script>
-                            function validatePassword() {
-                                var password = document.getElementById("password");
-                                var confirm_password = document.getElementById("confirm_password");
-
-                                if (password.value != confirm_password.value) {
-                                    confirm_password.setCustomValidity("Passwords Don't Match");
-                                } else {
-                                    confirm_password.setCustomValidity('');
-                                }
-                            }
-
-                            document.getElementById("password").onchange = validatePassword;
-                            document.getElementById("confirm_password").onkeyup = validatePassword;
-                        </script>
-                        <tr>
-                            <td colspan="2">
-                                <input type="hidden" name="group" id="group" value="student" />
-                                <button type="submit">Submit</button>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
+        <div class="container">
+            <header class="header">
+            <img src="../op/logo/logo.svg" alt="Logo" width="100" />
+            <div style="display: flex; gap: 20px; float: right;">
+                <nav class="nav-links"><span>Already have an account? <a href="login.html">Log in</a></span></nav>
             </div>
-        </slide>
-        <script src="./get-started.js"></script>
+            </header>
+            <br>
+            <span id="currentSlide">1</span> <span id="totalSlides">of 7</span> 
+                <slide id="0" class="slide">
+                    <h1>An error occurred</h1>
+                </slide>
+                <slide id="1" class="slide active">
+                    <h1>Good Day! Welcome to Stem Career Development School</h1>
+                    <button class="next" type="button" onclick="nextSlide()">Next</button>
+                </slide>
+                <slide id="2" class="slide">
+                    <h1>Where did you learn from us?</h1>
+                    <div class="referral-sources">
+                        <label>
+                            <input type="radio" name="source" value="social-media" />
+                            <div class="selectable-box">
+                                <img src="icons/facebook_solid.svg" alt="Social Media" style="width: 80px; background-color: rgb(0, 0, 0); border-radius: 50%;">
+                                <p>Social Media</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="source" value="friends" />
+                            <div class="selectable-box">
+                                <img src="icons/users-solid.svg" alt="Friends" style="width: 80px;">
+                                <p>Friends</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="source" value="school" />
+                            <div class="selectable-box">
+                                <img src="icons/city-solid.svg" alt="School" style="width: 80px;">
+                                <p>School</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="source" value="other" />
+                            <div class="selectable-box">
+                                <img src="icons/tag-solid.svg" alt="Other" style="width: 80px;">
+                                <p>Other</p>
+                            </div>
+                        </label>
+                    </div>
+                    <button type="button" onclick="nextSlide()">Next</button>
+                </slide>
+                <slide id="3" class="slide">
+                    <h1>You are given a complex problem to solve. How would you prefer to approach it?</h1>
+                    <div class="referral-sources">
+                        <label>
+                            <input type="radio" name="career" value="doctor" />
+                            <div class="selectable-box">
+                                <p>I would break it down into smaller parts.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="nurse" />
+                            <div class="selectable-box">
+                                <p>I would ask for help from others.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="science-teacher" />
+                            <div class="selectable-box">
+                                <p>I would research and learn more about it.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="math-teacher" />
+                            <div class="selectable-box">
+                                <p>I would try to solve it on my own.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="software-developer" />
+                            <div class="selectable-box">
+                                <p>I would try to find a solution online.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="data-scientist" />
+                            <div class="selectable-box">
+                                <p>I would analyze the problem and find a solution.</p>
+                            </div>
+                        </label>
+                    </div>
+                    <button type="button" onclick="nextSlide()">Next</button>
+                </slide>
+                <slide id="4" class="slide">
+                    <h1>Which activity sounds the most exciting to you?</h1>
+                    <div class="referral-sources">
+                        <label>
+                            <input type="radio" name="career" value="doctor" />
+                            <div class="selectable-box">
+                                <p>Helping others in need.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="nurse" />
+                            <div class="selectable-box">
+                                <p>Taking care of patients.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="science-teacher" />
+                            <div class="selectable-box">
+                                <p>Teaching students about science.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="math-teacher" />
+                            <div class="selectable-box">
+                                <p>Teaching students about math.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="software-developer" />
+                            <div class="selectable-box">
+                                <p>Developing software and apps.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="data-scientist" />
+                            <div class="selectable-box">
+                                <p>Analyzing data and finding patterns.</p>
+                            </div>
+                        </label>
+                    </div>
+                    <button type="button" onclick="nextSlide()">Next</button>
+                </slide>
+                <slide id="5" class="slide">
+                    <h1>What kind of impact do you want to make in the world?</h1>
+                    <div class="referral-sources">
+                        <label>
+                            <input type="radio" name="career" value="doctor" />
+                            <div class="selectable-box">
+                                <p>Helping people live healthier lives.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="nurse" />
+                            <div class="selectable-box">
+                                <p>Providing care and comfort to those in need.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="science-teacher" />
+                            <div class="selectable-box">
+                                <p>Inspiring the next generation of scientists.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="math-teacher" />
+                            <div class="selectable-box">
+                                <p>Helping students understand and enjoy math.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="software-developer" />
+                            <div class="selectable-box">
+                                <p>Creating innovative solutions to everyday problems.</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="data-scientist" />
+                            <div class="selectable-box">
+                                <p>Using data to make informed decisions and solve problems.</p>
+                            </div>
+                        </label>
+                    </div>
+                    <button type="button" onclick="nextSlide()">Next</button>
+                </slide>
+                <slide id="6" class="slide">
+                    <h1>What is your favorite subject in school?</h1>
+                    <div class="referral-sources">
+                        <label>
+                            <input type="radio" name="career" value="doctor" />
+                            <div class="selectable-box">
+                                <p>Biology</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="nurse" />
+                            <div class="selectable-box">
+                                <p>Nursing</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="science-teacher" />
+                            <div class="selectable-box">
+                                <p>Science</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="math-teacher" />
+                            <div class="selectable-box">
+                                <p>Math</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="software-developer" />
+                            <div class="selectable-box">
+                                <p>Computer Science</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="career" value="data-scientist" />
+                            <div class="selectable-box">
+                                <p>Statistics</p>
+                            </div>
+                        </label>
+                    </div>
+                    <button type="button" onclick="nextSlide()">Next</button>
+                </slide>
+                <slide id="7" class="slide">
+                    <h1>
+                        It appears that your interests align with a career in
+                        <span id="average-career" onscroll="showAverageCareer()">
+                        </span>
+                    </h1>
+                    <div class="register" id="register">
+                        <h1>Register</h1>
+                        <form id="form" action="../process/register.php" name="submit" method="post">
+                            <h2>Let's create your profile!</h2>
+                            <div class="form-group">
+                                <label for="fname">First Name:</label>
+                                <input type="text" id="fname" name="fname" required />
+                            </div>
+                            <div class="form-group"></div>
+                                <label for="lname">Last Name:</label>
+                                <input type="text" id="lname" name="lname" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="mname">Middle Name:</label>
+                                <input type="text" id="mname" name="mname" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="uname">Username <abbr title="This will be used in your login!">*</abbr>:</label>
+                                <input type="text" id="uname" name="uname" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="nname">Nickname:</label>
+                                <input type="text" id="nname" name="nname" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="birthdate">Birthdate:</label>
+                                <input type="date" id="birthdate" name="birthdate" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address:</label>
+                                <input type="text" id="address" name="address" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Tel / Phone Number:</label>
+                                <input type="text" id="phone" name="phone" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Gender:</label>
+                                <div class="referral-sources">
+                                    <label>
+                                        <input type="radio" id="male" name="gender" value="male" required />
+                                        <div class="selectable-box">
+                                            <p>Male</p>
+                                        </div>
+                                    </label>
+                                    <label>
+                                        <input type="radio" id="female" name="gender" value="female" required />
+                                        <div class="selectable-box">
+                                            <p>Female</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p>What course do you want to apply?</p>
+                                <p>Choose your courses: <abbr title="Currently available">Why!?</abbr></p>
+                                <div>
+                                    <input type="checkbox" id="math-teacher" name="course" value="math-teacher" />
+                                    <label for="math-teacher">Math Teacher</label><br />
+                                    <input type="checkbox" id="doctor" name="course" value="doctor" disabled />
+                                    <label for="doctor">Doctor</label><br />
+                                    <input type="checkbox" id="nurse" name="course" value="nurse" disabled />
+                                    <label for="nurse">Nurse</label><br />
+                                    <input type="checkbox" id="science-teacher" name="course" value="science-teacher" disabled />
+                                    <label for="science-teacher">Science Teacher</label><br />
+                                    <input type="checkbox" id="software-developer" name="course" value="software-developer" disabled />
+                                    <label for="software-developer">Software Developer</label><br />
+                                    <input type="checkbox" id="data-scientist" name="course" value="data-scientist" disabled />
+                                    <label for="data-scientist">Data Scientist</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="school">School:</label>
+                                <input type="text" id="school" name="school" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="password" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm_password">Confirm Password:</label>
+                                <input type="password" id="confirm_password" name="confirm_password" required />
+                            </div>
+                            <script>
+                                function validatePassword() {
+                                    var password = document.getElementById("password");
+                                    var confirm_password = document.getElementById("confirm_password");
+
+                                    if (password.value != confirm_password.value) {
+                                        confirm_password.setCustomValidity("Passwords Don't Match");
+                                    } else {
+                                        confirm_password.setCustomValidity('');
+                                    }
+                                }
+
+                                document.getElementById("password").onchange = validatePassword;
+                                document.getElementById("confirm_password").onkeyup = validatePassword;
+                            </script>
+                            <div class="form-group">
+                                <label for="group">User Group:</label>
+                                <select name="group" id="group" required>
+                                    <option value="student">Student</option>
+                                    <option value="teacher">Teacher</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                                <button type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </slide>
+                <!-- SQL CREATE TABLE for this form
+                CREATE TABLE users (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    fname VARCHAR(50) NOT NULL,
+                    lname VARCHAR(50) NOT NULL,
+                    mname VARCHAR(50),
+                    uname VARCHAR(50) NOT NULL UNIQUE,
+                    nname VARCHAR(50),
+                    email VARCHAR(100) NOT NULL UNIQUE,
+                    birthdate DATE NOT NULL,
+                    address VARCHAR(255) NOT NULL,
+                    phone VARCHAR(20) NOT NULL,
+                    gender ENUM('male', 'female') NOT NULL,
+                    course VARCHAR(255),
+                    school VARCHAR(100) NOT NULL,
+                    password VARCHAR(255) NOT NULL,
+                    user_group ENUM('student', 'teacher', 'admin') DEFAULT 'student',
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+                -->
+            </div>
+        </div>
     </body>
 </html>

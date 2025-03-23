@@ -27,7 +27,10 @@ if ($conn->connect_error) {
 }
 
 // Update the logout time in the database
-$sql = "UPDATE login_session_logs SET logged_out_at='$loggedOutAt' WHERE session_id='$sessionId' AND user_id='$userId'";
+$sql = "UPDATE login_attempts 
+        SET logged_out_at='$loggedOutAt' 
+        WHERE session_id='$sessionId' 
+          AND user_id='$userId'";
 
 if ($conn->query($sql) === TRUE) {
     // Successfully logged out

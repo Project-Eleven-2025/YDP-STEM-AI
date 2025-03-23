@@ -154,90 +154,91 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <img width="100px" src="../op/logo/logo.svg" alt="">
-        <div class="nav-links">
-            <span><a href="../index.html">Home</a></span>
-            <span><a href="plans.html">Plans</a></span>
-            <span><a href="products.html">Products</a></span>
-            <span><a href="courses.html">Courses</a></span>
-            <span><a href="about.html">About</a></span>
-            <span><a href="login.html">Log-in</a></span>
+    <div class="container">
+        <div class="header">
+            <img width="100px" src="../op/logo/logo.svg" alt="">
+            <div class="nav-links">
+                <span><a href="../index.html">Home</a></span>
+                <span><a href="plans.html">Plans</a></span>
+                <span><a href="products.html">Products</a></span>
+                <span><a href="courses.html">Courses</a></span>
+                <span><a href="about.html">About</a></span>
+                <span><a href="login.html">Log-in</a></span>
+            </div>
         </div>
+        <div class="hero">
+            <h1>SCIENCE STORYBOOKS SERIES CATALOG</h1>
+        </div>
+        <div class="gallery">
+            <div class="gallery-item" onclick="toggleInfo(this)">
+                <img src="./products/2.png" alt="Book 2">
+                <h3>The Mystery of the Missing Moon Rocks</h3>
+                <p>D. Bongtiwon</p>
+                <div class="hidden-info">Reading Comprehension Questions STEM-Based Multiple-Choice Questions Scientific Literacy Questions Subject-Verb Agreement Assessment</div>
+            </div>
+            <div class="gallery-item" onclick="toggleInfo(this)">
+                <img src="./products/3.png" alt="Book 3">
+                <h3>The race of the cardboard toy Car</h3>
+                <p>D. Bongtiwon</p>
+                <div class="hidden-info">Reading Comprehension Questions
+                    STEM-Based Multiple-Choice Questions
+                    Scientific Literacy Questions
+                    Subject-Verb Agreement Assessment</div>
+            </div>
+            <div class="gallery-item" onclick="toggleInfo(this)">
+                <img src="./products/4.png" alt="Book 4">
+                <h3>Tilly the TV and Robbie the Radio</h3>
+                <p>D. Bongtiwon</p>
+                <div class="hidden-info">Tilly the TV and Robbie the Radio explain to Sam and Mia how they work, receiving 'radio waves' to display images and sound. They introduce concepts of broadcasting signals, tuners, and speakers to help children understand technology.</div>
+            </div>
+            <div class="gallery-item" onclick="toggleInfo(this)">
+                <img src="./products/5.png" alt="Book 5">
+                <h3>Freddie the fridge and coolie the air conditioner</h3>
+                <p>D. Bongtiwon</p>
+                <div class="hidden-info">Freddie the Fridge and Coolie the Air Conditioner teach Ella how 'refrigeration works' using refrigerants, coils, and heat transfer. They explain the cooling cycle and the importance of energy efficiency.</div>
+            </div>
+            <div class="gallery-item" onclick="toggleInfo(this)">
+                <img src="./products/6.png" alt="Book 6">
+                <h3>The engine friends and the power of combustion</h3>
+                <p>D. Bongtiwon</p>
+                <div class="hidden-info">Jake learns about internal and external combustion engines from Iggy the Internal Combustion Engine and Eddy the External Combustion Engine. They explain how fuel burns to create energy and motion.</div>
+            </div>
+            <div class="gallery-item" onclick="toggleInfo(this)">
+                <img src="./products/7.png" alt="Book 7">
+                <h3>Rocky and the mineral gang</h3>
+                <p>D. Bongtiwon</p>
+                <div class="hidden-info">Lily and Max meet Rocky the Igneous Rock, Sandy the Sedimentary Rock, and Marla the Metamorphic Rock, who explain how rocks change over time in the rock cycle. Mindy the Mineral also teaches them about minerals inside rocks.</div>
+            </div>
+            <div class="gallery-item" onclick="toggleInfo(this)">
+                <img src="./products/8.png" alt="Book 8">
+                <h3>Charlie the computer's secret job</h3>
+                <p>D. Bongtiwon</p>
+                <div class="hidden-info">Charlie the Computer and his friends, Brainy Bob (CPU), Speedy Sam (RAM), and Harry the Hard Drive, teach Jenny about how computers process data, store files, and display information.</div>
+            </div>
+            <div class="gallery-item" onclick="toggleInfo(this)">
+                <img src="./products/9.png" alt="Book 9">
+                <h3>Lucy the lcd projector's bright idea</h3>
+                <p>D. Bongtiwon</p>
+                <div class="hidden-info">Lucy the LCD Projector explains to Jack and Lily how she transforms light into colorful images, using LCD panels, color filters, and lenses to project images on a screen.</div>
+            </div>
+            <div class="gallery-item" onclick="toggleInfo(this)">
+                <img src="./products/10.png" alt="Book 10">
+                <h3>Polly the printer's perfect print</h3>
+                <p>D. Bongtiwon</p>
+                <div class="hidden-info">Tom’s printer, Polly, explains how she turns computer commands into printed documents, using ink cartridges, print heads, and paper feeders.</div>
+            </div>
+            <div class="gallery-item" onclick="toggleInfo(this)">
+                <img src="./products/11.png" alt="Book 11">
+                <h3>Xena the xerox machine's copy cat skills</h3>
+                <p>D. Bongtiwon</p>
+                <div class="hidden-info">Xena the Xerox Machine teaches Mia how she makes copies of documents using light, a photoreceptor drum, toner powder, and a fuser that seals the ink onto paper.</div>
+            </div>
+        </div>
+        <script>
+            function toggleInfo(element) {
+                element.classList.toggle('active');
+            }
+        </script>
     </div>
-    <div class="hero">
-        <h1>SCIENCE STORYBOOKS SERIES CATALOG</h1>
-    </div>
-    <div class="gallery">
-        <div class="gallery-item" onclick="toggleInfo(this)">
-            <img src="2.png" alt="Book 2">
-            <h3>The Mystery of the Missing Moon Rocks</h3>
-            <p>D. Bongtiwon</p>
-            <div class="hidden-info">Reading Comprehension Questions STEM-Based Multiple-Choice Questions Scientific Literacy Questions Subject-Verb Agreement Assessment</div>
-        </div>
-        <div class="gallery-item" onclick="toggleInfo(this)">
-            <img src="3.png" alt="Book 3">
-            <h3>The race of the cardboard toy Car</h3>
-            <p>D. Bongtiwon</p>
-            <div class="hidden-info">Reading Comprehension Questions
-                STEM-Based Multiple-Choice Questions
-                Scientific Literacy Questions
-                Subject-Verb Agreement Assessment</div>
-        </div>
-        <div class="gallery-item" onclick="toggleInfo(this)">
-            <img src="4.png" alt="Book 4">
-            <h3>Tilly the TV and Robbie the Radio</h3>
-            <p>D. Bongtiwon</p>
-            <div class="hidden-info">Tilly the TV and Robbie the Radio explain to Sam and Mia how they work, receiving 'radio waves' to display images and sound. They introduce concepts of broadcasting signals, tuners, and speakers to help children understand technology.</div>
-        </div>
-        <div class="gallery-item" onclick="toggleInfo(this)">
-            <img src="5.png" alt="Book 5">
-            <h3>Freddie the fridge and coolie the air conditioner</h3>
-            <p>D. Bongtiwon</p>
-            <div class="hidden-info">Freddie the Fridge and Coolie the Air Conditioner teach Ella how 'refrigeration works' using refrigerants, coils, and heat transfer. They explain the cooling cycle and the importance of energy efficiency.</div>
-        </div>
-        <div class="gallery-item" onclick="toggleInfo(this)">
-            <img src="6.png" alt="Book 6">
-            <h3>The engine friends and the power of combustion</h3>
-            <p>D. Bongtiwon</p>
-            <div class="hidden-info">Jake learns about internal and external combustion engines from Iggy the Internal Combustion Engine and Eddy the External Combustion Engine. They explain how fuel burns to create energy and motion.</div>
-        </div>
-        <div class="gallery-item" onclick="toggleInfo(this)">
-            <img src="7.png" alt="Book 7">
-            <h3>Rocky and the mineral gang</h3>
-            <p>D. Bongtiwon</p>
-            <div class="hidden-info">Lily and Max meet Rocky the Igneous Rock, Sandy the Sedimentary Rock, and Marla the Metamorphic Rock, who explain how rocks change over time in the rock cycle. Mindy the Mineral also teaches them about minerals inside rocks.</div>
-        </div>
-        <div class="gallery-item" onclick="toggleInfo(this)">
-            <img src="8.png" alt="Book 8">
-            <h3>Charlie the computer's secret job</h3>
-            <p>D. Bongtiwon</p>
-            <div class="hidden-info">Charlie the Computer and his friends, Brainy Bob (CPU), Speedy Sam (RAM), and Harry the Hard Drive, teach Jenny about how computers process data, store files, and display information.</div>
-        </div>
-        <div class="gallery-item" onclick="toggleInfo(this)">
-            <img src="9.png" alt="Book 9">
-            <h3>Lucy the lcd projector's bright idea</h3>
-            <p>D. Bongtiwon</p>
-            <div class="hidden-info">Lucy the LCD Projector explains to Jack and Lily how she transforms light into colorful images, using LCD panels, color filters, and lenses to project images on a screen.</div>
-        </div>
-        <div class="gallery-item" onclick="toggleInfo(this)">
-            <img src="10.png" alt="Book 10">
-            <h3>Polly the printer's perfect print</h3>
-            <p>D. Bongtiwon</p>
-            <div class="hidden-info">Tom’s printer, Polly, explains how she turns computer commands into printed documents, using ink cartridges, print heads, and paper feeders.</div>
-        </div>
-        <div class="gallery-item" onclick="toggleInfo(this)">
-            <img src="11.png" alt="Book 11">
-            <h3>Xena the xerox machine's copy cat skills</h3>
-            <p>D. Bongtiwon</p>
-            <div class="hidden-info">Xena the Xerox Machine teaches Mia how she makes copies of documents using light, a photoreceptor drum, toner powder, and a fuser that seals the ink onto paper.</div>
-        </div>
-        </div>
-    </div>
-    <script>
-        function toggleInfo(element) {
-            element.classList.toggle('active');
-        }
-    </script>
 </body>
 </html>

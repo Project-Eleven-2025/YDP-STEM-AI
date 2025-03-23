@@ -22,14 +22,9 @@ $birthdate = $_POST['birthdate'];
 $address = $_POST['address'];
 $gender = $_POST['gender'];
 $school = $_POST['school'];
-$courseID = $_POST['course'];
-$group = "student"; // Fixed: Added group
-
-$year = date("Y");
-$month_day = date("md"); // Get MMDD
-$userIndex = str_pad(rand(0, 9999999999), 10, "0", STR_PAD_LEFT);
-$uniqueID = rand(1000, 9999); // Unique control number (random 4-digit)
-$userID = "{$year}-{$group}-{$userIndex}-{$uniqueID}-{$month_day}";
+$course = $_POST['course'];
+$user_group = "student"; // Fixed: Added user group
+$created_at = date("Y-m-d H:i:s");
 
 function validate($tablename, $columnname, $value){
     global $conn;
@@ -43,33 +38,31 @@ function validate($tablename, $columnname, $value){
 }
 
 function register_user(){
-    global $conn, $userID, $username, $password, $email, $phone, $fname, $lname, $mname, $nickname, $birthdate, $address, $gender, $school, $courseID;
-    $sql = "INSERT INTO user_info (
-        userID, username, pass_hash, user_emailadd, user_phonenum, user_fname, 
-        user_lname, user_mname, user_nickname, user_birthdate, user_address, user_gender, user_school, courseID
+    global $conn, $username, $password, $email, $phone, $fname, $lname, $mname, $nickname, $birthdate, $address, $gender, $school, $course, $user_group, $created_at;
+    $sql = "INSERT INTO users (
+        fname, lname, mname, uname, nname, email, birthdate, address, phone, gender, course, school, passphrase, user_group, created_at
     ) 
     VALUES (
-        :userID, :username, :pass_hash, :user_email, :user_phone, :user_fname, 
-        :user_lname, :user_mname, :user_nickname, :user_birthdate, :user_address, :user_gender, :user_school, :courseID
+        :fname, :lname, :mname, :uname, :nname, :email, :birthdate, :address, :phone, :gender, :course, :school, :passphrase, :user_group, :created_at
     )";
-    echo "SQL: $sql<br>";
     $stmt = $conn->prepare($sql);
     try {
         $stmt->execute([
-            ':userID' => $userID,
-            ':username' => $username,
-            ':pass_hash' => $password,  // Fixed: Should match `pass_hash`
-            ':user_email' => $email,
-            ':user_phone' => $phone,  // Fixed: Should match `user_phonenum`
-            ':user_fname' => $fname,
-            ':user_lname' => $lname,
-            ':user_mname' => $mname,
-            ':user_nickname' => $nickname,
-            ':user_birthdate' => $birthdate,  // Fixed: Corrected `$userbirthday`
-            ':user_address' => $address,
-            ':user_gender' => $gender,
-            ':user_school' => $school,
-            ':courseID' => $courseID
+            ':fname' => $fname,
+            ':lname' => $lname,
+            ':mname' => $mname,
+            ':uname' => $username,
+            ':nname' => $nickname,
+            ':email' => $email,
+            ':birthdate' => $birthdate,
+            ':address' => $address,
+            ':phone' => $phone,
+            ':gender' => $gender,
+            ':course' => $course,
+            ':school' => $school,
+            ':passphrase' => $password,
+            ':user_group' => $user_group,
+            ':created_at' => $created_at
         ]);
         echo "New record created successfully";
     } catch (PDOException $e) {
@@ -78,7 +71,7 @@ function register_user(){
     }
 }
 
-if (validate('user_info', 'username', $username)) {
+if (validate('users', 'uname', $username)) {
     register_user();
     header("Location: ../op/login.html");
     exit();
@@ -88,6 +81,6 @@ if (validate('user_info', 'username', $username)) {
 }
 
 // Fetch all users to display in the table
-$query = $conn->query("SELECT * FROM user_info");
+$query = $conn->query("SELECT * FROM users");
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
 ?>
