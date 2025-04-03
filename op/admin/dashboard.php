@@ -92,29 +92,71 @@ $stmt->close();
             margin: 0;
             padding: 0;
         }
+        .logo {
+            background-color: white;
+            padding: 20px;
+            width: 150px;
+            border-radius: 35px;
+            margin-bottom: 10px;
+        }
         .sidenav {
-            width: 200px;
+            width: 250px;
             position: fixed;
             height: 100%;
-            background-color: #333;
+            background-color: #3e2723;
             padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
         .sidenav nav ul {
             list-style-type: none;
             padding: 0;
         }
         .sidenav nav ul li {
-            margin: 10px 0;
+            margin: 15px 0;
+            text-align: center;
         }
         .sidenav nav ul li a {
-            color: #fff;
+            color: #d7ccc8;
             text-decoration: none;
-            padding: 10px 15px;
+            padding: 12px 20px;
             display: block;
             border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
         }
         .sidenav nav ul li a:hover {
-            background-color: #575757;
+            background-color: #795548;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        h2 {
+            color: #5d4037;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table th {
+            background-color: #333;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        table tr:hover {
+            background-color: #f1f1f1;
         }
         form {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -134,38 +176,42 @@ $stmt->close();
     </style>
 </head>
 <body>
-
     <div class="sidenav">
         <nav>
             <ul>
-                <li><a href="profile.php?sessionID=<?php echo urlencode($sessionID); ?>">Profile</a></li>
+                <li style="text-align: center;"><img src="../logo/logo.svg" style="width:150px;" alt=""></li>
                 <li><a href="dashboard.php?sessionID=<?php echo urlencode($sessionID); ?>">Dashboard</a></li>
+                <li><a href="profile.php?sessionID=<?php echo urlencode($sessionID); ?>">Profile</a></li>
                 <li><a href="user_management.php?sessionID=<?php echo urlencode($sessionID); ?>">User Management</a></li>
-                <li><a href="quiz_management.php?sessionID=<?php echo urlencode($sessionID); ?>">Quiz Management</a></li>
-                <li><a href="assessment_management.php?sessionID=<?php echo urlencode($sessionID); ?>">Assessment Management</a></li>
                 <li><a href="class_management.php?sessionID=<?php echo urlencode($sessionID); ?>">Class Management</a></li>
                 <li><a href="../logout.php?sessionID=<?php echo urlencode($sessionID); ?>">Logout</a></li>
             </ul>
         </nav>
     </div>
-
     <div class="content">
         <h1>Welcome, <?php echo htmlspecialchars($user_nickname); ?>!</h1>
         <div class="class-list">
             <h2>Class List</h2>
-            <ul>
-            <?php
-            $query = "SELECT class_name FROM classes WHERE teacherID = ?"; // Fixed: Corrected column name to teacherID
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param("i", $userID); // Fixed: Corrected parameter type to integer
-            $stmt->execute();
-            $stmt->bind_result($class_name);
-            while ($stmt->fetch()) {
-                echo "<li>" . htmlspecialchars($class_name) . "</li>";
-            }
-            $stmt->close();
-            ?>
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Class Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                $query = "SELECT class_name FROM classes WHERE teacherID = ?"; // Fixed: Corrected column name to teacherID
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("i", $userID); // Fixed: Corrected parameter type to integer
+                $stmt->execute();
+                $stmt->bind_result($class_name);
+                while ($stmt->fetch()) {
+                    echo "<tr><td>" . htmlspecialchars($class_name) . "</td></tr>";
+                }
+                $stmt->close();
+                ?>
+                </tbody>
+            </table>
         </div>
     </div>
 

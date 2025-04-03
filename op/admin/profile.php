@@ -7,75 +7,121 @@
     <link rel="stylesheet" href="../css/ui.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f9fafc;
             margin: 0;
             padding: 0;
+            color: #333;
+        }
+        .logo {
+            background-color: white;
+            padding: 20px;
+            width: 150px;
+            border-radius: 35px;
+            margin-bottom: 10px;
         }
         .sidenav {
-            width: 200px;
+            width: 250px;
             position: fixed;
             height: 100%;
-            background-color: #333;
+            background-color: #3e2723;
             padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
         .sidenav nav ul {
             list-style-type: none;
             padding: 0;
         }
         .sidenav nav ul li {
-            margin: 10px 0;
+            margin: 15px 0;
+            text-align: center;
         }
         .sidenav nav ul li a {
-            color: #fff;
+            color: #d7ccc8;
             text-decoration: none;
-            padding: 10px 15px;
+            padding: 12px 20px;
             display: block;
             border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
         }
         .sidenav nav ul li a:hover {
-            background-color: #575757;
+            background-color: #795548;
         }
-        form {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        h2 {
+            color: #5d4037;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #34495e;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        p strong {
+            color: #2c3e50;
         }
         button {
             transition: background-color 0.3s ease;
-            background-color: #007bff;
+            background-color: #1abc9c;
             color: #fff;
             border: none;
-            padding: 10px 15px;
+            padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #16a085;
         }
         a {
             transition: color 0.3s ease;
-            color: #007bff;
+            color: #1abc9c;
             text-decoration: none;
+            font-weight: bold;
         }
         a:hover {
-            color: #0056b3;
+            color: #16a085;
         }
         #loginAttempts {
             display: none;
+            margin-top: 20px;
         }
         table {
             border-collapse: collapse;
             width: 100%;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         table, th, td {
             border: 1px solid #ddd;
         }
         th, td {
-            padding: 8px;
+            padding: 12px;
             text-align: left;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #34495e;
+            color: #fff;
         }
+        td {
+            color: #2c3e50;
+        }
+        .profile-img {
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        
     </style>
 </head>
 <body>
@@ -99,13 +145,11 @@
     <div class="sidenav">
         <nav>
             <ul>
-                <li><a href="profile.php?sessionID=<?php echo urlencode($sessionID); ?>">Profile</a></li>
-                <li><a href="dashboard.php?sessionID=<?php echo urlencode($sessionID); ?>">Dashboard</a></li>
-                <li><a href="user_management.php?sessionID=<?php echo urlencode($sessionID); ?>">User Management</a></li>
-                <li><a href="quiz_management.php?sessionID=<?php echo urlencode($sessionID); ?>">Quiz Management</a></li>
-                <li><a href="assessment_management.php?sessionID=<?php echo urlencode($sessionID); ?>">Assessment Management</a></li>
-                <li><a href="class_management.php?sessionID=<?php echo urlencode($sessionID); ?>">Class Management</a></li>
-                <li><a href="../logout.php?sessionID=<?php echo urlencode($sessionID); ?>">Logout</a></li>
+                <li><img src="../logo/logo.svg" style="width:150px;" class="logo" alt="Logo"></li>
+                <li><a href="dashboard.php?sessionID=<?php echo urlencode($session_id); ?>">Dashboard</a></li>
+                <li><a href="profile.php?sessionID=<?php echo urlencode($session_id); ?>">Profile</a></li>
+                <li><a href="user_management.php?sessionID=<?php echo urlencode($session_id); ?>">User Management</a></li>
+                <li><a href="../logout.php?sessionID=<?php echo urlencode($session_id); ?>">Logout</a></li>
             </ul>
         </nav>
     </div>
@@ -153,20 +197,20 @@
             exit();
         }
         ?>
-        <h1 style="color: #2c3e50; font-family: Arial, sans-serif;">User Profile</h1>
-        <p><strong>First Name:</strong> <span style="color: #34495e;"><?php echo isset($student['fname']) ? htmlspecialchars($student['fname']) : 'N/A'; ?></span></p>
-        <p><strong>Last Name:</strong> <span style="color: #34495e;"><?php echo isset($student['lname']) ? htmlspecialchars($student['lname']) : 'N/A'; ?></span></p>
-        <p><strong>Middle Name:</strong> <span style="color: #34495e;"><?php echo isset($student['mname']) ? htmlspecialchars($student['mname']) : 'N/A'; ?></span></p>
-        <p><strong>Nickname:</strong> <span style="color: #34495e;"><?php echo isset($student['nname']) ? htmlspecialchars($student['nname']) : 'N/A'; ?></span></p>
-        <p><strong>Email:</strong> <span style="color: #34495e;"><?php echo isset($student['email']) ? htmlspecialchars($student['email']) : 'N/A'; ?></span></p>
-        <p><strong>Birthdate:</strong> <span style="color: #34495e;"><?php echo isset($student['birthdate']) ? htmlspecialchars($student['birthdate']) : 'N/A'; ?></span></p>
-        <p><strong>Address:</strong> <span style="color: #34495e;"><?php echo isset($student['address']) ? htmlspecialchars($student['address']) : 'N/A'; ?></span></p>
-        <p><strong>Phone:</strong> <span style="color: #34495e;"><?php echo isset($student['phone']) ? htmlspecialchars($student['phone']) : 'N/A'; ?></span></p>
-        <p><strong>Gender:</strong> <span style="color: #34495e;"><?php echo isset($student['gender']) ? htmlspecialchars($student['gender']) : 'N/A'; ?></span></p>
-        <p><strong>Course:</strong> <span style="color: #34495e;"><?php echo isset($student['course']) ? htmlspecialchars($student['course']) : 'N/A'; ?></span></p>
-        <p><strong>School:</strong> <span style="color: #34495e;"><?php echo isset($student['school']) ? htmlspecialchars($student['school']) : 'N/A'; ?></span></p>
-        <p><strong>User Group:</strong> <span style="color: #34495e;"><?php echo isset($student['user_group']) ? htmlspecialchars($student['user_group']) : 'N/A'; ?></span></p>
-        <p><strong>Created At:</strong> <span style="color: #34495e;"><?php echo isset($student['created_at']) ? htmlspecialchars($student['created_at']) : 'N/A'; ?></span></p>
+        <h1>User Profile</h1>
+        <p><strong>First Name:</strong> <?php echo isset($student['fname']) ? htmlspecialchars($student['fname']) : 'N/A'; ?></p>
+        <p><strong>Last Name:</strong> <?php echo isset($student['lname']) ? htmlspecialchars($student['lname']) : 'N/A'; ?></p>
+        <p><strong>Middle Name:</strong> <?php echo isset($student['mname']) ? htmlspecialchars($student['mname']) : 'N/A'; ?></p>
+        <p><strong>Nickname:</strong> <?php echo isset($student['nname']) ? htmlspecialchars($student['nname']) : 'N/A'; ?></p>
+        <p><strong>Email:</strong> <?php echo isset($student['email']) ? htmlspecialchars($student['email']) : 'N/A'; ?></p>
+        <p><strong>Birthdate:</strong> <?php echo isset($student['birthdate']) ? htmlspecialchars($student['birthdate']) : 'N/A'; ?></p>
+        <p><strong>Address:</strong> <?php echo isset($student['address']) ? htmlspecialchars($student['address']) : 'N/A'; ?></p>
+        <p><strong>Phone:</strong> <?php echo isset($student['phone']) ? htmlspecialchars($student['phone']) : 'N/A'; ?></p>
+        <p><strong>Gender:</strong> <?php echo isset($student['gender']) ? htmlspecialchars($student['gender']) : 'N/A'; ?></p>
+        <p><strong>Course:</strong> <?php echo isset($student['course']) ? htmlspecialchars($student['course']) : 'N/A'; ?></p>
+        <p><strong>School:</strong> <?php echo isset($student['school']) ? htmlspecialchars($student['school']) : 'N/A'; ?></p>
+        <p><strong>User Group:</strong> <?php echo isset($student['user_group']) ? htmlspecialchars($student['user_group']) : 'N/A'; ?></p>
+        <p><strong>Created At:</strong> <?php echo isset($student['created_at']) ? htmlspecialchars($student['created_at']) : 'N/A'; ?></p>
 
         <h2>Login Attempts</h2>
         <button id="showLoginAttempts">Show Login Attempts</button>
@@ -209,12 +253,8 @@
 
         <script>
             document.getElementById('showLoginAttempts').addEventListener('click', function() {
-            const loginAttemptsDiv = document.getElementById('loginAttempts');
-            if (loginAttemptsDiv.style.display === 'none') {
-                loginAttemptsDiv.style.display = 'block';
-            } else {
-                loginAttemptsDiv.style.display = 'none';
-            }
+                const loginAttemptsDiv = document.getElementById('loginAttempts');
+                loginAttemptsDiv.style.display = loginAttemptsDiv.style.display === 'none' ? 'block' : 'none';
             });
         </script>
         <a href="dashboard.php?sessionID=<?php echo urlencode($session_id); ?>">Go back to dashboard</a>

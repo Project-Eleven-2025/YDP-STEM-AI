@@ -1,0 +1,8 @@
+question: What is the formula for WATTS
+choice:[
+    A. W = A + V |
+    B. W = V / A |
+    C. W = A * V |
+    D. W = A % V 
+]
+answer: C

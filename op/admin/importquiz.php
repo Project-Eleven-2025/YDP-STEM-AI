@@ -1,6 +1,6 @@
 <?php
 // Require PHPWord via Composer: composer require phpoffice/phpword
-require 'vendor/autoload.php';
+require '../../vendor/autoload.php'; // Adjusted the path to point to the correct location
 
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Element\Table;
@@ -129,16 +129,22 @@ if ($fileExtension === 'docx') {
             if ($currentQuestion !== null) {
                 $quizData[] = $currentQuestion;
             }
-            $currentQuestion = [];
-            // Store the rest of the line (after "question:")
-            $currentQuestion['question'] = trim(substr($line, strlen('question:')));
-            $currentQuestion['answer'] = '';
-            $currentQuestion['requires_manual_import'] = false;
+            $currentQuestion = [
+                'question' => trim(substr($line, strlen('question:'))),
+                'answer' => '',
+                'choices' => [], // Add choices array
+                'requires_manual_import' => false
+            ];
+        }
+        // Check for the "choice:[" marker
+        elseif (stripos($line, 'choice:[') === 0 && $currentQuestion !== null) {
+            $choicesContent = trim(substr($line, strlen('choice:['), -1)); // Remove "choice:[" and trailing "]"
+            $choices = explode('|', $choicesContent); // Split choices by "|"
+            $currentQuestion['choices'] = array_map('trim', $choices); // Add trimmed choices to the array
         }
         // Check for the "answer:" marker
         elseif (stripos($line, 'answer:') === 0 && $currentQuestion !== null) {
             $answerContent = trim(substr($line, strlen('answer:')));
-            // If the answer is exactly "[import]", set the flag for manual processing
             if (strtolower($answerContent) === '[import]') {
                 $currentQuestion['requires_manual_import'] = true;
                 $currentQuestion['answer'] = '';
@@ -187,8 +193,6 @@ try {
     $pdo = new PDO('mysql:host=localhost;dbname=yourdbname;charset=utf8', 'yourusername', 'yourpassword');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    // Assuming the "course" table has columns:
-    // courseID (string), label, type, date_created, created_by, access_control, quiz_data (TEXT or JSON)
     $stmt = $pdo->prepare("
         INSERT INTO course (courseID, label, type, date_created, created_by, access_control, quiz_data)
         VALUES (:courseID, :label, :type, :date_created, :created_by, :access_control, :quiz_data)

@@ -7,64 +7,101 @@
     <link rel="stylesheet" href="../css/ui.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f7f3e9;
             margin: 0;
             padding: 0;
+            color: #4b3832;
+        }
+        .logo {
+            background-color: white;
+            padding: 20px;
+            width: 150px;
+            border-radius: 35px;
+            margin-bottom: 10px;
         }
         .sidenav {
-            width: 200px;
+            width: 250px;
             position: fixed;
             height: 100%;
-            background-color: #333;
+            background-color: #3e2723;
             padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
         .sidenav nav ul {
             list-style-type: none;
             padding: 0;
         }
         .sidenav nav ul li {
-            margin: 10px 0;
+            margin: 15px 0;
+            text-align: center;
         }
         .sidenav nav ul li a {
-            color: #fff;
+            color: #d7ccc8;
             text-decoration: none;
-            padding: 10px 15px;
+            padding: 12px 20px;
             display: block;
             border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
         }
         .sidenav nav ul li a:hover {
-            background-color: #575757;
+            background-color: #795548;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        h2 {
+            color: #5d4037;
+            font-size: 24px;
+            margin-bottom: 20px;
         }
         form {
+            background-color: #fff8e1;
+            padding: 20px;
+            border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        label {
+            font-weight: bold;
+            color: #4b3832;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
         button {
-            transition: background-color 0.3s ease;
-            background-color: #007bff;
+            background-color: #6d4c41;
             color: #fff;
             border: none;
             padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #5d4037;
         }
         a {
-            transition: color 0.3s ease;
-            color: #007bff;
+            color: #6d4c41;
             text-decoration: none;
+            font-weight: bold;
         }
         a:hover {
-            color: #0056b3;
+            color: #5d4037;
         }
+        
     </style>
 </head>
 <body>
     <div class="sidenav">
         <nav>
             <ul>
+                <li><img src="../logo/logo.svg" style="width:150px;" class="logo" alt="Logo"></li>
                 <li><a href="profile.php?sessionID=<?php echo urlencode($sessionID); ?>">Profile</a></li>
                 <li><a href="dashboard.php?sessionID=<?php echo urlencode($sessionID); ?>">Dashboard</a></li>
                 <li><a href="user_management.php?sessionID=<?php echo urlencode($sessionID); ?>">User Management</a></li>
@@ -75,58 +112,59 @@
             </ul>
         </nav>
     </div>
-    <h2>Admin and Teacher Registration</h2>
-    <form method="post" action="register.php">
-        <label for="passcode">Passcode:</label>
-        <input type="password" id="passcode" name="passcode" required><br><br>
-        
-        <label for="teacherID">Teacher ID:</label>
-        <input type="text" id="teacherID" name="teacherID" required><br><br>
-        
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        
-        <label for="teacher_emailadd">Email Address:</label>
-        <input type="email" id="teacher_emailadd" name="teacher_emailadd" required><br><br>
-        
-        <label for="teacher_phonenum">Phone Number:</label>
-        <input type="text" id="teacher_phonenum" name="teacher_phonenum" required><br><br>
-        
-        <label for="teacher_fname">First Name:</label>
-        <input type="text" id="teacher_fname" name="teacher_fname" required><br><br>
-        
-        <label for="teacher_lname">Last Name:</label>
-        <input type="text" id="teacher_lname" name="teacher_lname" required><br><br>
-        
-        <label for="teacher_mname">Middle Name:</label>
-        <input type="text" id="teacher_mname" name="teacher_mname"><br><br>
-        
-        <label for="teacher_post_nominal">Post Nominal:</label>
-        <input type="text" id="teacher_post_nominal" name="teacher_post_nominal"><br><br>
-        
-        <label for="teacher_birthdate">Birthdate:</label>
-        <input type="date" id="teacher_birthdate" name="teacher_birthdate" required><br><br>
-        
-        <label for="teacher_address">Address:</label>
-        <input type="text" id="teacher_address" name="teacher_address" required><br><br>
-        
-        <label for="teacher_gender">Gender:</label>
-        <select id="teacher_gender" name="teacher_gender" required>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select><br><br>
-        
-        <label for="teacher_faculty">Faculty:</label>
-        <input type="text" id="teacher_faculty" name="teacher_faculty" required><br><br>
-        
-        <label for="group">Group:</label>
-        <input type="text" id="group" name="group" required><br><br>
-        
-        <input type="submit" value="Register">
-    </form>
-
+    <div class="content">
+        <h2>Admin and Teacher Registration</h2>
+        <form method="post" action="register.php">
+            <label for="passcode">Passcode:</label>
+            <input type="password" id="passcode" name="passcode" required>
+            
+            <label for="teacherID">Teacher ID:</label>
+            <input type="text" id="teacherID" name="teacherID" required>
+            
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <label for="teacher_emailadd">Email Address:</label>
+            <input type="email" id="teacher_emailadd" name="teacher_emailadd" required>
+            
+            <label for="teacher_phonenum">Phone Number:</label>
+            <input type="text" id="teacher_phonenum" name="teacher_phonenum" required>
+            
+            <label for="teacher_fname">First Name:</label>
+            <input type="text" id="teacher_fname" name="teacher_fname" required>
+            
+            <label for="teacher_lname">Last Name:</label>
+            <input type="text" id="teacher_lname" name="teacher_lname" required>
+            
+            <label for="teacher_mname">Middle Name:</label>
+            <input type="text" id="teacher_mname" name="teacher_mname">
+            
+            <label for="teacher_post_nominal">Post Nominal:</label>
+            <input type="text" id="teacher_post_nominal" name="teacher_post_nominal">
+            
+            <label for="teacher_birthdate">Birthdate:</label>
+            <input type="date" id="teacher_birthdate" name="teacher_birthdate" required>
+            
+            <label for="teacher_address">Address:</label>
+            <input type="text" id="teacher_address" name="teacher_address" required>
+            
+            <label for="teacher_gender">Gender:</label>
+            <select id="teacher_gender" name="teacher_gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            
+            <label for="teacher_faculty">Faculty:</label>
+            <input type="text" id="teacher_faculty" name="teacher_faculty" required>
+            
+            <label for="group">Group:</label>
+            <input type="text" id="group" name="group" required>
+            
+            <button type="submit">Register</button>
+        </form>
+    </div>
 </body>
 </html>
