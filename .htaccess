@@ -1,0 +1,16 @@
+# Enable basic rewrites
+RewriteEngine On
+
+# Fix permission issues (Prevents 500 errors)
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+</IfModule>
+
+# Increase PHP execution time & memory limit
+php_value memory_limit 256M
+php_value max_execution_time 300
+
+# Prevent directory listing
+Options -Indexes
