@@ -179,7 +179,7 @@ $stmt->close();
     <div class="sidenav">
         <nav>
             <ul>
-                <li style="text-align: center;"><img src="../logo/logo.svg" style="width:150px;" alt=""></li>
+                <li style="text-align: center;"><img src="../logo/logo.svg" class="logo" alt=""></li>
                 <li><a href="dashboard.php?sessionID=<?php echo urlencode($sessionID); ?>">Dashboard</a></li>
                 <li><a href="profile.php?sessionID=<?php echo urlencode($sessionID); ?>">Profile</a></li>
                 <li><a href="user_management.php?sessionID=<?php echo urlencode($sessionID); ?>">User Management</a></li>

@@ -123,12 +123,12 @@
     <div class="sidenav">
         <nav>
             <ul>
-            <li style="text-align: center;"><img src="../logo/logo.svg" style="width:150px;" alt=""></li>
+            <li style="text-align: center;"><img src="../logo/logo.svg" class="logo" alt=""></li>
                 <li><a href="dashboard.php?sessionID=<?php echo urlencode($session_id); ?>">Dashboard</a></li>
                 <li><a href="class_management.php?sessionID=<?php echo urlencode($session_id); ?>">Class Management</a></li>
                 <li><a href="quiz_management.php?sessionID=<?php echo urlencode($session_id); ?>">Quiz Management</a></li>
                 <li><a href="assessment_management.php?sessionID=<?php echo urlencode($session_id); ?>">Assessment Management</a></li>
-                <li><a href="syllabus_manager.php?sessionID=<?php echo urlencode($session_id); ?>">Syllabus Management</a></li>
+                <li><a src="syllabus_manager.php?sessionID=<?php echo urlencode($session_id); ?>" href="#" title="Soon">Syllabus Management</a></li>
                 <li><a href="../logout.php?sessionID=<?php echo urlencode($session_id); ?>">Logout</a></li>
             </ul>
         </nav>

@@ -2,19 +2,17 @@
 // Database configuration
 
 $servername = "localhost";
-$username = "ydp-stem"; // Fixed: Corrected username
-$password = "project2025"; // Fixed: Corrected password
+$username = "ydp-stem";
+$password = "project2025";
 $dbname = "masterlist_db";
 
-$host = $servername;
-$database = $dbname;
-
-// Create connection
-$conn = new mysqli($host, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
 
+// Reference for compatibility
+$GLOBALS['pdo'] = &$pdo;
 ?>

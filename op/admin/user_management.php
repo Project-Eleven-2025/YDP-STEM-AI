@@ -11,6 +11,7 @@
             background-color: #f4f4f9;
             margin: 0;
             padding: 20px;
+            box-sizing: border-box; /* Ensure padding and borders are included in width/height */
         }
         h1 {
             color: #333;
@@ -52,8 +53,9 @@
             background-color: #795548;
         }
         .content {
-            margin-left: 270px;
+            margin-left: 250px; /* Match the width of the .sidenav */
             padding: 20px;
+            overflow: auto; /* Prevent content from overflowing */
         }
         h2 {
             color: #5d4037;
@@ -73,7 +75,7 @@
         .button:hover {
             background-color: #0056b3;
         }
-        form {
+        .searchbar-form {
             max-width: 600px;
             margin: 20px auto;
             padding: 20px;
@@ -108,6 +110,25 @@
             border-radius: 35px;
             margin-bottom: 10px;
         }
+        .action-button {
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .action-button:hover {
+            background-color: #218838;
+        }
+        .action-button.delete {
+            background-color: #dc3545;
+        }
+        .action-button.delete:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -135,55 +156,57 @@
             </ul>
         </nav>
     </div>
-    <h1>User Management</h1>
-    <p>Manage users here.</p>
-    <form action="user_management.php" method="GET" style="margin-bottom: 30px;">
-    <a href="register.html?sessionID=<?php echo urlencode($session_id); ?>" class="button">Register New User</a><br>
-        <input type="hidden" name="sessionID" value="<?php echo htmlspecialchars($session_id); ?>">
-        <label for="search">Search Users:</label>
-        <input type="text" id="search" name="search" placeholder="Enter username or email">
-        <button type="submit">Search</button>
-    </form>
+    <div class="content">
+        <h1>User Management</h1>
+        <p>Manage users here.</p>
+        <form class="searchbar-form" action="user_management.php" method="GET" style="margin-bottom: 30px;">
+        <a href="register.html?sessionID=<?php echo urlencode($session_id); ?>" class="button">Register New User</a><br>
+            <input type="hidden" name="sessionID" value="<?php echo htmlspecialchars($session_id); ?>">
+            <label for="search">Search Users:</label>
+            <input type="text" id="search" name="search" placeholder="Enter username or email">
+            <button type="submit">Search</button>
+        </form>
 
-    <table border="1" style="width: 100%; border-collapse: collapse;">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-                // Fetch users from the database
-                $search = isset($_GET['search']) ? $_GET['search'] : '';
-                $query = "SELECT * FROM users WHERE username LIKE ? OR email LIKE ?";
-                $stmt = $conn->prepare($query);
-                $searchTerm = '%' . $search . '%';
-                $stmt->bind_param("ss", $searchTerm, $searchTerm);
-                $stmt->execute();
-                $result = $stmt->get_result();
+        <table border="1" style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    // Fetch users from the database
+                    $search = isset($_GET['search']) ? $_GET['search'] : '';
+                    $query = "SELECT * FROM users WHERE uname LIKE ? OR email LIKE ?"; // Updated 'username' to 'uname'
+                    $stmt = $conn->prepare($query);
+                    $searchTerm = '%' . $search . '%';
+                    $stmt->bind_param("ss", $searchTerm, $searchTerm);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
 
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . htmlspecialchars($row['username']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-                    echo "<td>
-                        <form action='../process/user_management_process.php' method='POST' style='display: inline;'>
-                            <input type='hidden' name='sessionID' value='" . htmlspecialchars($session_id) . "'>
-                            <input type='hidden' name='user_id' value='" . htmlspecialchars($row['id']) . "'>
-                            <button type='submit' name='action' value='edit'>Edit</button>
-                        </form>
-                        <form action='../process/user_management_process.php' method='POST' style='display: inline;'>
-                            <input type='hidden' name='sessionID' value='" . htmlspecialchars($session_id) . "'>
-                            <input type='hidden' name='user_id' value='" . htmlspecialchars($row['id']) . "'>
-                            <button type='submit' name='action' value='delete' onclick='return confirm(\"Are you sure you want to delete this user?\");'>Delete</button>
-                        </form>
-                    </td>";
-                    echo "</tr>";
-                }
-            ?>
-        </tbody>
-    </table>
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($row['uname']) . "</td>"; // Updated 'username' to 'uname'
+                        echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                        echo "<td>
+                            <form action='../process/user_management_process.php' method='POST' style='display: inline;'>
+                                <input type='hidden' name='sessionID' value='" . htmlspecialchars($session_id) . "'>
+                                <input type='hidden' name='user_id' value='" . htmlspecialchars($row['id']) . "'>
+                                <button type='submit' name='action' value='edit' class='action-button'>Edit</button>
+                            </form>
+                            <form action='../process/user_management_process.php' method='POST' style='display: inline;'>
+                                <input type='hidden' name='sessionID' value='" . htmlspecialchars($session_id) . "'>
+                                <input type='hidden' name='user_id' value='" . htmlspecialchars($row['id']) . "'>
+                                <button type='submit' name='action' value='delete' class='action-button delete' onclick='return confirm(\"Are you sure you want to delete this user?\");'>Delete</button>
+                            </form>
+                        </td>";
+                        echo "</tr>";
+                    }
+                ?>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

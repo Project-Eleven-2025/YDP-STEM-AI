@@ -151,7 +151,7 @@
     <div class="sidenav">
         <nav>
             <ul>
-            <li style="text-align: center;"><img src="../logo/logo.svg" style="width:150px;" alt=""></li>
+            <li style="text-align: center;"><img src="../logo/logo.svg" class="logo" alt=""></li>
                 <li><a href="dashboard.php?sessionID=<?php echo urlencode($session_id); ?>">Dashboard</a></li>
                 <li><a href="class_management.php?sessionID=<?php echo urlencode($session_id); ?>">Class Management</a></li>
                 <li><a href="quiz_management.php?sessionID=<?php echo urlencode($session_id); ?>">Quiz Management</a></li>
@@ -170,8 +170,22 @@
             <input type="text" id="quiz_name" name="quiz_name" required>
             <label for="description">Description:</label>
             <textarea id="description" name="description" required></textarea>
-            <label for="file_upload">Import Quiz File (.docx, .txt, .md):</label>
-            <input type="file" id="file_upload" name="file_upload" accept=".docx,.txt,.md">
+            <label for="file_upload">Import Quiz File (.docx, and .txt): </label> <u title="
+            
+            Formatting for .docx, and .txt files:
+            - .docx: Use headings for questions and subheadings for options.
+            - .txt: Use a simple format with questions on one line and options on the next. Example:
+                question: 1?
+                choice:[
+                    A. Option 1 |
+                    B. Option 2 |
+                    C. Option 3 |
+                    D. Option 4 
+                ]
+                answer: A
+            
+            "><strong>Hint</strong></u>
+            <input type="file" id="file_upload" name="quizFile" accept=".docx,.txt,.md">
             <button type="submit">Create Quiz</button>
         </form>
 
@@ -193,13 +207,18 @@
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>";
-                            echo "<td style='padding: 10px; border: 1px solid #ddd;'>{$row['quiz_name']}</td>";
+                            echo "<td style='padding: 10px; border: 1px solid #ddd;'>{$row['title']}</td>"; // Changed from quiz_name to title
                             echo "<td style='padding: 10px; border: 1px solid #ddd;'>{$row['description']}</td>";
-                            echo "<td style='padding: 10px; border: 1px solid #ddd;'>
-                                    <a href='edit_quiz.php?quizID={$row['id']}&sessionID=" . urlencode($session_id) . "' style='margin-right: 10px; color: #007bff;'>Edit</a>
-                                    <a href='../process/delete_quiz.php?quizID={$row['id']}&sessionID=" . urlencode($session_id) . "' style='margin-right: 10px; color: #dc3545;' onclick='return confirm(\"Are you sure you want to delete this quiz?\");'>Delete</a>
-                                    <a href='assign_quiz.php?quizID={$row['id']}&sessionID=" . urlencode($session_id) . "' style='color: #28a745;'>Assign</a>
-                                  </td>";
+                            echo "<td style='padding: 10px; border: 1px solid #ddd;'>";
+                            echo "<a href='edit_quiz.php?quizID=" . urlencode($row['id']) . "&sessionID=" . urlencode($session_id) . "' 
+                                    style='margin-right: 10px; color: #007bff;'>Edit</a>";
+
+                            echo "<a href='../../process/delete_quiz.php?quizID=" . urlencode($row['id']) . "&sessionID=" . urlencode($session_id) . "' 
+                                    style='margin-right: 10px; color: #dc3545;' 
+                                    onclick='return confirm(\"Are you sure you want to delete this quiz?\");'>Delete</a>";
+
+                            echo "<a href='assign_quiz.php?quizID=" . urlencode($row['id']) . "&sessionID=" . urlencode($session_id) . "' 
+                                    style='color: #28a745;'>Assign</a>";
                             echo "</tr>";
                         }
                     } else {

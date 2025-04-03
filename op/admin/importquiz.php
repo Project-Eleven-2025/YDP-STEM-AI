@@ -12,7 +12,7 @@ use PhpOffice\PhpWord\Element\TextRun;
 // ------------------------------
 
 // Allowed file extensions
-$allowed_extensions = ['docx', 'jpg', 'jpeg', 'png'];
+$allowed_extensions = ['docx', 'jpg', 'jpeg', 'png', 'txt']; // Added 'txt'
 
 if (!isset($_FILES['quizFile'])) {
     die("No file uploaded.");
@@ -25,7 +25,7 @@ $tmpPath = $uploadedFile['tmp_name'];
 // Validate the file extension (case-insensitive)
 $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 if (!in_array($fileExtension, $allowed_extensions)) {
-    die("Error: Only DOCX or image files (JPG, JPEG, PNG) are allowed.");
+    die("Error: Only DOCX, TXT, or image files (JPG, JPEG, PNG) are allowed.");
 }
 
 // ------------------------------
@@ -95,7 +95,7 @@ function parseImage(Image $image) {
 }
 
 // ------------------------------
-// 3. Process DOCX File & Parse Quiz Data
+// 3. Process File & Parse Quiz Data
 // ------------------------------
 $quizData = []; // This will hold an array of quiz items
 
@@ -161,6 +161,59 @@ if ($fileExtension === 'docx') {
     // For debugging, you can output the quiz data:
     // echo "<pre>" . print_r($quizData, true) . "</pre>";
     
+} elseif ($fileExtension === 'txt') {
+    // Process the uploaded TXT file
+    $fileContent = file_get_contents($tmpPath);
+    if ($fileContent === false) {
+        die("Error reading TXT file.");
+    }
+
+    // Split the content into lines
+    $lines = explode("\n", $fileContent);
+    $currentQuestion = null;
+
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if (empty($line)) {
+            continue;
+        }
+
+        // Check for the "question:" marker
+        if (stripos($line, 'question:') === 0) {
+            if ($currentQuestion !== null) {
+                $quizData[] = $currentQuestion;
+            }
+            $currentQuestion = [
+                'question' => trim(substr($line, strlen('question:'))),
+                'answer' => '',
+                'choices' => [], // Add choices array
+                'requires_manual_import' => false
+            ];
+        }
+        // Check for the "choice:[" marker
+        elseif (stripos($line, 'choice:[') === 0 && $currentQuestion !== null) {
+            $choicesContent = trim(substr($line, strlen('choice:['), -1)); // Remove "choice:[" and trailing "]"
+            $choices = explode('|', $choicesContent); // Split choices by "|"
+            $currentQuestion['choices'] = array_map('trim', $choices); // Add trimmed choices to the array
+        }
+        // Check for the "answer:" marker
+        elseif (stripos($line, 'answer:') === 0 && $currentQuestion !== null) {
+            $answerContent = trim(substr($line, strlen('answer:')));
+            if (strtolower($answerContent) === '[import]') {
+                $currentQuestion['requires_manual_import'] = true;
+                $currentQuestion['answer'] = '';
+            } else {
+                $currentQuestion['answer'] = $answerContent;
+                $currentQuestion['requires_manual_import'] = false;
+            }
+        }
+    }
+    if ($currentQuestion !== null) {
+        $quizData[] = $currentQuestion;
+    }
+
+    // For debugging, you can output the quiz data:
+    // echo "<pre>" . print_r($quizData, true) . "</pre>";
 } elseif (in_array($fileExtension, ['jpg', 'jpeg', 'png'])) {
     // For image uploads, handle separately (for example, store them in an uploads folder)
     $destination = 'uploads/' . basename($filename);
@@ -177,38 +230,41 @@ if ($fileExtension === 'docx') {
 // 4. Upload Quiz Data with Course Metadata to MySQL
 // ------------------------------
 
-// Sample course metadata (you might gather these from a form via $_POST)
-$courseID      = isset($_POST['courseID']) ? $_POST['courseID'] : uniqid('course_');
-$label         = isset($_POST['label']) ? $_POST['label'] : 'Sample Quiz Course';
-$type          = isset($_POST['type']) ? $_POST['type'] : 'quiz'; // e.g., lesson, quiz, assessment, memo
-$created_by    = isset($_POST['created_by']) ? $_POST['created_by'] : 'teacher123';
-$date_created  = date('Y-m-d H:i:s');
-$access_control = isset($_POST['access_control']) ? $_POST['access_control'] : 'public';
+// Sample metadata (you might gather these from a form via $_POST)
+$title         = isset($_POST['quiz_name']) ? $_POST['quiz_name'] : 'Untitled Quiz';
+$description   = isset($_POST['description']) ? $_POST['description'] : 'No description provided.';
+$created_at    = date('Y-m-d H:i:s');
+$updated_at    = $created_at;
+$file_name     = $filename;
+$file_type     = $uploadedFile['type'];
+$file_size     = $uploadedFile['size'];
+$file_data     = file_get_contents($tmpPath); // Read file content for storage
 
-// Convert the quiz data array to JSON for storage
-$quizDataJson = json_encode($quizData);
+// Include the database connection file
+require 'db.php'; // Adjust the path to point to db.php
+
+// Use the global reference
+global $pdo;
 
 try {
-    // Connect to MySQL database using PDO
-    $pdo = new PDO('mysql:host=localhost;dbname=yourdbname;charset=utf8', 'yourusername', 'yourpassword');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
     $stmt = $pdo->prepare("
-        INSERT INTO course (courseID, label, type, date_created, created_by, access_control, quiz_data)
-        VALUES (:courseID, :label, :type, :date_created, :created_by, :access_control, :quiz_data)
+        INSERT INTO quizzes (quiz_id, title, description, created_at, updated_at, file_name, file_type, file_size, file_data)
+        VALUES (:quiz_id, :title, :description, :created_at, :updated_at, :file_name, :file_type, :file_size, :file_data)
     ");
     
     $stmt->execute([
-        ':courseID' => $courseID,
-        ':label' => $label,
-        ':type' => $type,
-        ':date_created' => $date_created,
-        ':created_by' => $created_by,
-        ':access_control' => $access_control,
-        ':quiz_data' => $quizDataJson
+        ':quiz_id' => uniqid('quiz_'), // Generate a unique ID for the quiz
+        ':title' => $title,
+        ':description' => $description,
+        ':created_at' => $created_at,
+        ':updated_at' => $updated_at,
+        ':file_name' => $file_name,
+        ':file_type' => $file_type,
+        ':file_size' => $file_size,
+        ':file_data' => $file_data
     ]);
     
-    echo "Course quiz data uploaded successfully with Course ID: " . $courseID;
+    echo "Quiz data uploaded successfully with Quiz ID: " . $pdo->lastInsertId();
     
 } catch (PDOException $e) {
     die("Database error: " . $e->getMessage());
