@@ -19,7 +19,6 @@ body {
   overflow-x: hidden;
 }
 
-
 /* Side navigation links */
 .sidenav a {
   color: white;
@@ -38,4 +37,28 @@ body {
 .content {
   margin-left: 200px;
   padding-left: 20px;
+}
+
+/* Add consistent button styles */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Add consistent link hover effect */
+a {
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #0056b3;
 }

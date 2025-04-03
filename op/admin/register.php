@@ -18,25 +18,33 @@ define('ACCESS_PASSCODE', '123');
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $passcode = $_POST['passcode'];
-    $teacherID = $_POST['teacherID'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $teacher_emailadd = $_POST['teacher_emailadd'];
-    $teacher_phonenum = $_POST['teacher_phonenum'];
-    $teacher_fname = $_POST['teacher_fname'];
-    $teacher_lname = $_POST['teacher_lname'];
-    $teacher_mname = $_POST['teacher_mname'];
-    $teacher_post_nominal = $_POST['teacher_post_nominal'];
-    $teacher_birthdate = $_POST['teacher_birthdate'];
-    $teacher_address = $_POST['teacher_address'];
-    $teacher_gender = $_POST['teacher_gender'];
-    $teacher_faculty = $_POST['teacher_faculty'];
+    $passcode = htmlspecialchars(trim($_POST['passcode']));
+    $teacherID = htmlspecialchars(trim($_POST['teacherID']));
+    $username = htmlspecialchars(trim($_POST['username']));
+    $password = htmlspecialchars(trim($_POST['password']));
+    $teacher_emailadd = filter_var(trim($_POST['teacher_emailadd']), FILTER_SANITIZE_EMAIL);
+    $teacher_phonenum = htmlspecialchars(trim($_POST['teacher_phonenum']));
+    $teacher_fname = htmlspecialchars(trim($_POST['teacher_fname']));
+    $teacher_lname = htmlspecialchars(trim($_POST['teacher_lname']));
+    $teacher_mname = htmlspecialchars(trim($_POST['teacher_mname']));
+    $teacher_post_nominal = htmlspecialchars(trim($_POST['teacher_post_nominal']));
+    $teacher_birthdate = htmlspecialchars(trim($_POST['teacher_birthdate']));
+    $teacher_address = htmlspecialchars(trim($_POST['teacher_address']));
+    $teacher_gender = htmlspecialchars(trim($_POST['teacher_gender']));
+    $teacher_faculty = htmlspecialchars(trim($_POST['teacher_faculty']));
 
     if ($passcode === ACCESS_PASSCODE) {
 
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+        // Validate email format
+        if (!filter_var($teacher_emailadd, FILTER_VALIDATE_EMAIL)) {
+            echo "Invalid email address!";
+            exit;
+        }
+
+        // Validate required fields
+        if (empty($teacherID) || empty($username) || empty($password) || empty($teacher_emailadd)) {
+            echo "All required fields must be filled!";
+            exit;
         }
 
         // Hash the password
