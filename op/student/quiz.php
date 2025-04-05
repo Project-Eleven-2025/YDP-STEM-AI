@@ -1,16 +1,3 @@
-<?php
-    session_start(); // Move session_start() to the very top
-    include 'db_connection.php';
-
-    if (!isset($_GET['sessionID'])) {
-        echo "Session ID is missing.";
-        echo "<a href='../login.html'>Go to login</a>";
-        exit();
-    }
-
-    $session_id = $_GET['sessionID'];
-    // ...verify session logic...
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,65 +133,38 @@
             }
         }
     </style>
-    <script>
-        function openIframePopup(url) {
-            const iframePopup = document.getElementById('iframePopup');
-            const iframe = document.getElementById('popupIframe');
-            iframe.src = url;
-            iframePopup.style.display = 'block';
-        }
-
-        function closeIframePopup() {
-            const iframePopup = document.getElementById('iframePopup');
-            const iframe = document.getElementById('popupIframe');
-            iframe.src = ''; // Clear the iframe source
-            iframePopup.style.display = 'none';
-        }
-    </script>
 </head>
 <body>
+    <?php
+        include 'db.php';
+        session_start();
+
+        if (!isset($_GET['sessionID'])) {
+            echo "Session ID is missing.";
+            echo "<a href='../login.html'>Go to login</a>";
+            exit();
+        }
+
+        $session_id = $_GET['sessionID'];
+        // ...verify session logic...
+    ?>
     <div class="sidenav">
         <nav>
             <ul>
             <li style="text-align: center;"><img src="../logo/logo.svg" class="logo" alt=""></li>
                 <li><a href="dashboard.php?sessionID=<?php echo urlencode($session_id); ?>">Dashboard</a></li>
-                <li><a href="class_management.php?sessionID=<?php echo urlencode($session_id); ?>">Class Management</a></li>
-                <li><a href="quiz_management.php?sessionID=<?php echo urlencode($session_id); ?>">Quiz Management</a></li>
-                <li><a href="assessment_management.php?sessionID=<?php echo urlencode($session_id); ?>">Assessment Management</a></li>
-                <li><a href="syllabus_manager.php?sessionID=<?php echo urlencode($session_id); ?>">Syllabus Management</a></li>
+                <li><a href="class.php?sessionID=<?php echo urlencode($session_id); ?>">Classes</a></li>
+                <li><a href="quiz.php?sessionID=<?php echo urlencode($session_id); ?>">Quizzes</a></li>
+                <li><a href="assessment.php?sessionID=<?php echo urlencode($session_id); ?>">Assessments</a></li>
+                <li><a href="course-materials.php?sessionID=<?php echo urlencode($session_id); ?>">Course Lesson Materials</a></li>
                 <li><a href="../logout.php?sessionID=<?php echo urlencode($session_id); ?>">Logout</a></li>
             </ul>
         </nav>
     </div>
     <div class="content">
-        <h1>Quiz Management</h1>
-        <p>Manage quizzes here.</p>
-        <form action="importquiz.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="sessionID" value="<?php echo htmlspecialchars($session_id); ?>">
-            <label for="quiz_name">Quiz Name:</label>
-            <input type="text" id="quiz_name" name="quiz_name" required>
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" required></textarea>
-            <label for="file_upload">Import Quiz File (.docx, and .txt): </label> <u title="
-            
-            Formatting for .docx, and .txt files:
-            - .docx: Use headings for questions and subheadings for options.
-            - .txt: Use a simple format with questions on one line and options on the next. Example:
-                question: 1?
-                choice:[
-                    A. Option 1 |
-                    B. Option 2 |
-                    C. Option 3 |
-                    D. Option 4 
-                ]
-                answer: A
-            
-            "><strong>Hint</strong></u>
-            <input type="file" id="file_upload" name="quizFile" accept=".docx,.txt,.md">
-            <button type="submit">Create Quiz</button>
-        </form>
-
-        <h2>Existing Quizzes</h2>
+        <h1>Quizzes</h1>
+        
+        <h2>Available Course Quizzes</h2>
         <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
             <thead>
                 <tr style="background-color: #f4f4f4; text-align: left;">
@@ -215,24 +175,43 @@
             </thead>
             <tbody>
                 <?php
-                    // Fetch quizzes from the database
-                    $query = "SELECT * FROM quizzes"; // Replace with your actual table name
-                    $result = mysqli_query($conn, $query);
+                    // Fetch quizzes from the database using PDO
+                    $query = "SELECT q.*, 
+                                     MAX(s.score) AS highest_score, 
+                                     MAX(s.created_at) AS latest_attempt 
+                              FROM quizzes q
+                              LEFT JOIN scores s ON q.id = s.quiz_id AND s.user_id = :user_id
+                              GROUP BY q.id";
+                    $stmt = $pdo->prepare($query);
+                    $stmt->execute([':user_id' => $_SESSION['user_id']]);
+                    $quizzes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                    if (mysqli_num_rows($result) > 0) {
-                        while ($row = mysqli_fetch_assoc($result)) {
+                    if (count($quizzes) > 0) {
+                        foreach ($quizzes as $row) {
                             echo "<tr>";
-                            echo "<td style='padding: 10px; border: 1px solid #ddd;'>{$row['title']}</td>"; // Changed from quiz_name to title
+                            echo "<td style='padding: 10px; border: 1px solid #ddd;'>{$row['title']}</td>";
                             echo "<td style='padding: 10px; border: 1px solid #ddd;'>{$row['description']}</td>";
                             echo "<td style='padding: 10px; border: 1px solid #ddd;'>";
-                            echo "<a href='edit_quiz.php?quizID=" . urlencode($row['id']) . "&sessionID=" . urlencode($session_id) . "' 
-                                    style='margin-right: 10px; color: #007bff;'>Edit</a>";
 
-                            echo "<a href='../../process/delete_quiz.php?quizID=" . urlencode($row['id']) . "&sessionID=" . urlencode($session_id) . "' 
-                                    style='margin-right: 10px; color: #dc3545;' 
-                                    onclick='return confirm(\"Are you sure you want to delete this quiz?\");'>Delete</a>";
+                            // Removed check for availableForUser
+                            echo "<a href='answer_quiz.php?quizID=" . urlencode($row['id']) . "&sessionID=" . urlencode($session_id) . "' 
+                                    style='color: #28a745;' onclick=\"localStorage.setItem('quizID', '" . $row['id'] . "');\">Answer</a>";
 
-                            echo "<a href='#' style='color: #28a745;' onclick=\"openIframePopup('assign_quiz.php?quizID=" . urlencode($row['id']) . "&sessionID=" . urlencode($session_id) . "')\">Assign</a>";
+                            // Display the highest score
+                            if ($row['highest_score'] !== null) {
+                                echo " | <span style='color: #007bff;'>Highest Score: {$row['highest_score']}</span>";
+                            } else {
+                                echo " | <span style='color: #6c757d;'>No score yet</span>";
+                            }
+
+                            // Display the latest attempt date
+                            if ($row['latest_attempt'] !== null) {
+                                echo " | <span style='color: #007bff;'>Last Attempt: " . date('Y-m-d', strtotime($row['latest_attempt'])) . "</span>";
+                            } else {
+                                echo " | <span style='color: #6c757d;'>No attempts yet</span>";
+                            }
+
+                            echo "</td>";
                             echo "</tr>";
                         }
                     } else {
@@ -241,12 +220,6 @@
                 ?>
             </tbody>
         </table>
-    </div>
-    <div id="iframePopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000;">
-        <div style="position: relative; width: 80%; height: 80%; margin: 5% auto; background: #fff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-            <button onclick="closeIframePopup()" style="position: absolute; top: 10px; right: 10px; background: #dc3545; color: #fff; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">Close</button>
-            <iframe id="popupIframe" style="width: 100%; height: 100%; border: none; border-radius: 8px;"></iframe>
-        </div>
     </div>
 </body>
 </html>
